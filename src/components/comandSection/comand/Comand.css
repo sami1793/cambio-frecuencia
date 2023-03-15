@@ -1,0 +1,10 @@
+.yellow{
+    background-color: lightgoldenrodyellow;
+}
+.blue{
+    background-color: lightblue;
+}
+.comandContainer{
+    display: flex;
+    justify-content:space-around;
+}

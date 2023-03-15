@@ -1,0 +1,10 @@
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputsSection{
+    display: flex;
+    gap: 10px;
+    margin: 15px;
+}
