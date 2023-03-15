@@ -7,6 +7,9 @@
 .green{
     background-color: lightgreen;
 }
+.red{
+    background-color: lightcoral;
+}
 .comandContainer{
     display: flex;
     justify-content:space-around;
