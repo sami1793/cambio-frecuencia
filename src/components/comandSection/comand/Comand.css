@@ -4,6 +4,9 @@
 .blue{
     background-color: lightblue;
 }
+.green{
+    background-color: lightgreen;
+}
 .comandContainer{
     display: flex;
     justify-content:space-around;

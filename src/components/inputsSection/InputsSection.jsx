@@ -2,7 +2,7 @@ import { Input } from '../input/Input'
 
 import './InputsSection.css'
 
-export const InputsSection = ({bcf,setBcf, bts, setBts, trx, setTrx}) => {
+export const InputsSection = ({bcf,setBcf, bts, setBts, trx, setTrx, freq, setFreq}) => {
     return (
         <div className='inputContainer'>
             <div className='inputsSection'>
@@ -11,7 +11,7 @@ export const InputsSection = ({bcf,setBcf, bts, setBts, trx, setTrx}) => {
                 <Input labelName='TRX'><input type="number" value={trx} onChange={(e)=>setTrx(e.target.value)} /></Input>
             </div>
             <div className='inputsSection'>
-                <Input labelName='FREQ' />
+                <Input labelName='FREQ'><input type="number" value={freq} onChange={(e)=>setFreq(e.target.value)} /></Input>
                 <Input labelName='MAL' />
                 <Input labelName='NEW FREQ' />
             </div>
