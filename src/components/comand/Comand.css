@@ -12,10 +12,25 @@
 }
 .comandContainer{
     display: flex;
-    justify-content:space-around;
+    justify-content:space-between;
     align-items: center;
     color: black;
     height: 40px;
     border: 2px solid;
     font-family: 'Roboto Serif', serif;
+    padding: 0 10px;
+    /* flex-grow: 1; */
+}
+
+.comandSelect{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* background-color: gainsboro; */
+    /* flex-grow: 2; */
+}
+
+.copy{
+    background-color: rgb(9, 170, 245);
+    color: white;
 }
