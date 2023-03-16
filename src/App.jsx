@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { ClearButton } from './components/clearButton/ClearButton'
+import { OpenBSCButton } from './components/clearButton/OpenBSCButton'
 import { ComandSection } from './components/comandSection/ComandSection'
 import { InputsSection } from './components/inputsSection/InputsSection'
 
@@ -38,6 +39,7 @@ function App() {
       <h1>Cambio de frecuencia</h1>
       <InputsSection inputs={inputs} handleChange={handleChange} />
       <ClearButton clearInputs={clearInputs}/>
+      <OpenBSCButton />
       <ComandSection inputs={inputs} />
     </div>
   )
