@@ -5,19 +5,27 @@ import { InputsSection } from './components/inputsSection/InputsSection'
 
 function App() {
 
+  const [inputs, setInputs] = useState({
+    bcf:0,
+    bts:0,
+    trx:0,
+    freq:206,
+    mal:0,
+    newFreq:0
+  })
 
-  const [bcf, setBcf] = useState(0);
-  const [bts, setBts] = useState(0);
-  const [trx, setTrx] = useState(0);
-  const [freq, setFreq] = useState(206);
-  const [mal, setMal] = useState(0);
-  const [newFreq, setNewFreq] = useState(0);
+  const handleChange = (e) =>{
+    setInputs({
+      ...inputs,
+      [e.target.name]:e.target.value
+    })
+  }
 
   return (
     <div className="App">
       <h1>Cambio de frecuencia</h1>
-      <InputsSection bcf={bcf} setBcf={setBcf} bts={bts} setBts={setBts} trx={trx} setTrx={setTrx} freq={freq} setFreq={setFreq} mal={mal} setMal={setMal} newFreq={newFreq} setNewFreq={setNewFreq} />
-      <ComandSection bcf={bcf} bts={bts} trx={trx} freq={freq} mal={mal} newFreq={newFreq}/>
+      <InputsSection inputs={inputs} handleChange={handleChange}/>
+      <ComandSection inputs={inputs}/>
     </div>
   )
 }
