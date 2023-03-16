@@ -1,8 +1,10 @@
-import { Comand } from "./comand/Comand"
+import { Comand } from "../comand/Comand"
+
+import './ComandSection.css'
 
 export const ComandSection = ({ bcf, bts, trx, freq, mal, newFreq }) => {
   return (
-    <>
+    <div className="comandsContainer">
       <div>
         <Comand comand={`ZEEI:BCF=${bcf};`} task='SHOW' color='yellow' />
         <Comand comand={`ZEQS:BTS=${bts}:L;`} task='LOCKED BTS' color='blue' />
@@ -21,7 +23,7 @@ export const ComandSection = ({ bcf, bts, trx, freq, mal, newFreq }) => {
         <Comand comand={`ZERS:BTS=${bts},TRX=${trx}:U;`} task='UNLOCKED TRX' color='green' />
         <Comand comand={`ZEQS:BTS=${bts}:U;`} task='UNLOCKED BTS' color='green' />
       </div>
-    </>
+    </div>
 
   )
 }

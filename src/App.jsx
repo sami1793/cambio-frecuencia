@@ -5,6 +5,7 @@ import { InputsSection } from './components/inputsSection/InputsSection'
 
 function App() {
 
+
   const [bcf, setBcf] = useState(0);
   const [bts, setBts] = useState(0);
   const [trx, setTrx] = useState(0);

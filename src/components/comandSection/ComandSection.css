@@ -1,0 +1,7 @@
+.comandsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* background-color: gainsboro; */
+    padding: 20px;
+}

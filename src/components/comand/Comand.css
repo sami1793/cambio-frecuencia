@@ -13,4 +13,9 @@
 .comandContainer{
     display: flex;
     justify-content:space-around;
+    align-items: center;
+    color: black;
+    height: 40px;
+    border: 2px solid;
+    font-family: 'Roboto Serif', serif;
 }
