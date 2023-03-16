@@ -9,7 +9,7 @@ export const Comand = ({ color, comand, task }) => {
   const copyComand = () => {
     navigator.clipboard.writeText(comand);
     setShowCopy(true);
-    setTimeout(()=>setShowCopy(false),2000)
+    setTimeout(()=>setShowCopy(false),1000)
   }
   return (
     <div className={`comandContainer ${color}`}>
