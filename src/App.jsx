@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Cambio de frecuencia</h1>
+      <h1>Cambio de Canal</h1>
       <InputsSection inputs={inputs} handleChange={handleChange} />
       <ClearButton clearInputs={clearInputs}/>
       <OpenBSCButton />

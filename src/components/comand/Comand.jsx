@@ -6,11 +6,13 @@ import { useState } from 'react'
 export const Comand = ({ color, comand, task }) => {
   const [showCopy, setShowCopy] = useState(false);
 
+
   const copyComand = () => {
     navigator.clipboard.writeText(comand);
     setShowCopy(true);
     setTimeout(()=>setShowCopy(false),1000)
   }
+
   return (
     <div className={`comandContainer ${color}`}>
       <div className='comandSelect'>
