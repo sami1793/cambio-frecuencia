@@ -1,9 +1,0 @@
-.inputContainer{
-    display: flex;
-    flex-direction: column;
-}
-
-.labelInput{
-    background-color: rgb(25, 139, 188);
-    color: white;
-}
