@@ -23,9 +23,18 @@ export const ClearButton = ({ clearInputs }) => {
   };
   return (
     <>
-      <HStack justifyContent="center">
+      <HStack justifyContent="center" mb={5}>
         <ButtonGroup>
-          <Button onClick={clearInputs}>Limpiar</Button>
+          <Button
+            variant="solid"
+            bg="blue.800"
+            border="2px"
+            color="white"
+            _hover={{ bg: "white", color: "blue.900" }}
+            onClick={clearInputs}
+          >
+            Limpiar
+          </Button>
           <OpenBSCButton />
         </ButtonGroup>
         <Tooltip label="Copiar credenciales">
@@ -33,6 +42,11 @@ export const ClearButton = ({ clearInputs }) => {
             size={"sm"}
             icon={<RiLockPasswordLine />}
             onClick={copyCredencials}
+            variant="solid"
+            bg="blue.800"
+            border="2px"
+            color="white"
+            _hover={{ bg: "white", color: "blue.900" }}
           />
         </Tooltip>
       </HStack>

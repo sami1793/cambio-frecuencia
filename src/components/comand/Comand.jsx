@@ -37,13 +37,12 @@ export const Comand = ({ color, comand, task }) => {
     // </div>
     <Flex
       bg={color}
-      color={"gray.700"}
+      color={"gray.900"}
       p={2}
       borderColor={`gray.400`}
       borderWidth={1}
       borderRadius={"md"}
       justify="space-between"
-      mb={1}
       alignItems="center"
     >
       <HStack>

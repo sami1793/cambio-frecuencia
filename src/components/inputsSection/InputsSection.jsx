@@ -1,17 +1,16 @@
 import { Input } from "../input/Input";
-import { Input as InputChakra } from "@chakra-ui/react";
-
-import "./InputsSection.css";
+import { Flex, HStack, Input as InputChakra } from "@chakra-ui/react";
 
 export const InputsSection = ({ inputs, handleChange }) => {
   return (
-    <div className="inputContainer">
-      <div className="inputsSection">
+    <Flex direction="column" gap={5} mb={5}>
+      <HStack gap={3}>
         <Input labelName="BCF">
           <InputChakra
             type="number"
             name="bcf"
             value={inputs.bcf}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
@@ -20,6 +19,7 @@ export const InputsSection = ({ inputs, handleChange }) => {
             type="number"
             name="bts"
             value={inputs.bts}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
@@ -29,16 +29,18 @@ export const InputsSection = ({ inputs, handleChange }) => {
             type="number"
             name="trx"
             value={inputs.trx}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
-      </div>
-      <div className="inputsSection">
+      </HStack>
+      <HStack gap={3}>
         <Input labelName="FREQ">
           <InputChakra
             type="number"
             name="freq"
             value={inputs.freq}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
@@ -47,6 +49,7 @@ export const InputsSection = ({ inputs, handleChange }) => {
             type="number"
             name="mal"
             value={inputs.mal}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
@@ -55,10 +58,11 @@ export const InputsSection = ({ inputs, handleChange }) => {
             type="number"
             name="newFreq"
             value={inputs.newFreq}
+            bg="whiteAlpha.800"
             onChange={handleChange}
           />
         </Input>
-      </div>
-    </div>
+      </HStack>
+    </Flex>
   );
 };

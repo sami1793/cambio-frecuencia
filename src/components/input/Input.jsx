@@ -2,10 +2,10 @@ import { Flex, FormControl, FormLabel, VStack } from "@chakra-ui/react";
 export const Input = ({ labelName, children }) => {
   return (
     <FormControl w="180px">
-      <VStack gap="0">
+      <VStack>
         <FormLabel
           textAlign="center"
-          bg="gray"
+          bg="blue.800"
           color="white"
           borderTopRadius="md"
           mb={0}
