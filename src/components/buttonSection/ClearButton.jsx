@@ -37,7 +37,7 @@ export const ClearButton = ({ clearInputs }) => {
           </Button>
           <OpenBSCButton />
         </ButtonGroup>
-        <Tooltip label="Copiar credenciales">
+        <Tooltip label="Copiar credenciales BSC">
           <IconButton
             size={"sm"}
             icon={<RiLockPasswordLine />}

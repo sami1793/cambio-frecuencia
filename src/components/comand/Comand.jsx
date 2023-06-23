@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import {
   Flex,
   HStack,
@@ -11,12 +10,9 @@ import { CopyIcon } from "@chakra-ui/icons";
 
 export const Comand = ({ color, comand, task }) => {
   const toast = useToast();
-  // const [showCopy, setShowCopy] = useState(false);
 
   const copyComand = () => {
     navigator.clipboard.writeText(comand);
-    // setShowCopy(true);
-    // setTimeout(() => setShowCopy(false), 1000);
     toast({
       title: "Comando copiado",
       description: "",
@@ -27,14 +23,6 @@ export const Comand = ({ color, comand, task }) => {
   };
 
   return (
-    // <div className={`comandContainer ${color}`}>
-    //   <div className='comandSelect'>
-    //     <p>{comand}</p>
-    //     <FaRegCopy onClick={copyComand} />
-    //     {showCopy&&<p className='copy'>Copiado</p>}
-    //   </div>
-    //   <p>{task}</p>
-    // </div>
     <Flex
       bg={color}
       color={"gray.900"}

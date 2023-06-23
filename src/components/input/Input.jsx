@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormLabel, VStack } from "@chakra-ui/react";
+import { FormControl, FormLabel, VStack } from "@chakra-ui/react";
 export const Input = ({ labelName, children }) => {
   return (
     <FormControl w="180px">
