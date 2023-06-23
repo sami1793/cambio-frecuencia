@@ -1,18 +1,20 @@
 import { Heading, Flex, Center } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InputsSection } from "../components/inputsSection/InputsSection";
 import { ClearButton } from "../components/buttonSection/ClearButton";
 import { ComandSection } from "../components/comandSection/ComandSection";
+import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 
 export const ChangeChannel = () => {
-  const [inputs, setInputs] = useState({
+  const initialInputs = getLocalStorage("inputStorage") || {
     bcf: 0,
     bts: 0,
     trx: 0,
     freq: 206,
     mal: 0,
     newFreq: 0,
-  });
+  };
+  const [inputs, setInputs] = useState(initialInputs);
 
   const handleChange = (e) => {
     setInputs({
@@ -31,6 +33,10 @@ export const ChangeChannel = () => {
       newFreq: 0,
     });
   };
+  useEffect(() => {
+    setLocalStorage("inputStorage", inputs);
+  }, [inputs]);
+
   return (
     <Center bg="gray.100">
       <Flex direction="column">
