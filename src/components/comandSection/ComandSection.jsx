@@ -12,12 +12,12 @@ export const ComandSection = ({ inputs }) => {
       <Comand
         comand={`ZEQS:BTS=${inputs.bts}:L;`}
         task="LOCKED BTS"
-        color="blue.200"
+        color="orange.200"
       />
       <Comand
         comand={`ZERS:BTS=${inputs.bts},TRX=${inputs.trx}:L;`}
         task="LOCKED TRX"
-        color="blue.200"
+        color="orange.200"
       />
       <Comand
         comand={`ZERM:BTS=${inputs.bts},TRX=${inputs.trx}:FREQ=${inputs.newFreq};`}
@@ -47,12 +47,12 @@ export const ComandSection = ({ inputs }) => {
       <Comand
         comand={`ZERS:BTS=${inputs.bts},TRX=${inputs.trx}:U;`}
         task="UNLOCKED TRX"
-        color="green.200"
+        color="blue.200"
       />
       <Comand
         comand={`ZEQS:BTS=${inputs.bts}:U;`}
         task="UNLOCKED BTS"
-        color="green.200"
+        color="blue.200"
       />
     </Flex>
   );

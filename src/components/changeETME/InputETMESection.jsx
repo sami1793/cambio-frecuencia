@@ -24,7 +24,7 @@ export const InputETMESection = ({ values, setValues }) => {
     });
   };
   return (
-    <Box mb={5}>
+    <Box mb={10}>
       <VStack spacing={5}>
         <InputChakra labelName={`BCF`}>
           <NumberInput
