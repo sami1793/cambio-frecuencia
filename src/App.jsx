@@ -7,8 +7,8 @@ function App() {
   return (
     <Routes>
       <Route element={<AppLayout />}>
-        {/* <Route path="/" element={<ChangeChannel />} /> */}
-        <Route path="/" element={<ChangeETME />} />
+        <Route path="/" element={<ChangeChannel />} />
+        <Route path="/changeETME" element={<ChangeETME />} />
       </Route>
     </Routes>
   );
