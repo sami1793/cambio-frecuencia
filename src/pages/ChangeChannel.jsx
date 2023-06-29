@@ -4,6 +4,7 @@ import { InputsSection } from "../components/inputsSection/InputsSection";
 import { ClearButton } from "../components/buttonSection/ClearButton";
 import { ComandSection } from "../components/comandSection/ComandSection";
 import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
+import { MSS3G } from "./MSS3G";
 
 export const ChangeChannel = () => {
   const initialInputs = getLocalStorage("inputStorage") || {
