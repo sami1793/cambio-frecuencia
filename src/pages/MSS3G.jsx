@@ -3,10 +3,13 @@ import {
   VStack,
   Input,
   Heading,
-  Center,
-  SimpleGrid,
   Flex,
   HStack,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import readXlsxFile from "read-excel-file";
 import { Comand } from "../components/comand/Comand";
@@ -29,7 +32,7 @@ export const MSS3G = () => {
   };
 
   return (
-    <VStack>
+    <VStack mb={10}>
       <Heading m={5} mb={10} alignSelf="center" color="blue.900">
         Crecimiento MSS 3G
       </Heading>
@@ -71,36 +74,93 @@ export const MSS3G = () => {
             </Box>
           </Flex>
           <Flex direction="column" gap={3}>
-            <Box>
-              {dataMSS.map((value, indexMap) => (
-                <Comand
-                  comand={`ZEPO:TYPE=SA,NAME=${value[2]};`}
-                  task="VERIFICAR"
-                  color="yellow.200"
-                  key={indexMap}
-                />
-              ))}
-            </Box>
-            <Box>
-              {dataMSS.map((value, indexMap) => (
-                <Comand
-                  comand={`ZEPS:TYPE=SA,NAME=${value[2]}:L;`}
-                  task="BLOQUEAR"
-                  color="blue.200"
-                  key={indexMap}
-                />
-              ))}
-            </Box>
-            <Box>
-              {dataMSS.map((value, indexMap) => (
-                <Comand
-                  comand={`ZEPD:TYPE=SA,NAME=${value[2]};`}
-                  task="BORRAR"
-                  color="red.200"
-                  key={indexMap}
-                />
-              ))}
-            </Box>
+            <Accordion allowToggle>
+              <AccordionItem>
+                <h2>
+                  <AccordionButton bgColor="gray.100">
+                    <Box as="span" flex="1" textAlign="center">
+                      Verificar por NAME
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPO:TYPE=SA,NAME=${value[2]};`}
+                        task="VERIFICAR"
+                        color="yellow.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPS:TYPE=SA,NAME=${value[2]}:L;`}
+                        task="BLOQUEAR"
+                        color="blue.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPD:TYPE=SA,NAME=${value[2]};`}
+                        task="BORRAR"
+                        color="red.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                </AccordionPanel>
+              </AccordionItem>
+
+              <AccordionItem>
+                <h2>
+                  <AccordionButton bgColor="gray.100">
+                    <Box as="span" flex="1" textAlign="center">
+                      Verificar por NO
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPO:TYPE=SA,NAME=${value[2]};`}
+                        task="VERIFICAR"
+                        color="yellow.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPS:TYPE=SA,NAME=${value[2]}:L;`}
+                        task="BLOQUEAR"
+                        color="blue.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                  <Box>
+                    {dataMSS.map((value, indexMap) => (
+                      <Comand
+                        comand={`ZEPD:TYPE=SA,NAME=${value[2]};`}
+                        task="BORRAR"
+                        color="red.200"
+                        key={indexMap}
+                      />
+                    ))}
+                  </Box>
+                </AccordionPanel>
+              </AccordionItem>
+            </Accordion>
           </Flex>
         </HStack>
       )}

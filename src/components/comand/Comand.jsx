@@ -1,4 +1,5 @@
 import {
+  Code,
   Flex,
   HStack,
   IconButton,
@@ -34,7 +35,7 @@ export const Comand = ({ color, comand, task }) => {
       alignItems="center"
     >
       <HStack>
-        <Text>{comand}</Text>
+        <Text fontSize="sm">{comand}</Text>
         <Tooltip label="Copy Comand">
           <IconButton
             colorScheme="blackAlpha"

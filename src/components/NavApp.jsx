@@ -37,6 +37,9 @@ export const NavApp = () => {
           <Link as={NavLink} to="/changeETME">
             Cambio de ETME
           </Link>
+          <Link as={NavLink} to="/MSS3G">
+            Crecimiento MSS 3G
+          </Link>
         </HStack>
         {/* Mobile */}
         <Menu>

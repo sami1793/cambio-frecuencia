@@ -10,6 +10,7 @@ function App() {
       <Route element={<AppLayout />}>
         <Route path="/" element={<ChangeChannel />} />
         <Route path="/changeETME" element={<ChangeETME />} />
+        <Route path="/MSS3G" element={<MSS3G />} />
       </Route>
     </Routes>
   );
