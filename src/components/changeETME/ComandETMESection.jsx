@@ -1,13 +1,4 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Divider,
-  Flex,
-} from "@chakra-ui/react";
+import { Divider, Flex } from "@chakra-ui/react";
 import { Comand } from "../comand/Comand";
 
 export const ComandETMESection = ({ values }) => {
@@ -44,17 +35,6 @@ export const ComandETMESection = ({ values }) => {
         task={`VERIFICAR ETMA`}
       ></Comand>
       <Divider orientation="horizontal" color={"black"} p={3} />
-      {/* <Accordion defaultIndex={[0]} allowMultiple>
-        <AccordionItem>
-          <h2>
-            <AccordionButton bg={"blue.200"}>
-              <Box as="span" flex="1" textAlign="left">
-                Bloqueos
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}> */}
       <Comand
         comand={`ZEFS:${values.bcf}:L;`}
         color={`orange.200`}

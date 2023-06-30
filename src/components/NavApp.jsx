@@ -58,8 +58,11 @@ export const NavApp = () => {
             <MenuItem as={NavLink} to="/">
               Cambio de Canal
             </MenuItem>
-            <MenuItem as={NavLink} to="/products">
+            <MenuItem as={NavLink} to="/changeETME">
               Cambio de ETME
+            </MenuItem>
+            <MenuItem as={NavLink} to="/MSS3G">
+              Crecimiento MSS 3G
             </MenuItem>
           </MenuList>
         </Menu>
