@@ -33,9 +33,12 @@ export const Comand = ({ color, comand, task }) => {
       borderRadius={"md"}
       justify="space-between"
       alignItems="center"
+      maxW="full"
     >
       <HStack>
-        <Text fontSize="sm">{comand}</Text>
+        <Text fontSize="sm" wordBreak="break-word">
+          {comand}
+        </Text>
         <Tooltip label="Copy Comand">
           <IconButton
             colorScheme="blackAlpha"
