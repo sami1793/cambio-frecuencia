@@ -1,10 +1,8 @@
 import {
   Box,
-  VStack,
   Input,
   Heading,
   Flex,
-  HStack,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -17,9 +15,20 @@ import {
 import readXlsxFile from "read-excel-file";
 import { Comand } from "../components/comand/Comand";
 import { useState } from "react";
+// import { InputMSS3GSection } from "../components/MSS3G/InputMSS3GSection";
 
 export const MSS3G = () => {
   const [dataMSS, setDataMSS] = useState("");
+  // const [inputsMSS3G, setInputsMSS3G] = useState({
+  //   name: "",
+  //   no: "",
+  //   lac: "",
+  //   sac: "",
+  //   rz: "",
+  //   ca: "",
+  //   mcc: "",
+  //   mnc: "",
+  // });
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
 
@@ -36,13 +45,14 @@ export const MSS3G = () => {
 
   return (
     <Center mb={10}>
-      <Flex direction="column" alignItems="center">
+      <Flex direction="column" alignItems="center" gap={3}>
         <Heading m={5} mb={10} alignSelf="center" color="blue.900">
           Crecimiento MSS 3G
         </Heading>
         <Box>
           <Input type="file" onChange={handleFileUpload} maxW="max" />
         </Box>
+        {/* <InputMSS3GSection dataMSS={dataMSS} /> */}
         {dataMSS && (
           <Wrap>
             <WrapItem>
@@ -50,7 +60,7 @@ export const MSS3G = () => {
                 <Box>
                   {dataMSS.map((value, indexMap) => (
                     <Comand
-                      comand={`ZEPC:TYPE=SA,NAME=${value[2]},NO=${value[3]}:LAC=${value[5]},SAC=${value[7]},CA=${value[13]},MCC=${value[15]},MCC=${value[16]};`}
+                      comand={`ZEPC:TYPE=SA,NAME=${value[2]},NO=${value[3]}:LAC=${value[5]},SAC=${value[7]},CA=${value[13]},MCC=${value[15]},MNC=${value[16]};`}
                       task="CRECER MSS"
                       color="green.200"
                       key={indexMap}

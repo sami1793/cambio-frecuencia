@@ -1,11 +1,5 @@
 import { Input } from "../input/Input";
-import {
-  Flex,
-  HStack,
-  Input as InputChakra,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Flex, Input as InputChakra, Wrap, WrapItem } from "@chakra-ui/react";
 
 export const InputsSection = ({ inputs, handleChange }) => {
   return (

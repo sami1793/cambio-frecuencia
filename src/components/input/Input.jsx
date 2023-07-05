@@ -10,6 +10,7 @@ export const Input = ({ labelName, children }) => {
           borderTopRadius="md"
           mb={0}
           width="100%" //si no lo pongo se hace chico
+          // h="50px"
         >
           {labelName}
         </FormLabel>
