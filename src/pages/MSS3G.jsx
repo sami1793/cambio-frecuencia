@@ -11,6 +11,8 @@ import {
   Wrap,
   WrapItem,
   Center,
+  Button,
+  Link,
 } from "@chakra-ui/react";
 import readXlsxFile from "read-excel-file";
 import { Comand } from "../components/comand/Comand";
@@ -52,6 +54,18 @@ export const MSS3G = () => {
         <Box>
           <Input type="file" onChange={handleFileUpload} maxW="max" />
         </Box>
+        <Button
+          variant="solid"
+          bg="blue.700"
+          color="white"
+          border="2px"
+          _hover={{ bg: "white", color: "blue.700", borderColor: "blue.700" }}
+          as={Link}
+          href="https://doxplanning.com/metabase/public/dashboard/f9b71ea3-a2fd-4791-ac6d-d225fa7bddbc"
+          isExternal
+        >
+          Check MSS
+        </Button>
         {/* <InputMSS3GSection dataMSS={dataMSS} /> */}
         {dataMSS && (
           <Wrap>
