@@ -13,14 +13,33 @@ import {
   Center,
   Button,
   Link,
+  Select,
+  IconButton,
+  Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import readXlsxFile from "read-excel-file";
 import { Comand } from "../components/comand/Comand";
 import { useState } from "react";
+import { RiLockPasswordLine } from "react-icons/ri";
 // import { InputMSS3GSection } from "../components/MSS3G/InputMSS3GSection";
 
 export const MSS3G = () => {
+  const initialDataMSSConection = {
+    user: "",
+    mss: "",
+  };
   const [dataMSS, setDataMSS] = useState("");
+  const [dataMSSConection, setDataMSSConection] = useState(
+    initialDataMSSConection
+  );
+  const handleChange = (e) => {
+    setDataMSSConection({
+      ...dataMSSConection,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const toast = useToast();
   // const [inputsMSS3G, setInputsMSS3G] = useState({
   //   name: "",
   //   no: "",
@@ -44,7 +63,20 @@ export const MSS3G = () => {
       }
     }
   };
-
+  const copyCredencials = () => {
+    navigator.clipboard.writeText(
+      `ssh -p 4422 "CTIMOVIL\\${dataMSSConection.user.toLocaleUpperCase()}@BOIR01@${
+        dataMSSConection.mss
+      }@pbps.claro.amx"`
+    );
+    toast({
+      title: "Se obtuvo el comando correctamente",
+      description: "",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+  };
   return (
     <Center mb={10}>
       <Flex direction="column" alignItems="center" gap={3}>
@@ -66,6 +98,73 @@ export const MSS3G = () => {
         >
           Check MSS
         </Button>
+        <Box bg="blue.700" p={3} borderRadius="md">
+          <Heading size="sm" mb={3} color="white">
+            Conectar
+          </Heading>
+          <Flex gap={3} w="full" justifyContent="center" bg="gray.200" p={2}>
+            <Input
+              bg="white"
+              placeholder="Escriba su exa.."
+              w="fit-content"
+              name="user"
+              value={dataMSSConection.user}
+              onChange={handleChange}
+            />
+
+            <Select
+              bg="white"
+              placeholder="Seleccionar MSS"
+              w="fit-content"
+              name="mss"
+              value={dataMSSConection.mss}
+              onChange={handleChange}
+            >
+              <option value="MSSASU02">MSSASU02</option>
+              <option value="MSSASU03">MSSASU03</option>
+              <option value="MSSBAH03">MSSBAH03</option>
+              <option value="MSSBAR02">MSSBAR02</option>
+              <option value="MSSCOR04">MSSCOR04</option>
+              <option value="MSSCOR05">MSSCOR05</option>
+              {/* <option value="option2">MSSCOR06</option> */}
+              <option value="MSSCRR03">MSSCRR03</option>
+              <option value="MSSGRA02">MSSGRA02</option>
+              <option value="MSSJON03">MSSJON03</option>
+              <option value="MSSM1PYASU1">MSSM1PYASU1</option>
+              <option value="MSSM1PYOLL2">MSSM1PYOLL2</option>
+              {/* <option value="option3">MSSM01ARCOR1</option> */}
+              {/* <option value="option3">MSSM01AROLL2</option> */}
+              {/* <option value="option3">MSSM2ARCOR2</option> */}
+              <option value="MSSM2AROLL1">MSSM2AROLL1</option>
+              <option value="MSSM3ARCOR1">MSSM3ARCOR1</option>
+              <option value="MSSM3AROLL1">MSSM3AROLL1</option>
+              <option value="MSSMAR03">MSSMAR03</option>
+              <option value="MSSMEN03">MSSMEN03</option>
+              <option value="MSSMON04">MSSMON04</option>
+              <option value="MSSMON05">MSSMON05</option>
+              <option value="MSSNEU03">MSSNEU03</option>
+              <option value="MSSOLL01">MSSOLL01</option>
+              {/* <option value="option3">MSSOLL02</option> */}
+              <option value="MSSROS04">MSSROS04</option>
+              <option value="MSSROS05">MSSROS05</option>
+              <option value="MSSSAN03">MSSSAN03</option>
+              <option value="MSSTOR03">MSSTOR03</option>
+              <option value="MSSTUC03">MSSTUC03</option>
+            </Select>
+            <Tooltip label="Obtener comando PowerShell">
+              <IconButton
+                icon={<RiLockPasswordLine />}
+                onClick={copyCredencials}
+                variant="solid"
+                bg="blue.800"
+                border="2px"
+                color="white"
+                _hover={{ bg: "white", color: "blue.900" }}
+              />
+            </Tooltip>
+          </Flex>
+        </Box>
+
         {/* <InputMSS3GSection dataMSS={dataMSS} /> */}
         {dataMSS && (
           <Wrap>
