@@ -100,7 +100,7 @@ export const MSS3G = () => {
         </Button>
         <Box bg="blue.700" p={3} borderRadius="md">
           <Heading size="sm" mb={3} color="white">
-            Conectar
+            Conectar a MSS
           </Heading>
           <Flex gap={3} w="full" justifyContent="center" bg="gray.200" p={2}>
             <Input

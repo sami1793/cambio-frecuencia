@@ -40,6 +40,9 @@ export const NavApp = () => {
           <Link as={NavLink} to="/MSS3G">
             Crecimiento MSS 3G
           </Link>
+          <Link as={NavLink} to="/RNCConector">
+            Conector RNC
+          </Link>
         </HStack>
         {/* Mobile */}
         <Menu>
@@ -63,6 +66,9 @@ export const NavApp = () => {
             </MenuItem>
             <MenuItem as={NavLink} to="/MSS3G">
               Crecimiento MSS 3G
+            </MenuItem>
+            <MenuItem as={NavLink} to="/RNCConector">
+              Conector RNC
             </MenuItem>
           </MenuList>
         </Menu>
