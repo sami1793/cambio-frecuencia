@@ -43,6 +43,9 @@ export const NavApp = () => {
           <Link as={NavLink} to="/RNCConector">
             Conector RNC
           </Link>
+          <Link as={NavLink} to="/TRXDelete">
+            Borrado TRX
+          </Link>
         </HStack>
         {/* Mobile */}
         <Menu>
@@ -69,6 +72,9 @@ export const NavApp = () => {
             </MenuItem>
             <MenuItem as={NavLink} to="/RNCConector">
               Conector RNC
+            </MenuItem>
+            <MenuItem as={NavLink} to="/TRXDelete">
+              Borrado TRX
             </MenuItem>
           </MenuList>
         </Menu>
