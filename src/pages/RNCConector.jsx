@@ -59,42 +59,78 @@ export const RNCConector = () => {
 
           <Select
             bg="white"
-            placeholder="Seleccionar MSS"
+            placeholder="Seleccionar RNC"
             w="fit-content"
             name="mss"
             value={dataRNCConection.rnc}
             onChange={handleChange}
           >
-            <option value="MSSASU02">MSSASU02</option>
-            <option value="MSSASU03">MSSASU03</option>
-            <option value="MSSBAH03">MSSBAH03</option>
-            <option value="MSSBAR02">MSSBAR02</option>
-            <option value="MSSCOR04">MSSCOR04</option>
-            <option value="MSSCOR05">MSSCOR05</option>
-            {/* <option value="option2">MSSCOR06</option> */}
-            <option value="MSSCRR03">MSSCRR03</option>
-            <option value="MSSGRA02">MSSGRA02</option>
-            <option value="MSSJON03">MSSJON03</option>
-            <option value="MSSM1PYASU1">MSSM1PYASU1</option>
-            <option value="MSSM1PYOLL2">MSSM1PYOLL2</option>
-            {/* <option value="option3">MSSM01ARCOR1</option> */}
-            {/* <option value="option3">MSSM01AROLL2</option> */}
-            {/* <option value="option3">MSSM2ARCOR2</option> */}
-            <option value="MSSM2AROLL1">MSSM2AROLL1</option>
-            <option value="MSSM3ARCOR1">MSSM3ARCOR1</option>
-            <option value="MSSM3AROLL1">MSSM3AROLL1</option>
-            <option value="MSSMAR03">MSSMAR03</option>
-            <option value="MSSMEN03">MSSMEN03</option>
-            <option value="MSSMON04">MSSMON04</option>
-            <option value="MSSMON05">MSSMON05</option>
-            <option value="MSSNEU03">MSSNEU03</option>
-            <option value="MSSOLL01">MSSOLL01</option>
-            {/* <option value="option3">MSSOLL02</option> */}
-            <option value="MSSROS04">MSSROS04</option>
-            <option value="MSSROS05">MSSROS05</option>
-            <option value="MSSSAN03">MSSSAN03</option>
-            <option value="MSSTOR03">MSSTOR03</option>
-            <option value="MSSTUC03">MSSTUC03</option>
+            <option value="RASU4">RASU4</option>
+            {/*scli*/}
+            <option value="RASU5">RASU5</option>
+            {/*scli*/}
+            <option value="RBAH4">RBAH4</option>
+            {/*scli*/}
+            <option value="RCOM4">RCOM4</option>
+            {/*scli*/}
+            <option value="RGRA2">RGRA2</option>
+            {/*scli*/}
+            <option value="RMAR4">RMAR4</option>
+            {/*scli*/}
+            <option value="RMAR6">RMAR6</option>
+            {/*scli*/}
+            <option value="RMEN3">RMEN3</option>
+            {/*scli*/}
+            <option value="RMEN4">RMEN4</option>
+            {/*scli*/}
+            <option value="RNEU1">RNEU1</option>
+            {/*scli*/}
+            <option value="RROS4">RROS4</option>
+            {/*scli*/}
+            <option value="RROS5">RROS5</option>
+            {/*scli*/}
+            <option value="RROS6">RROS6</option>
+            {/*scli*/}
+            <option value="RTORC">RTORC</option>
+            {/*scli*/}
+            <option value="RCOR6">RCOR6</option>
+            {/*scli*/}
+            <option value="RCOR8">RCOR8</option>
+            {/*scli*/}
+            <option value="RCOR9">RCOR9</option>
+            {/*scli*/}
+            <option value="RCORC">RCORC</option>
+            {/*scli*/}
+            <option value="RCRR5">RCRR5</option>
+            {/*scli*/}
+            <option value="RCRR6">RCRR6</option>
+            {/*scli*/}
+            <option value="RMON1">RMON1</option>
+            {/*mml*/}
+            <option value="RMON2">RMON2</option>
+            {/*mml*/}
+            <option value="RMON3">RMON3</option>
+            {/*mml*/}
+            <option value="RMON4">RMON4</option>
+            {/*mml*/}
+            <option value="RSAL3">RSAL3</option>
+            {/*scli*/}
+            <option value="RSAN3">RSAN3</option>
+            {/*scli*/}
+            <option value="RTUC4">RTUC4</option>
+            {/*scli*/}
+            <option value="RJOND">RJOND</option>
+            {/*scli*/}
+            <option value="RJONG">RJONG</option>
+            {/*scli*/}
+            <option value="RTORB">RTORB</option>
+            {/*scli*/}
+            <option value="RTORD">RTORD</option>
+            {/*scli*/}
+            <option value="RTORE">RTORE</option>
+            {/*scli*/}
+            <option value="RTORH">RTORH</option>
+            {/*scli*/}
           </Select>
           <Tooltip label="Obtener comando PowerShell">
             <IconButton
