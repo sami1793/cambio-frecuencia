@@ -29,7 +29,7 @@ export const RNCConector = () => {
   const toast = useToast();
   const copyCredencials = () => {
     navigator.clipboard.writeText(
-      `ssh -p 4422 "CTIMOVIL\\${dataRNCConection.user.toLocaleUpperCase()}@BOIR01@${
+      `ssh -p 4422 "CTIMOVIL\\${dataRNCConection.user.toLocaleUpperCase()}@Controlador@${
         dataRNCConection.rnc
       }@pbps.claro.amx"`
     );
@@ -61,7 +61,7 @@ export const RNCConector = () => {
             bg="white"
             placeholder="Seleccionar RNC"
             w="fit-content"
-            name="mss"
+            name="rnc"
             value={dataRNCConection.rnc}
             onChange={handleChange}
           >
