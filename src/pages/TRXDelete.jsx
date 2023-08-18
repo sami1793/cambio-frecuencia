@@ -2,6 +2,7 @@ import { Center, Flex, Heading } from "@chakra-ui/react";
 import { InputTRXDeleteSection } from "../components/TRXDelete/InputTRXDeleteSection";
 import { useState } from "react";
 import { ComandTRXDeleteSection } from "../components/TRXDelete/ComandTRXDeleteSection";
+import { SelectTRXDelete } from "../components/TRXDelete/SelectTRXDelete";
 
 export const TRXDelete = () => {
   const [values, setValues] = useState({
@@ -42,18 +43,38 @@ export const TRXDelete = () => {
     });
   };
 
+  //SELECT
+  const [checkedValues, setCheckedValues] = useState([]);
+
+  const handleCheckboxChange = (value) => {
+    if (checkedValues.includes(value)) {
+      setCheckedValues(checkedValues.filter((item) => item !== value));
+    } else {
+      setCheckedValues([...checkedValues, value]);
+    }
+  };
+
   return (
     <Center bg="gray.100">
       <Flex direction="column">
         <Heading m={5} mb={10} alignSelf="center" color="blue.900">
           Borrado de TRXs
         </Heading>
+        <SelectTRXDelete
+          checkedValues={checkedValues}
+          handleCheckboxChange={handleCheckboxChange}
+        />
         <InputTRXDeleteSection
           values={values}
           setValues={setValues}
           handleChange={handleChange}
+          checkedValues={checkedValues}
         />
-        <ComandTRXDeleteSection values={values} />
+        <ComandTRXDeleteSection
+          values={values}
+          checkedValues={checkedValues}
+          handleCheckboxChange={handleCheckboxChange}
+        />
       </Flex>
     </Center>
   );
