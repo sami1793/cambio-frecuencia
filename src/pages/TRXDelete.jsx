@@ -1,6 +1,7 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
 import { InputTRXDeleteSection } from "../components/TRXDelete/InputTRXDeleteSection";
 import { useState } from "react";
+import { ComandTRXDeleteSection } from "../components/TRXDelete/ComandTRXDeleteSection";
 
 export const TRXDelete = () => {
   const [values, setValues] = useState({
@@ -52,6 +53,7 @@ export const TRXDelete = () => {
           setValues={setValues}
           handleChange={handleChange}
         />
+        <ComandTRXDeleteSection values={values} />
       </Flex>
     </Center>
   );
