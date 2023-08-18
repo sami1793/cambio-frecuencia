@@ -21,14 +21,37 @@ export const TRXDelete = () => {
     trx10: "0",
     trx11: "0",
     trx12: "0",
+    dch1: "0",
+    dch2: "0",
+    dch3: "0",
+    dch4: "0",
+    dch5: "0",
+    dch6: "0",
+    dch7: "0",
+    dch8: "0",
+    dch9: "0",
+    dch10: "0",
+    dch11: "0",
+    dch12: "0",
   });
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <Center bg="gray.100">
       <Flex direction="column">
         <Heading m={5} mb={10} alignSelf="center" color="blue.900">
           Borrado de TRXs
         </Heading>
-        <InputTRXDeleteSection values={values} setValues={setValues} />
+        <InputTRXDeleteSection
+          values={values}
+          setValues={setValues}
+          handleChange={handleChange}
+        />
       </Flex>
     </Center>
   );
