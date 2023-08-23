@@ -28,7 +28,7 @@ export const InputTRXDeleteSection = ({
       bts1: numberInput,
       bts2: Number(numberInput) + 1,
       bts3: Number(numberInput) + 2,
-      bcfexa: toEXA(values.bcf),
+      bcfexa: toEXA(numberInput),
       dch1: "T" + toEXA(values.bcf) + 1,
       dch2: "T" + toEXA(values.bcf) + 2,
       dch3: "T" + toEXA(values.bcf) + 3,
