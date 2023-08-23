@@ -285,7 +285,7 @@ export const MSS3G = () => {
                           </Heading>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
-                              comand={`ZEPO:TYPE=SA,NAME=${value[2]};`}
+                              comand={`ZEPO:TYPE=SA,NO=${value[3]};`}
                               task=""
                               color="yellow.200"
                               key={indexMap}
@@ -298,7 +298,7 @@ export const MSS3G = () => {
                           </Heading>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
-                              comand={`ZEPS:TYPE=SA,NAME=${value[2]}:L;`}
+                              comand={`ZEPS:TYPE=SA,NO=${value[3]}:L;`}
                               task=""
                               color="blue.200"
                               key={indexMap}
@@ -311,7 +311,7 @@ export const MSS3G = () => {
                           </Heading>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
-                              comand={`ZEPD:TYPE=SA,NAME=${value[2]};`}
+                              comand={`ZEPD:TYPE=SA,NO=${value[3]};`}
                               task=""
                               color="red.200"
                               key={indexMap}
