@@ -1,8 +1,10 @@
-import { Center, Flex, Heading } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
 import { InputTRXDeleteSection } from "../components/TRXDelete/InputTRXDeleteSection";
 import { useState } from "react";
 import { ComandTRXDeleteSection } from "../components/TRXDelete/ComandTRXDeleteSection";
 import { SelectTRXDelete } from "../components/TRXDelete/SelectTRXDelete";
+import { BSCConection } from "../components/buttonSection/BSCConection";
+import { Comand } from "../components/comand/Comand";
 
 export const TRXDelete = () => {
   const [values, setValues] = useState({
@@ -57,9 +59,18 @@ export const TRXDelete = () => {
   return (
     <Center bg="gray.100">
       <Flex direction="column">
-        <Heading m={5} mb={10} alignSelf="center" color="blue.900">
+        <Heading m={5} mb={5} alignSelf="center" color="blue.900">
           Borrado de TRXs
         </Heading>
+        <BSCConection />
+        <Stack maxW="xl" alignSelf="center">
+          <Comand
+            comand={`ZEEI:BCF=${values.bcf};`}
+            task=""
+            color="yellow.200"
+          />
+        </Stack>
+
         <SelectTRXDelete
           checkedValues={checkedValues}
           handleCheckboxChange={handleCheckboxChange}
