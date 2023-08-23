@@ -13,7 +13,7 @@ export const TRXDelete = () => {
     bts1: 425,
     bts2: 426,
     bts3: 427,
-    trx1: 425,
+    trx1: "0",
     trx2: "0",
     trx3: "0",
     trx4: "0",
