@@ -8,6 +8,7 @@ import {
   Flex,
   Input,
   Center,
+  Select,
 } from "@chakra-ui/react";
 import { Input as InputChakra } from "../input/Input";
 
@@ -146,194 +147,224 @@ export const InputTRXDeleteSection = ({
         <VStack>
           {checkedValues.includes("trx1") && (
             <InputChakra labelName={`TRX 1`}>
-              <NumberInput
-                value={values.trx1}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx1: number })}
+                name="trx1"
+                value={values.trx1}
+                onChange={(e) => setValues({ ...values, trx1: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx2") && (
             <InputChakra labelName={`TRX 2`}>
-              <NumberInput
-                value={values.trx2}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx2: number })}
+                name="trx2"
+                value={values.trx2}
+                onChange={(e) => setValues({ ...values, trx2: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx3") && (
             <InputChakra labelName={`TRX 3`}>
-              <NumberInput
-                value={values.trx3}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx3: number })}
+                name="trx3"
+                value={values.trx3}
+                onChange={(e) => setValues({ ...values, trx3: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx4") && (
             <InputChakra labelName={`TRX 4`}>
-              <NumberInput
-                value={values.trx4}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx4: number })}
+                name="trx4"
+                value={values.trx4}
+                onChange={(e) => setValues({ ...values, trx4: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx5") && (
             <InputChakra labelName={`TRX 5`}>
-              <NumberInput
-                value={values.trx5}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx5: number })}
+                name="trx5"
+                value={values.trx5}
+                onChange={(e) => setValues({ ...values, trx5: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx6") && (
             <InputChakra labelName={`TRX 6`}>
-              <NumberInput
-                value={values.trx6}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx6: number })}
+                name="trx6"
+                value={values.trx6}
+                onChange={(e) => setValues({ ...values, trx6: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx7") && (
             <InputChakra labelName={`TRX 7`}>
-              <NumberInput
-                value={values.trx7}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx7: number })}
+                name="trx7"
+                value={values.trx7}
+                onChange={(e) => setValues({ ...values, trx7: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx8") && (
             <InputChakra labelName={`TRX 8`}>
-              <NumberInput
-                value={values.trx8}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx8: number })}
+                name="trx8"
+                value={values.trx8}
+                onChange={(e) => setValues({ ...values, trx8: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx9") && (
             <InputChakra labelName={`TRX 9`}>
-              <NumberInput
-                value={values.trx9}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx9: number })}
+                name="trx9"
+                value={values.trx9}
+                onChange={(e) => setValues({ ...values, trx9: e.target.value })}
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx10") && (
             <InputChakra labelName={`TRX 10`}>
-              <NumberInput
-                value={values.trx10}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx10: number })}
+                name="trx10"
+                value={values.trx10}
+                onChange={(e) =>
+                  setValues({ ...values, trx10: e.target.value })
+                }
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx11") && (
             <InputChakra labelName={`TRX 11`}>
-              <NumberInput
-                value={values.trx11}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx11: number })}
+                name="trx11"
+                value={values.trx11}
+                onChange={(e) =>
+                  setValues({ ...values, trx11: e.target.value })
+                }
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
           {checkedValues.includes("trx12") && (
             <InputChakra labelName={`TRX 12`}>
-              <NumberInput
-                value={values.trx12}
-                min={1}
+              <Select
+                bg="white"
+                placeholder="Seleccione BTS"
                 size="xs"
-                onChange={(number) => setValues({ ...values, trx12: number })}
+                name="trx12"
+                value={values.trx12}
+                onChange={(e) =>
+                  setValues({ ...values, trx12: e.target.value })
+                }
               >
-                <NumberInputField bg={"white"} />
-                <NumberInputStepper>
-                  <NumberIncrementStepper bg={"gray.300"} />
-                  <NumberDecrementStepper bg={"gray.300"} />
-                </NumberInputStepper>
-              </NumberInput>
+                <option value={values.bts1}>{values.bts1}</option>
+
+                <option value={values.bts2}>{values.bts2}</option>
+
+                <option value={values.bts3}>{values.bts3}</option>
+              </Select>
             </InputChakra>
           )}
         </VStack>
