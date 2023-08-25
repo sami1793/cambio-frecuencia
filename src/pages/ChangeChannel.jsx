@@ -33,6 +33,7 @@ export const ChangeChannel = () => {
       newFreq: 0,
     });
   };
+
   useEffect(() => {
     setLocalStorage("inputStorage", inputs);
   }, [inputs]);

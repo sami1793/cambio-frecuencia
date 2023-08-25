@@ -1,13 +1,15 @@
 import { Box, Center, Flex, Heading, Stack } from "@chakra-ui/react";
 import { InputTRXDeleteSection } from "../components/TRXDelete/InputTRXDeleteSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ComandTRXDeleteSection } from "../components/TRXDelete/ComandTRXDeleteSection";
 import { SelectTRXDelete } from "../components/TRXDelete/SelectTRXDelete";
 import { BSCConection } from "../components/buttonSection/BSCConection";
 import { Comand } from "../components/comand/Comand";
+import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 
 export const TRXDelete = () => {
-  const [values, setValues] = useState({
+  //INPUTS
+  const initialInputs = getLocalStorage("inputTRXDeleteStorage") || {
     bcf: 425,
     bcfexa: "1A9",
     bts1: 425,
@@ -37,7 +39,8 @@ export const TRXDelete = () => {
     dch10: "0",
     dch11: "0",
     dch12: "0",
-  });
+  };
+  const [values, setValues] = useState(initialInputs);
   const handleChange = (e) => {
     setValues({
       ...values,
@@ -46,7 +49,9 @@ export const TRXDelete = () => {
   };
 
   //SELECT
-  const [checkedValues, setCheckedValues] = useState([]);
+  const initialCheckedInputs =
+    getLocalStorage("inputTRXDeleteCheckedStorage") || [];
+  const [checkedValues, setCheckedValues] = useState(initialCheckedInputs);
 
   const handleCheckboxChange = (value) => {
     if (checkedValues.includes(value)) {
@@ -55,6 +60,12 @@ export const TRXDelete = () => {
       setCheckedValues([...checkedValues, value]);
     }
   };
+
+  //USE EFFECT
+  useEffect(() => {
+    setLocalStorage("inputTRXDeleteStorage", values);
+    setLocalStorage("inputTRXDeleteCheckedStorage", checkedValues);
+  }, [values, checkedValues]);
 
   return (
     <Center bg="gray.100">
