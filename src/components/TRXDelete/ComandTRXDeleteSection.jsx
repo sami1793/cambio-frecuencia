@@ -12,84 +12,84 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
           </Heading>
           {checkedValues.includes("trx1") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx1},TRX=1;L;`}
+              comand={`ZERS:BTS=${values.trx1},TRX=1:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx2") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx2},TRX=2;L;`}
+              comand={`ZERS:BTS=${values.trx2},TRX=2:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx3") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx3},TRX=3;L;`}
+              comand={`ZERS:BTS=${values.trx3},TRX=3:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx4") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx4},TRX=4;L;`}
+              comand={`ZERS:BTS=${values.trx4},TRX=4:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx5") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx5},TRX=5;L;`}
+              comand={`ZERS:BTS=${values.trx5},TRX=5:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx6") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx6},TRX=6;L;`}
+              comand={`ZERS:BTS=${values.trx6},TRX=6:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx7") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx7},TRX=7;L;`}
+              comand={`ZERS:BTS=${values.trx7},TRX=7:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx8") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx8},TRX=8;L;`}
+              comand={`ZERS:BTS=${values.trx8},TRX=8:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx9") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx9},TRX=9;L;`}
+              comand={`ZERS:BTS=${values.trx9},TRX=9:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx10") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx10},TRX=10;L;`}
+              comand={`ZERS:BTS=${values.trx10},TRX=10:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx11") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx11},TRX=11;L;`}
+              comand={`ZERS:BTS=${values.trx11},TRX=11:L;`}
               task=""
               color="orange.200"
             />
           )}
           {checkedValues.includes("trx12") && (
             <Comand
-              comand={`ZERS:BTS=${values.trx12},TRX=12;L;`}
+              comand={`ZERS:BTS=${values.trx12},TRX=12:L;`}
               task=""
               color="orange.200"
             />
