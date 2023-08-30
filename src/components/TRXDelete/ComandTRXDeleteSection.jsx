@@ -193,40 +193,40 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
             BORRAR D-CHANNEL
           </Heading>
           {checkedValues.includes("trx1") && (
-            <Comand comand={`ZDWD=${values.dch1};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch1};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx2") && (
-            <Comand comand={`ZDWD=${values.dch2};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch2};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx3") && (
-            <Comand comand={`ZDWD=${values.dch3};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch3};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx4") && (
-            <Comand comand={`ZDWD=${values.dch4};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch4};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx5") && (
-            <Comand comand={`ZDWD=${values.dch5};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch5};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx6") && (
-            <Comand comand={`ZDWD=${values.dch6};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch6};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx7") && (
-            <Comand comand={`ZDWD=${values.dch7};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch7};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx8") && (
-            <Comand comand={`ZDWD=${values.dch8};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch8};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx9") && (
-            <Comand comand={`ZDWD=${values.dch9};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch9};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx10") && (
-            <Comand comand={`ZDWD=${values.dch10};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch10};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx11") && (
-            <Comand comand={`ZDWD=${values.dch11};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch11};`} task="" color="red.200" />
           )}
           {checkedValues.includes("trx12") && (
-            <Comand comand={`ZDWD=${values.dch12};`} task="" color="red.200" />
+            <Comand comand={`ZDWD:${values.dch12};`} task="" color="red.200" />
           )}
         </Box>
       </WrapItem>
