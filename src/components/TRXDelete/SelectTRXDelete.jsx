@@ -1,6 +1,7 @@
 import { Checkbox, HStack, Heading, VStack } from "@chakra-ui/react";
 
 export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
+  const colorPrimary = "teal.500";
   return (
     <VStack
       alignSelf="center"
@@ -10,12 +11,12 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
       maxW="max-content"
       borderRadius="lg"
     >
-      <Heading alignSelf="center" size="sm" mb={3} color="blue.800">
+      <Heading alignSelf="center" size="sm" mb={3} color="teal.700">
         TRXs a borrar:
       </Heading>
       <HStack spacing={2}>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -25,7 +26,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 1
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -35,7 +36,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 2
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -45,7 +46,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 3
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -55,7 +56,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 4
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -65,7 +66,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 5
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -77,7 +78,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
       </HStack>
       <HStack spacing={2}>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -87,7 +88,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 7
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -97,7 +98,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 8
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -107,7 +108,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 9
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -117,7 +118,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 10
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"
@@ -127,7 +128,7 @@ export const SelectTRXDelete = ({ checkedValues, handleCheckboxChange }) => {
           TRX 11
         </Checkbox>
         <Checkbox
-          bgColor="blue.900"
+          bgColor={colorPrimary}
           color="white"
           p={1}
           rounded="lg"

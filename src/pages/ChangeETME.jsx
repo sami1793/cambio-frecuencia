@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { InputETMESection } from "../components/changeETME/InputETMESection";
-import { Center, Flex, Heading } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import { ComandETMESection } from "../components/changeETME/ComandETMESection";
 import { ClearButton } from "../components/buttonSection/ClearButton";
+import { Title } from "../components/titles/Title";
 
 export const ChangeETME = () => {
   const [values, setValues] = useState({
@@ -24,11 +25,9 @@ export const ChangeETME = () => {
   };
 
   return (
-    <Center bg="gray.100">
+    <Center>
       <Flex direction="column">
-        <Heading m={5} mb={10} alignSelf="center" color="blue.900">
-          Cambio de ETME
-        </Heading>
+        <Title title="Cambio de ETME"></Title>
         <InputETMESection values={values} setValues={setValues} />
         <ClearButton clearInputs={clearInputs} />
         <ComandETMESection values={values} />

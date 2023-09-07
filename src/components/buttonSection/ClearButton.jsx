@@ -1,13 +1,8 @@
-import {
-  Button,
-  ButtonGroup,
-  HStack,
-  IconButton,
-  Tooltip,
-  useToast,
-} from "@chakra-ui/react";
+import { ButtonGroup, HStack, Tooltip, useToast } from "@chakra-ui/react";
 import { OpenBSCButton } from "./OpenBSCButton";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { ButtonPrimary } from "./ButtonPrimary";
+import { ButtonIconPrimary } from "./ButtonIconPrimary";
 
 export const ClearButton = ({ clearInputs }) => {
   const toast = useToast();
@@ -25,29 +20,14 @@ export const ClearButton = ({ clearInputs }) => {
     <>
       <HStack justifyContent="center" mb={5}>
         <ButtonGroup>
-          <Button
-            variant="solid"
-            bg="blue.800"
-            border="2px"
-            color="white"
-            _hover={{ bg: "white", color: "blue.900" }}
-            onClick={clearInputs}
-          >
-            Limpiar
-          </Button>
+          <ButtonPrimary name="Limpiar" onClick={clearInputs}></ButtonPrimary>
           <OpenBSCButton />
         </ButtonGroup>
         <Tooltip label="Copiar credenciales BSC">
-          <IconButton
-            size={"sm"}
+          <ButtonIconPrimary
             icon={<RiLockPasswordLine />}
             onClick={copyCredencials}
-            variant="solid"
-            bg="blue.800"
-            border="2px"
-            color="white"
-            _hover={{ bg: "white", color: "blue.900" }}
-          />
+          ></ButtonIconPrimary>
         </Tooltip>
       </HStack>
     </>

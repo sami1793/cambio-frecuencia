@@ -11,8 +11,6 @@ import {
   Wrap,
   WrapItem,
   Center,
-  Button,
-  Link,
   Select,
   IconButton,
   Tooltip,
@@ -22,6 +20,12 @@ import readXlsxFile from "read-excel-file";
 import { Comand } from "../components/comand/Comand";
 import { useState } from "react";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { Title } from "../components/titles/Title";
+import { ButtonLinkPrimary } from "../components/buttonSection/ButtonLinkPrimary";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { BoxComands } from "../components/box/BoxComands";
+import { ButtonIconPrimary } from "../components/buttonSection/ButtonIconPrimary";
+
 // import { InputMSS3GSection } from "../components/MSS3G/InputMSS3GSection";
 
 export const MSS3G = () => {
@@ -80,28 +84,17 @@ export const MSS3G = () => {
   return (
     <Center mb={10}>
       <Flex direction="column" alignItems="center" gap={3}>
-        <Heading m={5} mb={10} alignSelf="center" color="blue.900">
-          Crecimiento MSS 3G
-        </Heading>
+        <Title title="Crecimiento MSS 3G"></Title>
         <Box>
           <Input type="file" onChange={handleFileUpload} maxW="max" />
         </Box>
-        <Button
-          variant="solid"
-          bg="blue.700"
-          color="white"
-          border="2px"
-          _hover={{ bg: "white", color: "blue.700", borderColor: "blue.700" }}
-          as={Link}
+        <ButtonLinkPrimary
+          name="Check MSS"
           href="https://doxplanning.com/metabase/public/dashboard/f9b71ea3-a2fd-4791-ac6d-d225fa7bddbc"
-          isExternal
-        >
-          Check MSS
-        </Button>
-        <Box bg="blue.700" p={3} borderRadius="md">
-          <Heading size="sm" mb={3} color="white">
-            Conectar a MSS
-          </Heading>
+          icon={<ExternalLinkIcon mx="5px" />}
+        ></ButtonLinkPrimary>
+
+        <BoxComands title={`Conectar a MSS`}>
           <Flex gap={3} w="full" justifyContent="center" bg="gray.200" p={2}>
             <Input
               bg="white"
@@ -156,24 +149,24 @@ export const MSS3G = () => {
                 icon={<RiLockPasswordLine />}
                 onClick={copyCredencials}
                 variant="solid"
-                bg="blue.800"
+                bgGradient="linear(to-r, teal.600, teal.500)"
                 border="2px"
                 color="white"
-                _hover={{ bg: "white", color: "blue.900" }}
+                _hover={{
+                  bgGradient: "linear(to-l, teal.600, teal.500)",
+                  color: "white",
+                }}
               />
             </Tooltip>
           </Flex>
-        </Box>
+        </BoxComands>
 
         {/* <InputMSS3GSection dataMSS={dataMSS} /> */}
         {dataMSS && (
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
-                <Box bg="blue.800" p={2}>
-                  <Heading color="white" size="sm" mb={3}>
-                    CRECER MSS
-                  </Heading>
+                <BoxComands title={`CRECER MSS`}>
                   {dataMSS.map((value, indexMap) => (
                     <Comand
                       comand={`ZEPC:TYPE=SA,NAME=${value[2]},NO=${value[3]}:LAC=${value[5]},SAC=${value[7]},CA=${value[13]},MCC=${value[15]},MNC=${value[16]};`}
@@ -182,11 +175,8 @@ export const MSS3G = () => {
                       key={indexMap}
                     />
                   ))}
-                </Box>
-                <Box bg="blue.800" p={2}>
-                  <Heading color="white" size="sm" mb={3}>
-                    ASOCIAR RZ
-                  </Heading>
+                </BoxComands>
+                <BoxComands title={`ASOCIAR RZ`}>
                   {dataMSS.map((value, indexMap) => (
                     <Comand
                       comand={`ZEPR:TYPE=SA,NAME=${value[2]}:RZ=${value[8]};`}
@@ -195,11 +185,8 @@ export const MSS3G = () => {
                       key={indexMap}
                     />
                   ))}
-                </Box>
-                <Box bg="blue.800" p={2}>
-                  <Heading color="white" size="sm" mb={3}>
-                    DESBLOQUEAR
-                  </Heading>
+                </BoxComands>
+                <BoxComands title={`DESBLOQUEAR`}>
                   {dataMSS.map((value, indexMap) => (
                     <Comand
                       comand={`ZEPS:TYPE=SA,NAME=${value[2]}:U;`}
@@ -208,7 +195,7 @@ export const MSS3G = () => {
                       key={indexMap}
                     />
                   ))}
-                </Box>
+                </BoxComands>
               </Flex>
             </WrapItem>
             <WrapItem>
@@ -225,10 +212,7 @@ export const MSS3G = () => {
                     </h2>
                     <AccordionPanel pb={4}>
                       <Flex direction="column" gap={3}>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            VERIFICAR
-                          </Heading>
+                        <BoxComands title={`VERIFICAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPO:TYPE=SA,NAME=${value[2]};`}
@@ -237,11 +221,8 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            BLOQUEAR
-                          </Heading>
+                        </BoxComands>
+                        <BoxComands title={`BLOQUEAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPS:TYPE=SA,NAME=${value[2]}:L;`}
@@ -250,11 +231,8 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            BORRAR
-                          </Heading>
+                        </BoxComands>
+                        <BoxComands title={`BORRAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPD:TYPE=SA,NAME=${value[2]};`}
@@ -263,7 +241,7 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
+                        </BoxComands>
                       </Flex>
                     </AccordionPanel>
                   </AccordionItem>
@@ -279,10 +257,7 @@ export const MSS3G = () => {
                     </h2>
                     <AccordionPanel pb={4}>
                       <Flex direction="column" gap={3}>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            VERIFICAR
-                          </Heading>
+                        <BoxComands title={`VERIFICAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPO:TYPE=SA,NO=${value[3]};`}
@@ -291,11 +266,8 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            BLOQUEAR
-                          </Heading>
+                        </BoxComands>
+                        <BoxComands title={`BLOQUEAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPS:TYPE=SA,NO=${value[3]}:L;`}
@@ -304,11 +276,8 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
-                        <Box bg="blue.800" p={2}>
-                          <Heading color="white" size="sm" mb={2}>
-                            BORRAR
-                          </Heading>
+                        </BoxComands>
+                        <BoxComands title={`BORRAR`}>
                           {dataMSS.map((value, indexMap) => (
                             <Comand
                               comand={`ZEPD:TYPE=SA,NO=${value[3]};`}
@@ -317,7 +286,7 @@ export const MSS3G = () => {
                               key={indexMap}
                             />
                           ))}
-                        </Box>
+                        </BoxComands>
                       </Flex>
                     </AccordionPanel>
                   </AccordionItem>

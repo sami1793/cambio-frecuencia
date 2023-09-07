@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { BoxComands } from "../components/box/BoxComands";
 
 export const RNCConector = () => {
   const initialDataRNCConection = {
@@ -43,10 +44,7 @@ export const RNCConector = () => {
   };
   return (
     <Center mt={5}>
-      <Box bg="blue.700" p={3} borderRadius="md">
-        <Heading size="sm" mb={3} color="white">
-          Conectar a RNC
-        </Heading>
+      <BoxComands title={`Conectar a RNC`}>
         <Flex gap={3} w="full" justifyContent="center" bg="gray.200" p={2}>
           <Input
             bg="white"
@@ -137,14 +135,16 @@ export const RNCConector = () => {
               icon={<RiLockPasswordLine />}
               onClick={copyCredencials}
               variant="solid"
-              bg="blue.800"
-              border="2px"
+              bgGradient="linear(to-r, teal.600, teal.500)"
               color="white"
-              _hover={{ bg: "white", color: "blue.900" }}
+              _hover={{
+                bgGradient: "linear(to-l, teal.600, teal.500)",
+                color: "white",
+              }}
             />
           </Tooltip>
         </Flex>
-      </Box>
+      </BoxComands>
     </Center>
   );
 };

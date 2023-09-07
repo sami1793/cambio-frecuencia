@@ -5,7 +5,8 @@ export const Input = ({ labelName, children }) => {
       <VStack>
         <FormLabel
           textAlign="center"
-          bg="blue.800"
+          // bg="teal.500"
+          bgGradient="linear(to-r, teal.500, teal.400)"
           color="white"
           borderTopRadius="md"
           mb={0}

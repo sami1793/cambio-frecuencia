@@ -1,9 +1,10 @@
-import { Heading, Flex, Center } from "@chakra-ui/react";
+import { Flex, Center } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { InputsSection } from "../components/inputsSection/InputsSection";
 import { ClearButton } from "../components/buttonSection/ClearButton";
 import { ComandSection } from "../components/comandSection/ComandSection";
 import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
+import { Title } from "../components/titles/Title";
 
 export const ChangeChannel = () => {
   const initialInputs = getLocalStorage("inputStorage") || {
@@ -39,11 +40,9 @@ export const ChangeChannel = () => {
   }, [inputs]);
 
   return (
-    <Center bg="gray.100">
+    <Center>
       <Flex direction="column">
-        <Heading m={5} mb={10} alignSelf="center" color="blue.900">
-          Cambio de Canal
-        </Heading>
+        <Title title="Cambio de Canal"></Title>
         <InputsSection inputs={inputs} handleChange={handleChange} />
         <ClearButton clearInputs={clearInputs} />
         <ComandSection inputs={inputs} />

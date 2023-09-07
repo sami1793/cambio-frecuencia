@@ -6,6 +6,7 @@ import { SelectTRXDelete } from "../components/TRXDelete/SelectTRXDelete";
 import { BSCConection } from "../components/buttonSection/BSCConection";
 import { Comand } from "../components/comand/Comand";
 import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
+import { Title } from "../components/titles/Title";
 
 export const TRXDelete = () => {
   //INPUTS
@@ -68,11 +69,9 @@ export const TRXDelete = () => {
   }, [values, checkedValues]);
 
   return (
-    <Center bg="gray.100">
+    <Center>
       <Flex direction="column">
-        <Heading m={5} mb={5} alignSelf="center" color="blue.900">
-          Borrado de TRXs
-        </Heading>
+        <Title title="Borrado de TRXs"></Title>
         <BSCConection />
         <Stack maxW="xl" alignSelf="center">
           <Comand

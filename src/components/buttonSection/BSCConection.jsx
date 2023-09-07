@@ -1,15 +1,10 @@
-import {
-  Box,
-  Center,
-  HStack,
-  Heading,
-  IconButton,
-  Tooltip,
-} from "@chakra-ui/react";
+import { HStack, Tooltip, useToast } from "@chakra-ui/react";
 import { OpenBSCButton } from "./OpenBSCButton";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { ButtonIconPrimary } from "./ButtonIconPrimary";
 
 export const BSCConection = () => {
+  const toast = useToast();
   const copyCredencials = () => {
     navigator.clipboard.writeText("RIC000\nCONRIC33");
     toast({
@@ -21,15 +16,10 @@ export const BSCConection = () => {
     });
   };
   return (
-    // <Center mt={5} mb={5}>
-    //   <Box bg="blue.700" p={3} borderRadius="md">
-    //     <Heading size="sm" mb={3} color="white">
-    //       Conectarse a BSC
-    //     </Heading>
     <HStack justifyContent="center" p={3}>
       <OpenBSCButton />
       <Tooltip label="Copiar credenciales BSC">
-        <IconButton
+        {/* <IconButton
           size={"sm"}
           icon={<RiLockPasswordLine />}
           onClick={copyCredencials}
@@ -38,10 +28,12 @@ export const BSCConection = () => {
           border="2px"
           color="white"
           _hover={{ bg: "white", color: "blue.900" }}
-        />
+        /> */}
+        <ButtonIconPrimary
+          icon={<RiLockPasswordLine />}
+          onClick={copyCredencials}
+        ></ButtonIconPrimary>
       </Tooltip>
     </HStack>
-    //   </Box>
-    // </Center>
   );
 };

@@ -10,14 +10,19 @@ import {
   MenuList,
   SimpleGrid,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import { Link as NavLink } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { MdCellTower } from "react-icons/md";
 export const NavApp = () => {
   return (
-    <SimpleGrid columns={2} p={5} backgroundColor="blue.800" color="white">
+    <SimpleGrid
+      columns={2}
+      p={5}
+      bgGradient="linear(to-r, teal.600, teal.400)"
+      color="white"
+      borderRadius="lg"
+    >
       <Heading as={NavLink} to="/">
         <Flex>
           <MdCellTower fontSize="larger" />

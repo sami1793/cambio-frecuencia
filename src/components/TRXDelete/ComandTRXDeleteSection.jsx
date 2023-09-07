@@ -1,15 +1,12 @@
-import { Box, Flex, Heading, Wrap, WrapItem } from "@chakra-ui/react";
+import { Wrap, WrapItem } from "@chakra-ui/react";
 import { Comand } from "../comand/Comand";
+import { BoxComands } from "../box/BoxComands";
 
 export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
   return (
-    // <Flex direction="column" gap={3}>
     <Wrap mb={10}>
       <WrapItem>
-        <Box bg="blue.800" p={2}>
-          <Heading color="white" size="sm" mb={3}>
-            BLOQUEAR TRX
-          </Heading>
+        <BoxComands title={`BLOQUEAR TRX`}>
           {checkedValues.includes("trx1") && (
             <Comand
               comand={`ZERS:BTS=${values.trx1},TRX=1:L;`}
@@ -94,13 +91,10 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
               color="orange.200"
             />
           )}
-        </Box>
+        </BoxComands>
       </WrapItem>
       <WrapItem>
-        <Box bg="blue.800" p={2}>
-          <Heading color="white" size="sm" mb={3}>
-            BORRAR TRX
-          </Heading>
+        <BoxComands title={`BORRAR TRX`}>
           {checkedValues.includes("trx1") && (
             <Comand
               comand={`ZERD:BTS=${values.trx1},TRX=1;`}
@@ -185,13 +179,10 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
               color="red.200"
             />
           )}
-        </Box>
+        </BoxComands>
       </WrapItem>
       <WrapItem>
-        <Box bg="blue.800" p={2}>
-          <Heading color="white" size="sm" mb={3}>
-            BORRAR D-CHANNEL
-          </Heading>
+        <BoxComands title={`BORRAR D-CHANNEL`}>
           {checkedValues.includes("trx1") && (
             <Comand comand={`ZDWD:${values.dch1};`} task="" color="red.200" />
           )}
@@ -228,13 +219,10 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
           {checkedValues.includes("trx12") && (
             <Comand comand={`ZDWD:${values.dch12};`} task="" color="red.200" />
           )}
-        </Box>
+        </BoxComands>
       </WrapItem>
       <WrapItem>
-        <Box bg="blue.800" p={2}>
-          <Heading color="white" size="sm" mb={3}>
-            BORRAR SEÑALIZACION TRX
-          </Heading>
+        <BoxComands title={`BORRAR SEÑALIZACIÓN TRXs`}>
           {checkedValues.includes("trx1") && (
             <Comand
               comand={`ZOYY:IUA:BCF${values.bcf}TRX1;`}
@@ -319,9 +307,8 @@ export const ComandTRXDeleteSection = ({ values, checkedValues }) => {
               color="red.200"
             />
           )}
-        </Box>
+        </BoxComands>
       </WrapItem>
-      {/* </Flex> */}
     </Wrap>
   );
 };
