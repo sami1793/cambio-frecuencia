@@ -1,4 +1,5 @@
 import {
+  Button,
   Flex,
   HStack,
   Heading,
@@ -12,7 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link as NavLink } from "react-router-dom";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { MdCellTower } from "react-icons/md";
 export const NavApp = () => {
   return (
@@ -36,21 +37,80 @@ export const NavApp = () => {
           justifyContent="flex-end"
           display={{ base: "none", md: "flex" }}
         >
-          <Link as={NavLink} to="/">
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              bg="whiteAlpha.100"
+              border="1px"
+              _hover={{
+                bgGradient: "linear(to-l, teal.500, teal.400)",
+                color: "white",
+              }}
+              _expanded={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
+            >
+              Planillas 2G
+            </MenuButton>
+            <MenuList>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/">
+                  Cambio de Canal
+                </Link>
+              </MenuItem>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/changeETME">
+                  Cambio de ETME
+                </Link>
+              </MenuItem>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/TRXDelete">
+                  Borrado TRX
+                </Link>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              bg="whiteAlpha.100"
+              border="1px"
+              _hover={{
+                bgGradient: "linear(to-l, teal.500, teal.400)",
+                color: "white",
+              }}
+              _expanded={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
+            >
+              Planillas 3G
+            </MenuButton>
+            <MenuList>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/MSS3G">
+                  Crecimiento MSS 3G
+                </Link>
+              </MenuItem>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/RNCConector">
+                  Conector RNC
+                </Link>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          {/* <Link as={NavLink} to="/">
             Cambio de Canal
           </Link>
           <Link as={NavLink} to="/changeETME">
             Cambio de ETME
-          </Link>
-          <Link as={NavLink} to="/MSS3G">
+          </Link> */}
+          {/* <Link as={NavLink} to="/MSS3G">
             Crecimiento MSS 3G
           </Link>
           <Link as={NavLink} to="/RNCConector">
             Conector RNC
-          </Link>
-          <Link as={NavLink} to="/TRXDelete">
+          </Link> */}
+          {/* <Link as={NavLink} to="/TRXDelete">
             Borrado TRX
-          </Link>
+          </Link> */}
         </HStack>
         {/* Mobile */}
         <Menu>
