@@ -9,6 +9,7 @@ import {
   Input,
   Center,
   Select,
+  Tooltip,
 } from "@chakra-ui/react";
 import { Input as InputChakra } from "../input/Input";
 
@@ -85,13 +86,16 @@ export const InputTRXDeleteSection = ({
           </InputChakra>
 
           <InputChakra labelName="BCF EXA">
-            <Input
-              type="text"
-              name="bcfexa"
-              value={values.bcfexa}
-              bg="whiteAlpha.800"
-              onChange={setDChannelBCF}
-            />
+            <Tooltip label="Se llena automáticamente según BCF">
+              <Input
+                type="text"
+                name="bcfexa"
+                value={values.bcfexa}
+                bg="whiteAlpha.800"
+                //Este campo no debe cambiarse
+                // onChange={setDChannelBCF}
+              />
+            </Tooltip>
           </InputChakra>
 
           <InputChakra labelName={`BTS`}>
@@ -148,7 +152,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 1`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx1"
                 value={values.trx1}
@@ -166,7 +170,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 2`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx2"
                 value={values.trx2}
@@ -184,7 +188,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 3`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx3"
                 value={values.trx3}
@@ -202,7 +206,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 4`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx4"
                 value={values.trx4}
@@ -220,7 +224,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 5`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx5"
                 value={values.trx5}
@@ -238,7 +242,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 6`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx6"
                 value={values.trx6}
@@ -256,7 +260,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 7`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx7"
                 value={values.trx7}
@@ -274,7 +278,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 8`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx8"
                 value={values.trx8}
@@ -292,7 +296,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 9`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx9"
                 value={values.trx9}
@@ -310,7 +314,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 10`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx10"
                 value={values.trx10}
@@ -330,7 +334,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 11`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx11"
                 value={values.trx11}
@@ -350,7 +354,7 @@ export const InputTRXDeleteSection = ({
             <InputChakra labelName={`TRX 12`}>
               <Select
                 bg="white"
-                placeholder="Seleccione BTS"
+                placeholder="Seleccione BTS de TRX"
                 size="xs"
                 name="trx12"
                 value={values.trx12}
@@ -372,14 +376,16 @@ export const InputTRXDeleteSection = ({
         <VStack>
           {checkedValues.includes("trx1") && (
             <InputChakra labelName={`D-CHANNEL 1`}>
-              <Input
-                type="text"
-                name="dch1"
-                value={values.dch1}
-                bg="whiteAlpha.800"
-                size="xs"
-                onChange={setDChannelBCF}
-              />
+              <Tooltip label="Reemplazar T por U de ser necesario">
+                <Input
+                  type="text"
+                  name="dch1"
+                  value={values.dch1}
+                  bg="whiteAlpha.800"
+                  size="xs"
+                  onChange={setDChannelBCF}
+                />
+              </Tooltip>
             </InputChakra>
           )}
           {checkedValues.includes("trx2") && (

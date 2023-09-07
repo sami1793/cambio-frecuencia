@@ -74,10 +74,10 @@ export const MSS3G = () => {
       }@pbps.claro.amx"`
     );
     toast({
-      title: "Se obtuvo el comando correctamente",
+      title: "Comando listo para usar en PowerShell",
       description: "",
       status: "success",
-      duration: 1000,
+      duration: 1500,
       isClosable: true,
     });
   };

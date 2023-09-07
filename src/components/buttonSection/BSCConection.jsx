@@ -32,6 +32,7 @@ export const BSCConection = () => {
         <ButtonIconPrimary
           icon={<RiLockPasswordLine />}
           onClick={copyCredencials}
+          label="Copiar credenciales BSC"
         ></ButtonIconPrimary>
       </Tooltip>
     </HStack>

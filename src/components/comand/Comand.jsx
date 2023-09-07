@@ -39,7 +39,7 @@ export const Comand = ({ color, comand, task }) => {
         <Text fontSize="sm" wordBreak="break-word">
           {comand}
         </Text>
-        <Tooltip label="Copy Comand">
+        <Tooltip label="Copiar Comando">
           <IconButton
             colorScheme="blackAlpha"
             size={"sm"}

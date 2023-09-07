@@ -23,12 +23,12 @@ export const ClearButton = ({ clearInputs }) => {
           <ButtonPrimary name="Limpiar" onClick={clearInputs}></ButtonPrimary>
           <OpenBSCButton />
         </ButtonGroup>
-        <Tooltip label="Copiar credenciales BSC">
-          <ButtonIconPrimary
-            icon={<RiLockPasswordLine />}
-            onClick={copyCredencials}
-          ></ButtonIconPrimary>
-        </Tooltip>
+
+        <ButtonIconPrimary
+          icon={<RiLockPasswordLine />}
+          onClick={copyCredencials}
+          label="Copiar credenciales BSC"
+        ></ButtonIconPrimary>
       </HStack>
     </>
   );
