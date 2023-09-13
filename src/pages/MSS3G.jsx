@@ -1,7 +1,6 @@
 import {
   Box,
   Input,
-  Heading,
   Flex,
   Accordion,
   AccordionItem,
@@ -24,7 +23,6 @@ import { Title } from "../components/titles/Title";
 import { ButtonLinkPrimary } from "../components/buttonSection/ButtonLinkPrimary";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { BoxComands } from "../components/box/BoxComands";
-import { ButtonIconPrimary } from "../components/buttonSection/ButtonIconPrimary";
 
 // import { InputMSS3GSection } from "../components/MSS3G/InputMSS3GSection";
 
@@ -60,7 +58,7 @@ export const MSS3G = () => {
     if (file) {
       try {
         const arrayData = await readXlsxFile(file);
-        console.log(arrayData.filter((value, index) => index >= 10));
+        // console.log(arrayData.filter((value, index) => index >= 10));
         setDataMSS(arrayData.filter((value, index) => index >= 10));
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);

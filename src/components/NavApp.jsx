@@ -67,6 +67,11 @@ export const NavApp = () => {
                   Borrado TRX
                 </Link>
               </MenuItem>
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/Creation2G">
+                  Crecimiento 2G
+                </Link>
+              </MenuItem>
             </MenuList>
           </Menu>
           <Menu>
@@ -96,21 +101,6 @@ export const NavApp = () => {
               </MenuItem>
             </MenuList>
           </Menu>
-          {/* <Link as={NavLink} to="/">
-            Cambio de Canal
-          </Link>
-          <Link as={NavLink} to="/changeETME">
-            Cambio de ETME
-          </Link> */}
-          {/* <Link as={NavLink} to="/MSS3G">
-            Crecimiento MSS 3G
-          </Link>
-          <Link as={NavLink} to="/RNCConector">
-            Conector RNC
-          </Link> */}
-          {/* <Link as={NavLink} to="/TRXDelete">
-            Borrado TRX
-          </Link> */}
         </HStack>
         {/* Mobile */}
         <Menu>
@@ -140,6 +130,9 @@ export const NavApp = () => {
             </MenuItem>
             <MenuItem as={NavLink} to="/TRXDelete">
               Borrado TRX
+            </MenuItem>
+            <MenuItem as={NavLink} to="/Creation2G">
+              Crecimiento 2G
             </MenuItem>
           </MenuList>
         </Menu>

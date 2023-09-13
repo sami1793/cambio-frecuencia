@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BoxComands } from "../components/box/BoxComands";
 import { Title } from "../components/titles/Title";
+import { Creation2G } from "./Creation2G";
 
 export const RNCConector = () => {
   const initialDataRNCConection = {

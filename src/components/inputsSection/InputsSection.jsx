@@ -1,5 +1,11 @@
 import { Input } from "../input/Input";
-import { Flex, Input as InputChakra, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Flex,
+  Input as InputChakra,
+  Tooltip,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 
 export const InputsSection = ({ inputs, handleChange }) => {
   return (
@@ -54,13 +60,15 @@ export const InputsSection = ({ inputs, handleChange }) => {
         </WrapItem>
         <WrapItem>
           <Input labelName="MAL">
-            <InputChakra
-              type="number"
-              name="mal"
-              value={inputs.mal}
-              bg="whiteAlpha.800"
-              onChange={handleChange}
-            />
+            <Tooltip label="Llenarlo luego de buscar ID de MAL">
+              <InputChakra
+                type="number"
+                name="mal"
+                value={inputs.mal}
+                bg="whiteAlpha.800"
+                onChange={handleChange}
+              />
+            </Tooltip>
           </Input>
         </WrapItem>
         <WrapItem>

@@ -19,16 +19,6 @@ export const BSCConection = () => {
     <HStack justifyContent="center" p={3}>
       <OpenBSCButton />
       <Tooltip label="Copiar credenciales BSC">
-        {/* <IconButton
-          size={"sm"}
-          icon={<RiLockPasswordLine />}
-          onClick={copyCredencials}
-          variant="solid"
-          bg="blue.800"
-          border="2px"
-          color="white"
-          _hover={{ bg: "white", color: "blue.900" }}
-        /> */}
         <ButtonIconPrimary
           icon={<RiLockPasswordLine />}
           onClick={copyCredencials}
