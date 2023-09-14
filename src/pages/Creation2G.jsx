@@ -158,6 +158,254 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
+
+                {/* ****** FREC DE MAL************ */}
+                <BoxComands title="MAL: CREAR MAL Y AGREGAR FRECUENCIA">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEBE:MAL,${value[73]},${value[7]}:FREQ=${
+                        value[125]
+                      }${
+                        value[126]
+                          ? `&${value[126]}${
+                              value[127]
+                                ? `&${value[127]}${
+                                    value[128]
+                                      ? `&${value[128]}${
+                                          value[129]
+                                            ? `&${value[129]}${
+                                                value[130]
+                                                  ? `&${value[130]}${
+                                                      value[131]
+                                                        ? `&${value[131]}${
+                                                            value[132]
+                                                              ? `&${
+                                                                  value[132]
+                                                                }${
+                                                                  value[133]
+                                                                    ? `&${
+                                                                        value[133]
+                                                                      }${
+                                                                        value[134]
+                                                                          ? `&${value[134]}`
+                                                                          : ""
+                                                                      }`
+                                                                    : ""
+                                                                }`
+                                                              : ""
+                                                          }`
+                                                        : ""
+                                                    }`
+                                                  : ""
+                                              }`
+                                            : ""
+                                        }`
+                                      : ""
+                                  }`
+                                : ""
+                            }`
+                          : ""
+                      };`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="ASOCIAR MAL A BTS">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQA:BTS=${value[14]}:MAL=${value[73]},MO=${value[74]},MS=${value[76]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  {/* ****REVISAR MO!! PORQUE LE PUSE 74 Y NO 75******* */}
+                </BoxComands>
+                <BoxComands title="HABILITO LOS CODEC AMR HR A NIVEL DE BTS">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQY:BTS=${value[14]}:ARLT=${value[147]},HRC=1&4&16;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="HABILITO EN LAS BTS POWER CONTROL">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUC:BTS=${value[14]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="HABILITO EN LAS BTS HANDOVER CONTROL">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHC:BTS=${value[14]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="MODIFICACIONES DE HANDOVER CONTROL">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHG:BTS=${value[14]}:EFA=Y,EFP=Y,EFH=Y,HPP=4,HPU=4;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="MODIFICACIONES DE HOC">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`
+                      ZEHN:BTS=${value[14]}:QSRC=${value[156]},WCP=${
+                        value[157]
+                      },LTSC=${value[158]},UMIU=${value[159]},IDE=${
+                        value[160] ? "Y" : "N"
+                      },FDMR=${value[161]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHA:BTS=${value[14]}:LDW=2,LUW=2,QDW=2,QUW=2;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHQ:BTS=${value[14]}:QDR=5,QUR=5;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHS:BTS=${value[14]}:LDR=-91,LUR=-101;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEHI:BTS=${value[14]}:IDR=-76,IUR=-86;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`
+                      ZEHD:BTS=${value[14]}:MSWS=20,MSP=10,MSN=16;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="MODIFICACIONES DE POWER CONTROL">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUG:BTS=${value[14]}:PENA=Y,PMAX2=${value[162]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUG:BTS=${value[14]}:PMAX1=${value[163]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUA:BTS=${value[14]}:LDW=2,LUW=2,QDW=2,QUW=2;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUQ:BTS=${value[14]}:UDP=4,UDN=4,UUP=4,UUN=4;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEUS:BTS=${value[14]}:UDR=-68,UUR=-78,LDR=-80,LUR=-90;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                  <br />
+                </BoxComands>
+                <BoxComands title="HABILITO EN LAS BTS DEDICATED GPRS CAPACITY, DEFAULT GPRS CAPACITY, MAX GPRS CAPACITY, PREFER BCCH FREQUENCY GPRS, GPRS ENABLED, EGPRS ENABLED, INITIAL MCS FOR UNACKNOWLEDGED MODE, MAXIMUM BLER IN ACKNOWLEDGED MODE, MAXIMUM BLER IN UNACKNOWLEDGED MODE, MEAN BEP OFFSET GMSK, MEAN BEP OFFSET 8PSK">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQV:BTS=${value[14]}:CDED=${value[55]},CDEF=${
+                        value[54]
+                      },CMAX=${value[53]},BFG=${value[56]},GENA=N,EGENA=${
+                        value[56] ? "Y" : "N"
+                      },MCU=6,BLA=${value[85]},BLU=${value[86]},MBG=0,MBP=0;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="PARÁMETROS GPRS">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQV:BTS=${value[14]}:DLA=${value[79]},DLBH=${value[80]},ULBH=${value[83]},DLB=${value[81]},ULA=${value[82]},MCA=${value[137]},MCU=${value[138]},ULB=${value[84]},BLA=${value[85]},BLU=${value[86]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="PARÁMETROS POC">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`
+                      ZEUM:BTS=${value[14]}:ALPHA=${value[87]},GAMMA=${value[88]},BEP=${value[89]};`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
               </Flex>
             </WrapItem>
           </Wrap>
