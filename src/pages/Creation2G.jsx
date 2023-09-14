@@ -7,6 +7,7 @@ import { Comand } from "../components/comand/Comand";
 
 export const Creation2G = () => {
   const [data2G, setData2G] = useState("");
+  let contTRX = 0;
   const pais = {
     ARG: {
       MCC: "722",
@@ -38,6 +39,7 @@ export const Creation2G = () => {
       }
     }
   };
+
   return (
     <Center mt={5}>
       <Flex direction="column" alignItems="center">
@@ -405,6 +407,33 @@ export const Creation2G = () => {
                       key={indexMap}
                     />
                   ))}
+                </BoxComands>
+                <BoxComands title="HABILITO EN LAS BTS GPRS">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQV:BTS=${value[14]}:GENA=Y, EGENA=Y;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
+                </BoxComands>
+                <BoxComands title="DESBLOQUEAR TRX">
+                  {data2G.map((value, indexMap) =>
+                    Array(value[6])
+                      .fill()
+                      .map((_, index) => {
+                        contTRX++;
+                        return (
+                          <Comand
+                            comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                            task=""
+                            color="green.200"
+                            key={index}
+                          />
+                        );
+                      })
+                  )}
                 </BoxComands>
               </Flex>
             </WrapItem>
