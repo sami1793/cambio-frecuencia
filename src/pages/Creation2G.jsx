@@ -1,12 +1,15 @@
 import { Box, Center, Flex, Input, Wrap, WrapItem } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import { Title } from "../components/titles/Title";
 import { BoxComands } from "../components/box/BoxComands";
 import { Comand } from "../components/comand/Comand";
+import { CounterContext } from "../context/CounterContex";
+import { toEXA } from "../utils/conversor";
 
 export const Creation2G = () => {
   const [data2G, setData2G] = useState("");
+  const { counter, setCounter, resetCounter } = useContext(CounterContext);
   let contTRX = 0;
   const pais = {
     ARG: {
@@ -52,7 +55,7 @@ export const Creation2G = () => {
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
-                <BoxComands title="Creación de BTS">
+                <BoxComands title="CREACION DE BTS">
                   {data2G.map((value, indexMap) => (
                     <Comand
                       comand={`ZEQC:BCF=${value[13]},BTS=${value[14]},NAME=${
@@ -72,7 +75,7 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
-                <BoxComands title="Modificación de Hopping">
+                <BoxComands title="MODIFICACION DE HOPPING">
                   {data2G.map((value, indexMap) => (
                     <Comand
                       comand={`ZEQE:BTS=${value[14]},AHOP=Y;`}
@@ -82,7 +85,7 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
-                <BoxComands title="Habilitar en las BTS diversidades">
+                <BoxComands title="HABILITO EN LAS BTS DIVERSIDADES TRX PRIORITY IN TCH ALLOCATION, DTX MODE, MS TXPWR MIN, MAX NUMBER OF RETRANSMISSION, NUMBER OF SLOTS SPREAD TRANS">
                   {data2G.map((value, indexMap) => (
                     <Comand
                       comand={`ZEQM:BTS=${value[14]}:CB=Y,RDIV=${
@@ -100,7 +103,7 @@ export const Creation2G = () => {
                     //VER PMIN que en 850 es 13 y aca 14!!!!!!!!!
                   ))}
                 </BoxComands>
-                <BoxComands title="Modificación de MEAS">
+                <BoxComands title="MODIFICACION DE MEAS">
                   {data2G.map((value, indexMap) => (
                     <Comand
                       comand={`ZEQB:BTS=${value[14]}:MEAS=N;`}
@@ -110,7 +113,7 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
-                <BoxComands title="Habilito en las BTS number of multiframes, timer for periodic MS LOCATION UPDATING">
+                <BoxComands title="HABILITO EN LAS BTS NUMBER OF MULTIFRAMES, TIMER FOR PERIODIC MS LOCATION UPDATING">
                   {data2G.map((value, indexMap) => (
                     <Comand
                       comand={`ZEQJ:BTS=${value[14]}:MFR=4,PER=6.0;`}
@@ -143,17 +146,7 @@ export const Creation2G = () => {
                 <BoxComands title="HABILITO EN LAS BTS MAX QUEUE LENGTH, TIME LIMIT CALL, TIME LIMIT HANDOVER, QUEUEING PRIORITY CALL, QUEUEING PRIORITY URGENT HANDOVER, QUEUEING PRIORITY NON-URGENT HANDOVER">
                   {data2G.map((value, indexMap) => (
                     <Comand
-                      comand={`ZEQG:BTS=${value[14]}:HYS=6,RXP=${value[150]},RLT=${value[147]},GRXP=${value[151]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS MAX QUEUE LENGTH, TIME LIMIT CALL, TIME LIMIT HANDOVER, QUEUEING PRIORITY CALL, QUEUEING PRIORITY URGENT HANDOVER, QUEUEING PRIORITY NON-URGENT HANDOVER">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQG:BTS=${value[14]}:HYS=6,RXP=${value[150]},RLT=${value[147]},GRXP=${value[151]};`}
+                      comand={`ZEQH:BTS=${value[14]}:MQL=25,TLC=7,TLH=2,QPC=9,QPH=8,QPN=10;`}
                       task=""
                       color="green.200"
                       key={indexMap}
@@ -408,6 +401,60 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
+                <BoxComands title="CREACIÓN DE TRX">
+                  {!!(contTRX = 0)}
+                  {data2G.map((value, indexMap) =>
+                    Array(value[6])
+                      .fill()
+                      .map((_, index) => {
+                        contTRX++;
+                        return (
+                          <Comand
+                            comand={`ZERC:BTS=${
+                              value[14]
+                            },TRX=${contTRX}:PREF=${
+                              index == 0 ? "P" : "N"
+                            },GTRX=${value[29 + index * 2] ? "Y" : "N"},:FREQ=${
+                              value[28 + index * 2]
+                            },TSC=${value[27]},:DNAME=${
+                              "T" + toEXA(Number(value[13])) + contTRX
+                            }:CH0=${index == 0 ? "MBCCH" : "TCHD"},CH1=${
+                              index == 0 ? "SDCCB" : "TCHD"
+                            };`}
+                            task=""
+                            color="green.200"
+                            key={index}
+                          />
+                        );
+                      })
+                  )}
+                </BoxComands>
+                <BoxComands title="MODIFICACION DE TCH DE TRX (DUAL RATE - SDCCH - TCHD) POSIBILITANDO TAMBIEN CAMBIO DE FRECUENCIA">
+                  {!!(contTRX = 0)}
+                  {data2G.map((value, indexMap) =>
+                    Array(value[6])
+                      .fill()
+                      .map((_, index) => {
+                        contTRX++;
+                        return (
+                          <Comand
+                            comand={`ZERM:BTS=${
+                              value[14]
+                            },TRX=${contTRX}:HRS=Y,FREQ=${
+                              value[28 + index * 2]
+                            },${
+                              index == 0
+                                ? "CH0=MBCCH,CH1=SDCCB,CH2=CCCHE,CH3=SDCCH,CH4=TCHD,CH5=TCHD,CH6=TCHD,CH7=TCHD"
+                                : "CH0=TCHD,CH1=TCHD,CH2=TCHD,CH3=TCHD,CH4=TCHD,CH5=TCHD,CH6=TCHD,CH7=TCHD"
+                            };`}
+                            task=""
+                            color="green.200"
+                            key={index}
+                          />
+                        );
+                      })
+                  )}
+                </BoxComands>
                 <BoxComands title="HABILITO EN LAS BTS GPRS">
                   {data2G.map((value, indexMap) => (
                     <Comand
@@ -419,6 +466,7 @@ export const Creation2G = () => {
                   ))}
                 </BoxComands>
                 <BoxComands title="DESBLOQUEAR TRX">
+                  {!!(contTRX = 0)}
                   {data2G.map((value, indexMap) =>
                     Array(value[6])
                       .fill()
@@ -434,6 +482,16 @@ export const Creation2G = () => {
                         );
                       })
                   )}
+                </BoxComands>
+                <BoxComands title="DESBLOQUEAR BTS">
+                  {data2G.map((value, indexMap) => (
+                    <Comand
+                      comand={`ZEQS:BTS=${value[14]}:U;`}
+                      task=""
+                      color="green.200"
+                      key={indexMap}
+                    />
+                  ))}
                 </BoxComands>
               </Flex>
             </WrapItem>
