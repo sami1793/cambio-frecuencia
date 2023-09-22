@@ -67,11 +67,11 @@ export const NavApp = () => {
                   Borrado TRX
                 </Link>
               </MenuItem>
-              <MenuItem color="teal.600">
+              {/* <MenuItem color="teal.600">
                 <Link as={NavLink} to="/Creation2G">
                   Crecimiento 2G
                 </Link>
-              </MenuItem>
+              </MenuItem> */}
             </MenuList>
           </Menu>
           <Menu>

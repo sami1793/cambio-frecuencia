@@ -16,7 +16,7 @@ function App() {
         <Route path="/MSS3G" element={<MSS3G />} />
         <Route path="/RNCConector" element={<RNCConector />} />
         <Route path="/TRXDelete" element={<TRXDelete />} />
-        {/* <Route path="/Creation2G" element={<Creation2G />} /> */}
+        <Route path="/Creation2G" element={<Creation2G />} />
       </Route>
     </Routes>
   );
