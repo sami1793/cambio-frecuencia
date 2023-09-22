@@ -1,4 +1,16 @@
-import { Box, Center, Flex, Input, Wrap, WrapItem } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Flex,
+  Input,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import { Title } from "../components/titles/Title";
@@ -56,34 +68,87 @@ export const Creation2G = () => {
             <WrapItem>
               <Flex direction="column" gap={3}>
                 <BoxComands title="CREACION DE BTS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQC:BCF=${value[13]},BTS=${value[14]},NAME=${
-                        value[1]
-                      },SEG=${value[14]},SEGNAME=${value[1]}:CI=${
-                        value[10]
-                      },BAND=${value[7]}:NCC=${value[26]},BCC=${
-                        value[27]
-                      }:MCC=${pais[value[174]]["MCC"]},MNC=${
-                        pais[value[174]]["MNC"]
-                      },LAC=${value[24]}:HOP=RF,HSN1=${value[69]},HSN2=${
-                        value[70]
-                      }:GENA=Y,RAC=${value[25]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                      <Tab>Borrar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQC:BCF=${value[13]},BTS=${
+                              value[14]
+                            },NAME=${value[1]},SEG=${value[14]},SEGNAME=${
+                              value[1]
+                            }:CI=${value[10]},BAND=${value[7]}:NCC=${
+                              value[26]
+                            },BCC=${value[27]}:MCC=${
+                              pais[value[174]]["MCC"]
+                            },MNC=${pais[value[174]]["MNC"]},LAC=${
+                              value[24]
+                            }:HOP=RF,HSN1=${value[69]},HSN2=${
+                              value[70]
+                            }:GENA=Y,RAC=${value[25]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEEI:BTS=${value[14]};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQD:BTS=${value[14]}:Y;`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
                 <BoxComands title="MODIFICACION DE HOPPING">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQE:BTS=${value[14]},AHOP=Y;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQE:BTS=${value[14]},AHOP=Y;`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQO:BTS=${value[14]}:HOP:;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
                 <BoxComands title="HABILITO EN LAS BTS DIVERSIDADES TRX PRIORITY IN TCH ALLOCATION, DTX MODE, MS TXPWR MIN, MAX NUMBER OF RETRANSMISSION, NUMBER OF SLOTS SPREAD TRANS">
                   {data2G.map((value, indexMap) => (
@@ -156,33 +221,44 @@ export const Creation2G = () => {
 
                 {/* ****** FREC DE MAL************ */}
                 <BoxComands title="MAL: CREAR MAL Y AGREGAR FRECUENCIA">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEBE:MAL,${value[73]},${value[7]}:FREQ=${
-                        value[125]
-                      }${
-                        value[126]
-                          ? `&${value[126]}${
-                              value[127]
-                                ? `&${value[127]}${
-                                    value[128]
-                                      ? `&${value[128]}${
-                                          value[129]
-                                            ? `&${value[129]}${
-                                                value[130]
-                                                  ? `&${value[130]}${
-                                                      value[131]
-                                                        ? `&${value[131]}${
-                                                            value[132]
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEBE:MAL,${value[73]},${value[7]}:FREQ=${
+                              value[125]
+                            }${
+                              value[126]
+                                ? `&${value[126]}${
+                                    value[127]
+                                      ? `&${value[127]}${
+                                          value[128]
+                                            ? `&${value[128]}${
+                                                value[129]
+                                                  ? `&${value[129]}${
+                                                      value[130]
+                                                        ? `&${value[130]}${
+                                                            value[131]
                                                               ? `&${
-                                                                  value[132]
+                                                                  value[131]
                                                                 }${
-                                                                  value[133]
+                                                                  value[132]
                                                                     ? `&${
-                                                                        value[133]
+                                                                        value[132]
                                                                       }${
-                                                                        value[134]
-                                                                          ? `&${value[134]}`
+                                                                        value[133]
+                                                                          ? `&${
+                                                                              value[133]
+                                                                            }${
+                                                                              value[134]
+                                                                                ? `&${value[134]}`
+                                                                                : ""
+                                                                            }`
                                                                           : ""
                                                                       }`
                                                                     : ""
@@ -198,24 +274,111 @@ export const Creation2G = () => {
                                       : ""
                                   }`
                                 : ""
-                            }`
-                          : ""
-                      };`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
+                            };`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEBI:MAL,${value[73]};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
                 <BoxComands title="ASOCIAR MAL A BTS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQA:BTS=${value[14]}:MAL=${value[73]},MO=${value[74]},MS=${value[76]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                      <Tab>Agregar o Eliminar frecuencias</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQA:BTS=${value[14]}:MAL=${value[73]},MO=${value[74]},MS=${value[76]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQO:BTS=${value[14]}:HOP;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEBT:MAL,${value[73]},A:FREQ=${
+                              value[125]
+                            }${
+                              value[126]
+                                ? `&${value[126]}${
+                                    value[127]
+                                      ? `&${value[127]}${
+                                          value[128]
+                                            ? `&${value[128]}${
+                                                value[129]
+                                                  ? `&${value[129]}${
+                                                      value[130]
+                                                        ? `&${value[130]}${
+                                                            value[131]
+                                                              ? `&${
+                                                                  value[131]
+                                                                }${
+                                                                  value[132]
+                                                                    ? `&${
+                                                                        value[132]
+                                                                      }${
+                                                                        value[133]
+                                                                          ? `&${
+                                                                              value[133]
+                                                                            }${
+                                                                              value[134]
+                                                                                ? `&${value[134]}`
+                                                                                : ""
+                                                                            }`
+                                                                          : ""
+                                                                      }`
+                                                                    : ""
+                                                                }`
+                                                              : ""
+                                                          }`
+                                                        : ""
+                                                    }`
+                                                  : ""
+                                              }`
+                                            : ""
+                                        }`
+                                      : ""
+                                  }`
+                                : ""
+                            };`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+
                   {/* ****REVISAR MO!! PORQUE LE PUSE 74 Y NO 75******* */}
                 </BoxComands>
                 <BoxComands title="HABILITO LOS CODEC AMR HR A NIVEL DE BTS">
@@ -401,33 +564,73 @@ export const Creation2G = () => {
                     />
                   ))}
                 </BoxComands>
+
+                {/* *******TRX********** */}
                 <BoxComands title="CREACIÓN DE TRX">
-                  {!!(contTRX = 0)}
-                  {data2G.map((value, indexMap) =>
-                    Array(value[6])
-                      .fill()
-                      .map((_, index) => {
-                        contTRX++;
-                        return (
-                          <Comand
-                            comand={`ZERC:BTS=${
-                              value[14]
-                            },TRX=${contTRX}:PREF=${
-                              index == 0 ? "P" : "N"
-                            },GTRX=${value[29 + index * 2] ? "Y" : "N"},:FREQ=${
-                              value[28 + index * 2]
-                            },TSC=${value[27]},:DNAME=${
-                              "T" + toEXA(Number(value[13])) + contTRX
-                            }:CH0=${index == 0 ? "MBCCH" : "TCHD"},CH1=${
-                              index == 0 ? "SDCCB" : "TCHD"
-                            };`}
-                            task=""
-                            color="green.200"
-                            key={index}
-                          />
-                        );
-                      })
-                  )}
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                      <Tab>Borrar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {!!(contTRX = 0)}
+                        {data2G.map((value, indexMap) =>
+                          Array(value[6])
+                            .fill()
+                            .map((_, index) => {
+                              contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZERC:BTS=${
+                                    value[14]
+                                  },TRX=${contTRX}:PREF=${
+                                    index == 0 ? "P" : "N"
+                                  },GTRX=${
+                                    value[29 + index * 2] ? "Y" : "N"
+                                  },:FREQ=${value[28 + index * 2]},TSC=${
+                                    value[27]
+                                  },:DNAME=${
+                                    "T" + toEXA(Number(value[13])) + contTRX
+                                  }:CH0=${index == 0 ? "MBCCH" : "TCHD"},CH1=${
+                                    index == 0 ? "SDCCB" : "TCHD"
+                                  };`}
+                                  task=""
+                                  color="green.200"
+                                  key={index}
+                                />
+                              );
+                            })
+                        )}
+                      </TabPanel>
+                      <TabPanel>
+                        <Comand
+                          comand={`ZEEI:BCF=${data2G[0][13]};`}
+                          task=""
+                          color="yellow.200"
+                        />
+                      </TabPanel>
+                      <TabPanel>
+                        {!!(contTRX = 0)}
+                        {data2G.map((value, indexMap) =>
+                          Array(value[6])
+                            .fill()
+                            .map((_, index) => {
+                              contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZERD:BTS=${value[14]},TRX=${contTRX};`}
+                                  task=""
+                                  color="red.200"
+                                  key={index}
+                                />
+                              );
+                            })
+                        )}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
                 <BoxComands title="MODIFICACION DE TCH DE TRX (DUAL RATE - SDCCH - TCHD) POSIBILITANDO TAMBIEN CAMBIO DE FRECUENCIA">
                   {!!(contTRX = 0)}
@@ -456,42 +659,110 @@ export const Creation2G = () => {
                   )}
                 </BoxComands>
                 <BoxComands title="HABILITO EN LAS BTS GPRS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQV:BTS=${value[14]}:GENA=Y, EGENA=Y;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="DESBLOQUEAR TRX">
-                  {!!(contTRX = 0)}
-                  {data2G.map((value, indexMap) =>
-                    Array(value[6])
-                      .fill()
-                      .map((_, index) => {
-                        contTRX++;
-                        return (
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Habilitar</Tab>
+                      <Tab>Deshabilitar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
                           <Comand
-                            comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                            comand={`ZEQV:BTS=${value[14]}:GENA=Y, EGENA=Y;`}
                             task=""
                             color="green.200"
-                            key={index}
+                            key={indexMap}
                           />
-                        );
-                      })
-                  )}
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQV:BTS=${value[14]}:GENA=N, EGENA=N;`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </BoxComands>
+                <BoxComands title="DESBLOQUEAR TRX">
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Desbloquear</Tab>
+                      <Tab>Bloquear</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {!!(contTRX = 0)}
+                        {data2G.map((value, indexMap) =>
+                          Array(value[6])
+                            .fill()
+                            .map((_, index) => {
+                              contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                                  task=""
+                                  color="green.200"
+                                  key={index}
+                                />
+                              );
+                            })
+                        )}
+                      </TabPanel>
+                      <TabPanel>
+                        {!!(contTRX = 0)}
+                        {data2G.map((value, indexMap) =>
+                          Array(value[6])
+                            .fill()
+                            .map((_, index) => {
+                              contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:L;`}
+                                  task=""
+                                  color="red.200"
+                                  key={index}
+                                />
+                              );
+                            })
+                        )}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
                 <BoxComands title="DESBLOQUEAR BTS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQS:BTS=${value[14]}:U;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Desbloquear</Tab>
+                      <Tab>Bloquear</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQS:BTS=${value[14]}:U;`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQS:BTS=${value[14]}:L;`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
                 </BoxComands>
               </Flex>
             </WrapItem>
