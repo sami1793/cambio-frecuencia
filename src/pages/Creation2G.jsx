@@ -1,7 +1,8 @@
 import {
-  Box,
   Center,
   Flex,
+  FormControl,
+  FormLabel,
   Input,
   Tab,
   TabList,
@@ -10,18 +11,35 @@ import {
   Tabs,
   Wrap,
   WrapItem,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  HStack,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import readXlsxFile from "read-excel-file";
 import { Title } from "../components/titles/Title";
 import { BoxComands } from "../components/box/BoxComands";
 import { Comand } from "../components/comand/Comand";
-import { CounterContext } from "../context/CounterContex";
 import { toEXA } from "../utils/conversor";
+import { readFile } from "xlsx";
 
 export const Creation2G = () => {
   const [data2G, setData2G] = useState("");
-  const { counter, setCounter, resetCounter } = useContext(CounterContext);
+  const [dataDF2GSheet1, setDataDF2GSheet1] = useState("");
+  const [dataDF2GSheet2, setDataDF2GSheet2] = useState("");
+  const [dataDF2GSheet3, setDataDF2GSheet3] = useState("");
+  const [dataDF2GSheet4, setDataDF2GSheet4] = useState("");
+  const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
   let contTRX = 0;
   const pais = {
     ARG: {
@@ -55,14 +73,154 @@ export const Creation2G = () => {
     }
   };
 
+  const handleFileDF2GUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      try {
+        const arrayDataBCSUIP = await readXlsxFile(file, { sheet: "BCSU_IP" });
+        const arrayDataBTSIP = await readXlsxFile(file, { sheet: "@BTS_IP" });
+        const arrayDataAbisBCF = await readXlsxFile(file, {
+          sheet: "Abis BCF",
+        });
+        const arrayDataPacketAbis = await readXlsxFile(file, {
+          sheet: "PacketAbis_LAPD_links",
+        });
+        const AbisSCTP = await readXlsxFile(file, { sheet: "Abis SCTP" });
+
+        setDataDF2GSheet1(arrayDataBCSUIP);
+        setDataDF2GSheet2(arrayDataBTSIP);
+        setDataDF2GSheet3(arrayDataAbisBCF);
+        setDataDF2GSheet4(arrayDataPacketAbis);
+        setDataDF2GSheet5(AbisSCTP);
+        console.log(arrayDataBCSUIP);
+      } catch (error) {
+        console.log("Error al leer el archivo Excel:", error);
+      }
+    }
+  };
+
   return (
     <Center mt={5}>
       <Flex direction="column" alignItems="center">
         <Title title={`Crecimiento 2G`}></Title>
-        <Box>
-          <Input type="file" onChange={handleFileUpload} maxW="max" />
-        </Box>
-        {/* *******COMANDOS************ */}
+        <Flex gap={3}>
+          <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
+            <FormLabel>Cargar RF Sheet</FormLabel>
+            <Input
+              type="file"
+              onChange={handleFileUpload}
+              maxW="max"
+              color="gray.800"
+              bgColor="gray.100"
+            />
+          </FormControl>
+
+          <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
+            <FormLabel>Cargar DF</FormLabel>
+            <Input
+              type="file"
+              onChange={handleFileDF2GUpload}
+              maxW="max"
+              bgColor="gray.100"
+              color="gray.800"
+            />
+          </FormControl>
+        </Flex>
+        {/* *******COMANDOS DF*********** */}
+        {dataDF2GSheet1 && (
+          <HStack gap={3}>
+            <TableContainer bgColor={"gray.200"}>
+              <Table
+                size="sm"
+                variant="striped"
+                colorScheme="teal"
+                borderRadius="3xl"
+                borderWidth={2}
+                borderColor={"teal.700"}
+              >
+                <Thead>
+                  <Tr>
+                    <Th>BCSU</Th>
+                    <Th isNumeric>N° BCSU</Th>
+                    <Th>OMUSIG</Th>
+                    <Th>TRXSIG</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {dataDF2GSheet1
+                    .filter((_, index) => index >= 8 && index < 16)
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>{value[1]}</Td>
+                        <Td>
+                          <NumberInput
+                            defaultValue={1}
+                            min={1}
+                            max={8}
+                            width="100px"
+                            bgColor="whiteAlpha.500"
+                          >
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                        </Td>
+                        <Td> {value[4]}</Td>
+                        <Td>{value[5]}</Td>
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <TableContainer bgColor={"gray.200"}>
+              <Table
+                size="sm"
+                variant="striped"
+                colorScheme="teal"
+                borderRadius="3xl"
+                borderWidth={2}
+                borderColor={"teal.700"}
+              >
+                <Thead>
+                  <Tr>
+                    <Th>ETME</Th>
+                    <Th isNumeric>ETME-ID</Th>
+                    <Th>IP</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {dataDF2GSheet1
+                    .filter((_, index) => index >= 20 && index < 24)
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>{value[1]}</Td>
+                        <Td>
+                          <NumberInput
+                            defaultValue={1}
+                            min={0}
+                            max={4}
+                            width="100px"
+                            bgColor="whiteAlpha.500"
+                          >
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                        </Td>
+                        <Td> {value[4]}</Td>
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </HStack>
+        )}
+        {/* // dataDF2GSheet1.map((value, indexMap) => <Text>{value[4]}</Text>) */}
+        {/* *******COMANDOS RFSHEET************ */}
         {data2G && (
           <Wrap>
             <WrapItem>
