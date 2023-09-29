@@ -24,6 +24,8 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   HStack,
+  VStack,
+  Heading,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -31,30 +33,52 @@ import { Title } from "../components/titles/Title";
 import { BoxComands } from "../components/box/BoxComands";
 import { Comand } from "../components/comand/Comand";
 import { toEXA } from "../utils/conversor";
-import { readFile } from "xlsx";
 
 export const Creation2G = () => {
+  let contTRX = 0;
+  const MCC = {
+    AR: "722",
+    PY: "744",
+    UY: "748",
+  };
+  const MNC = {
+    AR: "310",
+    PY: "02",
+    UY: "10",
+  };
+  const getMCC = (pais) => {
+    return MCC[`${pais}`];
+  };
+  const getMNC = (pais) => {
+    return MNC[`${pais}`];
+  };
+
   const [data2G, setData2G] = useState("");
   const [dataDF2GSheet1, setDataDF2GSheet1] = useState("");
   const [dataDF2GSheet2, setDataDF2GSheet2] = useState("");
   const [dataDF2GSheet3, setDataDF2GSheet3] = useState("");
   const [dataDF2GSheet4, setDataDF2GSheet4] = useState("");
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
-  let contTRX = 0;
-  const pais = {
-    ARG: {
-      MCC: "722",
-      MNC: "310",
-    },
-    PY: {
-      MCC: "744",
-      MNC: "02",
-    },
-    UY: {
-      MCC: "748",
-      MNC: "10",
-    },
+
+  const [IPOMUTRX, setIPOMUTRX] = useState([]);
+
+  const [inputOMUTRXID, setInputOMUTRXID] = useState({
+    bcsu1: "1",
+    bcsu2: "1",
+    bcsu3: "1",
+    bcsu4: "1",
+    bcsu5: "1",
+    bcsu6: "1",
+    bcsu7: "1",
+  });
+
+  const setInputsBSCU = (numberInput, bscu) => {
+    setInputOMUTRXID({
+      ...inputOMUTRXID,
+      [bscu]: numberInput,
+    });
   };
+
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
 
@@ -64,13 +88,22 @@ export const Creation2G = () => {
         // console.log(arrayData.filter((value, index) => index >= 0));
         setData2G(
           arrayData.filter(
-            (value, index) => index <= 28 && index >= 2 && value[9]
+            (value, index) => index <= 26 && index >= 2 && value[0]
           )
         );
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
     }
+  };
+
+  const getIPOMUTRX = (sheet) => {
+    console.log(
+      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
+    );
+    setIPOMUTRX(
+      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
+    );
   };
 
   const handleFileDF2GUpload = async (event) => {
@@ -93,6 +126,7 @@ export const Creation2G = () => {
         setDataDF2GSheet4(arrayDataPacketAbis);
         setDataDF2GSheet5(AbisSCTP);
         console.log(arrayDataBCSUIP);
+        getIPOMUTRX(arrayDataBCSUIP);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -103,6 +137,19 @@ export const Creation2G = () => {
     <Center mt={5}>
       <Flex direction="column" alignItems="center">
         <Title title={`Crecimiento 2G`}></Title>
+        {dataDF2GSheet1 && data2G && (
+          <Heading
+            mb={3}
+            as="h3"
+            size="lg"
+            color="teal.600"
+            bgColor={"whiteAlpha.900"}
+            p={2}
+            borderRadius="lg"
+          >
+            {data2G[0][0]}
+          </Heading>
+        )}
         <Flex gap={3}>
           <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
             <FormLabel>Cargar RF Sheet</FormLabel>
@@ -127,38 +174,41 @@ export const Creation2G = () => {
           </FormControl>
         </Flex>
         {/* *******COMANDOS DF*********** */}
-        {dataDF2GSheet1 && (
-          <HStack gap={3}>
-            <TableContainer bgColor={"gray.200"}>
-              <Table
-                size="sm"
-                variant="striped"
-                colorScheme="teal"
-                borderRadius="3xl"
-                borderWidth={2}
-                borderColor={"teal.700"}
-              >
-                <Thead>
-                  <Tr>
-                    <Th>BCSU</Th>
-                    <Th isNumeric>N° BCSU</Th>
-                    <Th>OMUSIG</Th>
-                    <Th>TRXSIG</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataDF2GSheet1
-                    .filter((_, index) => index >= 8 && index < 16)
-                    .map((value, indexMap) => (
+        {dataDF2GSheet1 && data2G && (
+          <VStack>
+            <HStack gap={3} m={10}>
+              <TableContainer bgColor={"gray.200"}>
+                <Table
+                  size="sm"
+                  variant="striped"
+                  colorScheme="teal"
+                  borderRadius="3xl"
+                  borderWidth={2}
+                  borderColor={"teal.700"}
+                >
+                  <Thead>
+                    <Tr>
+                      <Th>BCSU</Th>
+                      <Th isNumeric>N° BCSU</Th>
+                      <Th>OMUSIG</Th>
+                      <Th>TRXSIG</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {IPOMUTRX.map((value, indexMap) => (
                       <Tr key={indexMap}>
                         <Td>{value[1]}</Td>
                         <Td>
                           <NumberInput
-                            defaultValue={1}
-                            min={1}
+                            defaultValue={indexMap}
+                            name={`bcsu${indexMap + 1}`}
+                            min={0}
                             max={8}
                             width="100px"
                             bgColor="whiteAlpha.500"
+                            onChange={(numberInput) =>
+                              setInputsBSCU(numberInput, `bscu${indexMap + 1}`)
+                            }
                           >
                             <NumberInputField />
                             <NumberInputStepper>
@@ -171,57 +221,86 @@ export const Creation2G = () => {
                         <Td>{value[5]}</Td>
                       </Tr>
                     ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-            <TableContainer bgColor={"gray.200"}>
-              <Table
-                size="sm"
-                variant="striped"
-                colorScheme="teal"
-                borderRadius="3xl"
-                borderWidth={2}
-                borderColor={"teal.700"}
-              >
-                <Thead>
-                  <Tr>
-                    <Th>ETME</Th>
-                    <Th isNumeric>ETME-ID</Th>
-                    <Th>IP</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataDF2GSheet1
-                    .filter((_, index) => index >= 20 && index < 24)
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>{value[1]}</Td>
-                        <Td>
-                          <NumberInput
-                            defaultValue={1}
-                            min={0}
-                            max={4}
-                            width="100px"
-                            bgColor="whiteAlpha.500"
-                          >
-                            <NumberInputField />
-                            <NumberInputStepper>
-                              <NumberIncrementStepper />
-                              <NumberDecrementStepper />
-                            </NumberInputStepper>
-                          </NumberInput>
-                        </Td>
-                        <Td> {value[4]}</Td>
-                      </Tr>
-                    ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          </HStack>
+                  </Tbody>
+                </Table>
+                <Comand
+                  comand={`${dataDF2GSheet1[10][8]}`}
+                  task="VERIFICAR IP DE OMUSIG"
+                  color="yellow.200"
+                />
+                <Comand
+                  comand={`${dataDF2GSheet1[11][8]}`}
+                  task="VERIFICAR IP DE TRXSIG"
+                  color="yellow.200"
+                />
+              </TableContainer>
+              <TableContainer bgColor={"gray.200"}>
+                <Table
+                  size="sm"
+                  variant="striped"
+                  colorScheme="teal"
+                  borderRadius="3xl"
+                  borderWidth={2}
+                  borderColor={"teal.700"}
+                >
+                  <Thead>
+                    <Tr>
+                      <Th>ETME</Th>
+                      <Th isNumeric>ETME-ID</Th>
+                      <Th>IP</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {dataDF2GSheet1
+                      .filter((_, index) => index >= 20 && index < 24)
+                      .map((value, indexMap) => (
+                        <Tr key={indexMap}>
+                          <Td>{value[1]}</Td>
+                          <Td>
+                            <NumberInput
+                              defaultValue={1}
+                              min={0}
+                              max={4}
+                              width="100px"
+                              bgColor="whiteAlpha.500"
+                            >
+                              <NumberInputField />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          </Td>
+                          <Td> {value[4]}</Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+                <Comand
+                  comand={`${dataDF2GSheet1[28][1]}`}
+                  task="VERIFICAR IP DE ETME"
+                  color="yellow.200"
+                />
+              </TableContainer>
+            </HStack>
+
+            <Tabs variant="line" colorScheme="whiteAlpha">
+              <TabList bgColor="whiteAlpha.300" color="white">
+                <Tab>Crecimiento</Tab>
+                <Tab>Verificar</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <BoxComands title="CREACION DE SEÑALIZACIÓN DE BCF"></BoxComands>
+                </TabPanel>
+                <TabPanel></TabPanel>
+              </TabPanels>
+            </Tabs>
+          </VStack>
         )}
         {/* // dataDF2GSheet1.map((value, indexMap) => <Text>{value[4]}</Text>) */}
         {/* *******COMANDOS RFSHEET************ */}
-        {data2G && (
+        {data2G && dataDF2GSheet1 && (
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
@@ -242,9 +321,9 @@ export const Creation2G = () => {
                               value[1]
                             }:CI=${value[10]},BAND=${value[7]}:NCC=${
                               value[26]
-                            },BCC=${value[27]}:MCC=${
-                              pais[value[174]]["MCC"]
-                            },MNC=${pais[value[174]]["MNC"]},LAC=${
+                            },BCC=${value[27]}:MCC=${getMCC(
+                              value[174]
+                            )},MNC=${getMNC(value[174])},LAC=${
                               value[24]
                             }:HOP=RF,HSN1=${value[69]},HSN2=${
                               value[70]
