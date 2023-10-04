@@ -33,6 +33,7 @@ import { Title } from "../components/titles/Title";
 import { BoxComands } from "../components/box/BoxComands";
 import { Comand } from "../components/comand/Comand";
 import { toEXA } from "../utils/conversor";
+import { BSCConection } from "../components/2G/BSCConection";
 
 export const Creation2G = () => {
   let contTRX = 0;
@@ -135,7 +136,7 @@ export const Creation2G = () => {
 
   return (
     <Center mt={5}>
-      <Flex direction="column" alignItems="center">
+      <Flex direction="column" alignItems="center" gap={5}>
         <Title title={`Crecimiento 2G`}></Title>
         {dataDF2GSheet1 && data2G && (
           <Heading
@@ -150,6 +151,7 @@ export const Creation2G = () => {
             {data2G[0][0]}
           </Heading>
         )}
+
         <Flex gap={3}>
           <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
             <FormLabel>Cargar RF Sheet</FormLabel>
@@ -173,6 +175,7 @@ export const Creation2G = () => {
             />
           </FormControl>
         </Flex>
+        <BSCConection />
         {/* *******COMANDOS DF*********** */}
         {dataDF2GSheet1 && data2G && (
           <VStack>
