@@ -98,6 +98,7 @@ export const Creation2G = () => {
     }
   };
 
+  //Obtengo todas las filas con BSCU
   const getIPOMUTRX = (sheet) => {
     console.log(
       sheet.filter((value, index) => index > 8 && index < 20 && value[1])
@@ -124,10 +125,20 @@ export const Creation2G = () => {
         setDataDF2GSheet1(arrayDataBCSUIP);
         setDataDF2GSheet2(arrayDataBTSIP);
         setDataDF2GSheet3(arrayDataAbisBCF);
-        setDataDF2GSheet4(arrayDataPacketAbis);
+        //Filtro solo las filas de esa BCF
+        setDataDF2GSheet4(
+          arrayDataPacketAbis?.filter(
+            (value, index) => value[1] == data2G[0][13]
+          )
+        );
         setDataDF2GSheet5(AbisSCTP);
         console.log(arrayDataBCSUIP);
         getIPOMUTRX(arrayDataBCSUIP);
+        console.log(
+          arrayDataPacketAbis?.filter(
+            (value, index) => value[1] == data2G[0][13]
+          )
+        );
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -179,7 +190,7 @@ export const Creation2G = () => {
         {/* *******COMANDOS DF*********** */}
         {dataDF2GSheet1 && data2G && (
           <VStack>
-            <HStack gap={3} m={10}>
+            <HStack gap={3} m={5}>
               <TableContainer bgColor={"gray.200"}>
                 <Table
                   size="sm"
@@ -288,13 +299,26 @@ export const Creation2G = () => {
             </HStack>
 
             <Tabs variant="line" colorScheme="whiteAlpha">
-              <TabList bgColor="whiteAlpha.300" color="white">
-                <Tab>Crecimiento</Tab>
-                <Tab>Verificar</Tab>
+              <TabList bgColor="teal.400" color="white">
+                <Tab>FlexiBSC</Tab>
+                <Tab>mcBSC</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <BoxComands title="CREACION DE SEÑALIZACIÓN DE BCF"></BoxComands>
+                  <BoxComands title="CREAR DCHANNEL">
+                    {dataDF2GSheet4
+                      .filter((_, index) => index > 0)
+                      .map((value, index) => (
+                        <Comand
+                          //value 6 BCSU
+                          //value 7 cambiar porque es segun lo que quiera
+                          comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                          task=""
+                          color="green.200"
+                          key={index}
+                        />
+                      ))}
+                  </BoxComands>
                 </TabPanel>
                 <TabPanel></TabPanel>
               </TabPanels>
