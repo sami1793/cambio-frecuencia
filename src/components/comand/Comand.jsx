@@ -1,5 +1,4 @@
 import {
-  Code,
   Flex,
   HStack,
   IconButton,
