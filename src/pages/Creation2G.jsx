@@ -35,6 +35,8 @@ import { Comand } from "../components/comand/Comand";
 import { toEXA } from "../utils/conversor";
 import { BSCConection } from "../components/2G/BSCConection";
 
+import { invertArray } from "../utils/array";
+
 export const Creation2G = () => {
   let contTRX = 0;
   const MCC = {
@@ -120,25 +122,45 @@ export const Creation2G = () => {
         const arrayDataPacketAbis = await readXlsxFile(file, {
           sheet: "PacketAbis_LAPD_links",
         });
-        const AbisSCTP = await readXlsxFile(file, { sheet: "Abis SCTP" });
+        const arrayAbisSCTP = await readXlsxFile(file, { sheet: "Abis SCTP" });
 
         setDataDF2GSheet1(arrayDataBCSUIP);
         setDataDF2GSheet2(arrayDataBTSIP);
         setDataDF2GSheet3(arrayDataAbisBCF);
-        //Filtro solo las filas de esa BCF
-        setDataDF2GSheet4(
-          arrayDataPacketAbis?.filter(
-            (value, index) => value[1] == data2G[0][13]
-          )
+
+        //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
+        let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
+          (value, _) => value[1] == data2G[0][13]
         );
-        setDataDF2GSheet5(AbisSCTP);
+        setDataDF2GSheet4(arrayDataPacketAbisFiltered);
+
+        //Filtro y guardo solo las filas de esa BCF en Abis SCTP
+        let arrayAbisSCTPFiltered = arrayAbisSCTP?.splice(
+          invertArray(arrayAbisSCTP)[1].findIndex(
+            (e) =>
+              e ==
+              (arrayDataPacketAbis?.filter(
+                (valueFilter, _) => valueFilter[1] == data2G[0][13]
+              ))[0][4]
+          ),
+
+          invertArray(arrayAbisSCTP)[4].findIndex(
+            (e) =>
+              e ==
+              (arrayDataPacketAbis?.filter(
+                (valueFilter, _) => valueFilter[1] == data2G[0][13]
+              ))[0][4]
+          ) +
+            arrayDataPacketAbis?.filter((value, _) => value[1] == data2G[0][13])
+              .length +
+            1
+        );
+        setDataDF2GSheet5(arrayAbisSCTPFiltered);
+
         console.log(arrayDataBCSUIP);
         getIPOMUTRX(arrayDataBCSUIP);
-        console.log(
-          arrayDataPacketAbis?.filter(
-            (value, index) => value[1] == data2G[0][13]
-          )
-        );
+
+        console.log(arrayAbisSCTPFiltered);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -189,7 +211,7 @@ export const Creation2G = () => {
         <BSCConection />
         {/* *******COMANDOS DF*********** */}
         {dataDF2GSheet1 && data2G && (
-          <VStack>
+          <Flex direction="column" gap={3}>
             <HStack gap={3} m={5}>
               <TableContainer bgColor={"gray.200"}>
                 <Table
@@ -298,33 +320,59 @@ export const Creation2G = () => {
               </TableContainer>
             </HStack>
 
-            <Tabs variant="line" colorScheme="whiteAlpha">
-              <TabList bgColor="teal.400" color="white">
-                <Tab>FlexiBSC</Tab>
-                <Tab>mcBSC</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <BoxComands title="CREAR DCHANNEL">
-                    {dataDF2GSheet4
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          //value 6 BCSU
-                          //value 7 cambiar porque es segun lo que quiera
-                          comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
-                          task=""
-                          color="green.200"
-                          key={index}
-                        />
-                      ))}
-                  </BoxComands>
-                </TabPanel>
-                <TabPanel></TabPanel>
-              </TabPanels>
-            </Tabs>
-          </VStack>
+            <BoxComands title="CREAR ASOCIACIONES SCTP">
+              {dataDF2GSheet5
+                .filter((_, index) => index > 0)
+                .map((value, index) => (
+                  <Comand
+                    comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                    task=""
+                    color="green.200"
+                    key={index}
+                  />
+                ))}
+            </BoxComands>
+            <BoxComands title="ASIGNAR DIRECCION IP A ASOCIACIONES">
+              {dataDF2GSheet5
+                .filter((_, index) => index > 0)
+                .map((value, index) => (
+                  <Comand
+                    comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                    task=""
+                    color="green.200"
+                    key={index}
+                  />
+                ))}
+            </BoxComands>
+            <BoxComands title="CREAR DCHANNEL">
+              {dataDF2GSheet4
+                .filter((_, index) => index > 0)
+                .map((value, index) => (
+                  <Comand
+                    //value 6 BCSU
+                    //value 7 cambiar porque es segun lo que quiera
+                    comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                    task=""
+                    color="green.200"
+                    key={index}
+                  />
+                ))}
+            </BoxComands>
+            <BoxComands title="ACTIVAR ASOCIACIONES">
+              {dataDF2GSheet4
+                .filter((_, index) => index > 0)
+                .map((value, index) => (
+                  <Comand
+                    comand={`ZOYS:IUA:${value[4]}:ACT;`}
+                    task=""
+                    color="green.200"
+                    key={index}
+                  />
+                ))}
+            </BoxComands>
+          </Flex>
         )}
+
         {/* // dataDF2GSheet1.map((value, indexMap) => <Text>{value[4]}</Text>) */}
         {/* *******COMANDOS RFSHEET************ */}
         {data2G && dataDF2GSheet1 && (
