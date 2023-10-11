@@ -24,8 +24,9 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   HStack,
-  VStack,
   Heading,
+  Tooltip,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -126,7 +127,12 @@ export const Creation2G = () => {
 
         setDataDF2GSheet1(arrayDataBCSUIP);
         setDataDF2GSheet2(arrayDataBTSIP);
-        setDataDF2GSheet3(arrayDataAbisBCF);
+
+        //Filtro y guardo sola la fila con esa BCF
+        let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
+          (value, _) => value[1] == data2G[0][13]
+        );
+        setDataDF2GSheet3(arrayDataAbisBCFFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
         let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
@@ -161,6 +167,7 @@ export const Creation2G = () => {
         getIPOMUTRX(arrayDataBCSUIP);
 
         console.log(arrayAbisSCTPFiltered);
+        console.log(arrayDataAbisBCFFiltered);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -320,168 +327,391 @@ export const Creation2G = () => {
               </TableContainer>
             </HStack>
 
-            <BoxComands title="CREAR ASOCIACIONES SCTP">
+            {/* --------COMANDOS SEÑALIZACION BCF----------- */}
+            <BoxComands title="SEÑALIZACIÓN DE BCF(OMU)">
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                   <Tab>Borrar</Tab>
                 </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
-                          task=""
-                          color="green.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
-                          task=""
-                          color="yellow.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYY:${value[2]}:${value[1]};`}
-                          task=""
-                          color="red.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                </TabPanels>
+                <Tooltip label="CREAR ASOCIACION SCTP" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYY:${value[2]}:${value[1]};`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
               </Tabs>
-            </BoxComands>
-            <BoxComands title="ASIGNAR DIRECCION IP A ASOCIACIONES">
+
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                 </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
-                          task=""
-                          color="green.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
-                          task=""
-                          color="yellow.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                </TabPanels>
+                <Tooltip
+                  label="ASIGNAR DIRECCION IP A ASOCIACION"
+                  placement="top"
+                >
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
               </Tabs>
-            </BoxComands>
-            <BoxComands title="CREAR DCHANNEL">
+
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                   <Tab>Borrar</Tab>
                 </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    {dataDF2GSheet4
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          //value 6 BCSU
-                          //value 7 cambiar porque es segun lo que quiera
-                          comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
-                          task=""
-                          color="green.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet4
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZDWQ:NAME=${value[2]};`}
-                          task=""
-                          color="yellow.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet4
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZDWD:NAME=${value[2]};`}
-                          task=""
-                          color="red.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                </TabPanels>
+                <Tooltip label="CREAR DCHANNEL" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            //value 6 BCSU
+                            //value 7 cambiar porque es segun lo que quiera
+                            comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZDWQ:NAME=${value[2]};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZDWD:NAME=${value[2]};`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
               </Tabs>
             </BoxComands>
-            <BoxComands title="ACTIVAR ASOCIACIONES">
+            {/* --------COMANDOS SEÑALIZACION TRX----------- */}
+            <BoxComands title="SEÑALIZACIÓN DE TRX(TRXSIG)">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Crecimiento</Tab>
+                  <Tab>Verificar</Tab>
+                  <Tab>Borrar</Tab>
+                </TabList>
+                <Tooltip label="CREAR ASOCIACIONES SCTP" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYY:${value[2]}:${value[1]};`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
+              </Tabs>
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                 </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYS:${value[2]}:${value[1]}:ACT;`}
-                          task=""
-                          color="green.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                  <TabPanel>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, index) => (
-                        <Comand
-                          comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
-                          task=""
-                          color="yellow.200"
-                          key={index}
-                        />
-                      ))}
-                  </TabPanel>
-                </TabPanels>
+                <Tooltip
+                  label="ASIGNAR DIRECCION IP A ASOCIACIONES"
+                  placement="top"
+                >
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
+              </Tabs>
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Crecimiento</Tab>
+                  <Tab>Verificar</Tab>
+                  <Tab>Borrar</Tab>
+                </TabList>
+                <Tooltip label="CREAR DCHANNELS" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            //value 6 BCSU
+                            //value 7 cambiar porque es segun lo que quiera
+                            comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZDWQ:NAME=${value[2]};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet4
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZDWD:NAME=${value[2]};`}
+                            task=""
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
+              </Tabs>
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Crecimiento</Tab>
+                  <Tab>Verificar</Tab>
+                </TabList>
+                <Tooltip label="ACTIVAR ASOCIACIONES" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYS:${value[2]}:${value[1]}:ACT;`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Comand
+                            comand={`ZOYV:${value[2]}:NAME=${value[1]}:A;`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
+              </Tabs>
+            </BoxComands>
+
+            {/* ------------CREACIÓN DE BCF------------- */}
+            <BoxComands title="CREACIÓN DE BCF">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Crecimiento</Tab>
+                  <Tab>Verificar</Tab>
+                  <Tab>Borrar</Tab>
+                </TabList>
+                <Tooltip label="CREAR BCF" placement="top">
+                  <TabPanels>
+                    <TabPanel>
+                      {dataDF2GSheet3
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Flex key={indexMap} direction="column">
+                            <Comand
+                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
+                              task=""
+                              color="green.200"
+                            />
+                            <Comand
+                              comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
+                              task=""
+                              color="green.200"
+                            />
+                            <Comand
+                              comand={`ZEFM:${value[1]}::T200F=780;`}
+                              task=""
+                              color="green.200"
+                            />
+                            <Comand
+                              comand={`ZEFM:${value[1]}::T200F=780;`}
+                              task=""
+                              color="green.200"
+                            />
+                          </Flex>
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet3
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Flex key={indexMap} direction="column">
+                            <Comand
+                              comand={`ZEEI:BCF=${value[1]};`}
+                              task=""
+                              color="yellow.200"
+                            />
+                            <Comand
+                              comand={`ZEFO:${value[1]}:ALL;`}
+                              task=""
+                              color="yellow.200"
+                            />
+                          </Flex>
+                        ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {dataDF2GSheet3
+                        .filter((_, index) => index == 0)
+                        .map((value, indexMap) => (
+                          <Flex key={indexMap} direction="column">
+                            <Comand
+                              comand={`ZEFS:${value[1]}:L;`}
+                              task=""
+                              color="red.200"
+                            />
+                            <Comand
+                              comand={`ZEFD:${value[1]};`}
+                              task=""
+                              color="red.200"
+                            />
+                          </Flex>
+                        ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tooltip>
               </Tabs>
             </BoxComands>
           </Flex>
