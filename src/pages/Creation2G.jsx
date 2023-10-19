@@ -329,6 +329,7 @@ export const Creation2G = () => {
                             name={`bcsu${indexMap + 1}`}
                             min={0}
                             max={8}
+                            size="xs"
                             width="100px"
                             bgColor="whiteAlpha.500"
                             onChange={(numberInput) =>
@@ -386,6 +387,7 @@ export const Creation2G = () => {
                               defaultValue={1}
                               min={0}
                               max={4}
+                              size="sm"
                               width="100px"
                               bgColor="whiteAlpha.500"
                             >
@@ -438,6 +440,7 @@ export const Creation2G = () => {
                               defaultValue={1}
                               name={`bcsuAsignedTRX${indexMap + 1}`}
                               min={0}
+                              size="xs"
                               max={IPOMUTRX.length + 1}
                               width="100px"
                               bgColor="whiteAlpha.500"
@@ -678,7 +681,13 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            comand={`ZOYP:${value[2]}:${
+                              value[1]
+                            }:"${getTRXSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}",,${value[18]}:"${value[19]}",${value[22]},,,${
+                              value[18]
+                            };`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -713,9 +722,9 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            //value 6 BCSU
-                            //value 7 cambiar porque es segun lo que quiera
-                            comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                            comand={`ZDWP:${value[2]}:${value[6]},${
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            }:${value[8]},${value[9]}:${value[4]},${value[5]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -787,86 +796,97 @@ export const Creation2G = () => {
 
             {/* ------------CREACIÓN DE BCF------------- */}
             <BoxComands title="CREACIÓN DE BCF">
+              {/* MODOFICAR SEGUN SEA FLEXI O MC */}
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                   <Tab>Borrar</Tab>
                 </TabList>
-                <Tooltip label="CREAR BCF" placement="top">
-                  <TabPanels>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}::T200F=780;`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}::T200F=780;`}
-                              task=""
-                              color="green.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEEI:BCF=${value[1]};`}
-                              task=""
-                              color="yellow.200"
-                            />
-                            <Comand
-                              comand={`ZEFO:${value[1]}:ALL;`}
-                              task=""
-                              color="yellow.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEFS:${value[1]}:L;`}
-                              task=""
-                              color="red.200"
-                            />
-                            <Comand
-                              comand={`ZEFD:${value[1]};`}
-                              task=""
-                              color="red.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                  </TabPanels>
-                </Tooltip>
+
+                <TabPanels>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          {/* <Tooltip label="CREAR BCF FLEXI" placement="top"> */}
+                          <Comand
+                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
+                            task="**FLEXI**"
+                            color="green.100"
+                          />
+                          {/* </Tooltip> */}
+                          <Comand
+                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
+                            task="**MULTICONTROLER**"
+                            color="green.100"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}::T200F=780;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}::T200F=780;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          <Comand
+                            comand={`ZEEI:BCF=${value[1]};`}
+                            task=""
+                            color="yellow.200"
+                          />
+                          <Comand
+                            comand={`ZEFO:${value[1]}:ALL;`}
+                            task=""
+                            color="yellow.200"
+                          />
+                          <Comand
+                            comand={`ZEFO:${value[1]}:IDE;`}
+                            task=""
+                            color="yellow.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          <Comand
+                            comand={`ZEFS:${value[1]}:L;`}
+                            task=""
+                            color="red.200"
+                          />
+                          <Comand
+                            comand={`ZEFD:${value[1]};`}
+                            task=""
+                            color="red.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                </TabPanels>
               </Tabs>
             </BoxComands>
           </Flex>
         )}
 
-        {/* // dataDF2GSheet1.map((value, indexMap) => <Text>{value[4]}</Text>) */}
         {/* *******COMANDOS RFSHEET************ */}
         {data2G && dataDF2GSheet1 && (
           <Wrap>
