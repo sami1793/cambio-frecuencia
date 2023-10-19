@@ -26,7 +26,7 @@ import {
   HStack,
   Heading,
   Tooltip,
-  VStack,
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -67,19 +67,101 @@ export const Creation2G = () => {
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
   const [inputOMUTRXID, setInputOMUTRXID] = useState({
-    bcsu1: "1",
+    bcsu1: "0",
     bcsu2: "1",
-    bcsu3: "1",
-    bcsu4: "1",
-    bcsu5: "1",
-    bcsu6: "1",
-    bcsu7: "1",
+    bcsu3: "2",
+    bcsu4: "3",
+    bcsu5: "4",
+    bcsu6: "5",
+    bcsu7: "6",
   });
 
-  const setInputsBSCU = (numberInput, bscu) => {
+  const [bcsuAsignedTRX, setBcsuAsignedTRX] = useState({
+    bcsuAsignedOMU: "1",
+    bcsuAsignedTRX1: "1",
+    bcsuAsignedTRX2: "1",
+    bcsuAsignedTRX3: "1",
+    bcsuAsignedTRX4: "1",
+    bcsuAsignedTRX5: "1",
+    bcsuAsignedTRX6: "1",
+    bcsuAsignedTRX7: "1",
+    bcsuAsignedTRX8: "1",
+    bcsuAsignedTRX9: "1",
+    bcsuAsignedTRX10: "1",
+    bcsuAsignedTRX11: "1",
+    bcsuAsignedTRX12: "1",
+    bcsuAsignedTRX13: "1",
+    bcsuAsignedTRX14: "1",
+    bcsuAsignedTRX15: "1",
+    bcsuAsignedTRX16: "1",
+    bcsuAsignedTRX17: "1",
+    bcsuAsignedTRX18: "1",
+    bcsuAsignedTRX19: "1",
+    bcsuAsignedTRX20: "1",
+  });
+
+  const setInputsBSCU = (numberInput, bcsu) => {
     setInputOMUTRXID({
       ...inputOMUTRXID,
-      [bscu]: numberInput,
+      [bcsu]: numberInput,
+    });
+  };
+
+  const setInputsBSCUAsigned = (numberInput, bcsu) => {
+    setBcsuAsignedTRX({
+      ...bcsuAsignedTRX,
+      [bcsu]: numberInput,
+    });
+  };
+
+  //Obtengo la posicion de ese bcsu
+  const posicionBCSU = (bcsu) => {
+    let bcsuID = null;
+    //Obtengo la propiedad (bcsu1, bcsu2, bcsu3) que tiene el valor, null si ninguno
+    for (const prop in inputOMUTRXID) {
+      if (inputOMUTRXID[prop] == bcsu) {
+        bcsuID = prop;
+        break;
+      }
+    }
+    if (bcsuID !== null) {
+      let posicion = bcsuID[bcsuID.length - 1];
+      return Number(posicion) - 1;
+    } else return null;
+  };
+
+  const getTRXSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][5];
+    return "NO ENCONTRADO";
+  };
+
+  const getOMUSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][4];
+    return "NO ENCONTRADO";
+  };
+
+  const getBCSUAvailable = () => {
+    let arrayBCSUAvailable = [];
+    IPOMUTRX.map((value, index) => {
+      if (value[4] !== "SPARE")
+        arrayBCSUAvailable.push(inputOMUTRXID[`bcsu${index + 1}`]);
+    });
+    console.log(arrayBCSUAvailable);
+    return arrayBCSUAvailable;
+  };
+  getBCSUAvailable();
+
+  //Obtener un aleatorio entre lo BCSU disponibles
+  const randomBCSU = () =>
+    getBCSUAvailable()[Math.floor(Math.random() * getBCSUAvailable().length)];
+
+  const setBCSUAvailable = () => {
+    let arrayBCSUAvailable = getBCSUAvailable();
+    let arrayBCSUAvailableAsigned = [];
+    getIPOMUTRX.map((value, index) => {
+      arrayBCSUAvailableAsigned.push(arrayBCSUAvailable[index]);
     });
   };
 
@@ -250,7 +332,7 @@ export const Creation2G = () => {
                             width="100px"
                             bgColor="whiteAlpha.500"
                             onChange={(numberInput) =>
-                              setInputsBSCU(numberInput, `bscu${indexMap + 1}`)
+                              setInputsBSCU(numberInput, `bcsu${indexMap + 1}`)
                             }
                           >
                             <NumberInputField />
@@ -326,6 +408,69 @@ export const Creation2G = () => {
                 />
               </TableContainer>
             </HStack>
+
+            <Stack gap={3} m={5}>
+              <TableContainer bgColor={"gray.200"}>
+                <Table
+                  size="sm"
+                  variant="striped"
+                  colorScheme="teal"
+                  borderRadius="3xl"
+                  borderWidth={2}
+                  borderColor={"teal.700"}
+                >
+                  <Thead>
+                    <Tr>
+                      <Th>SCTP Association name</Th>
+                      <Th isNumeric>N° BCSU</Th>
+                      <Th>OMUSIG</Th>
+                      <Th>TRXSIG</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {dataDF2GSheet5
+                      .filter((_, index) => index > 0)
+                      .map((value, indexMap) => (
+                        <Tr key={indexMap}>
+                          <Td>{value[1]}</Td>
+                          <Td>
+                            <NumberInput
+                              defaultValue={1}
+                              name={`bcsuAsignedTRX${indexMap + 1}`}
+                              min={0}
+                              max={IPOMUTRX.length + 1}
+                              width="100px"
+                              bgColor="whiteAlpha.500"
+                              onChange={(numberInput) =>
+                                setInputsBSCUAsigned(
+                                  numberInput,
+                                  `bcsuAsignedTRX${indexMap + 1}`
+                                )
+                              }
+                            >
+                              <NumberInputField />
+                              <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                              </NumberInputStepper>
+                            </NumberInput>
+                          </Td>
+                          <Td>
+                            {getOMUSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}
+                          </Td>
+                          <Td>
+                            {getTRXSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}
+                          </Td>
+                        </Tr>
+                      ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Stack>
 
             {/* --------COMANDOS SEÑALIZACION BCF----------- */}
             <BoxComands title="SEÑALIZACIÓN DE BCF(OMU)">
@@ -480,7 +625,11 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
+                              value[4]
+                            }:${
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            }:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
