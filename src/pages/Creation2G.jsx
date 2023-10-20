@@ -57,14 +57,14 @@ export const Creation2G = () => {
     return MNC[`${pais}`];
   };
 
-  const [IpAddressOmuSig, setIpAddressOmuSig] = useState(0);
-
   const [data2G, setData2G] = useState("");
   const [dataDF2GSheet1, setDataDF2GSheet1] = useState("");
   const [dataDF2GSheet2, setDataDF2GSheet2] = useState("");
   const [dataDF2GSheet3, setDataDF2GSheet3] = useState("");
   const [dataDF2GSheet4, setDataDF2GSheet4] = useState("");
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
+
+  const [ipAddressOmuSig, setIpAddressOmuSig] = useState(0);
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -76,6 +76,7 @@ export const Creation2G = () => {
     bcsu5: "4",
     bcsu6: "5",
     bcsu7: "6",
+    bcsu8: "7",
   });
 
   const [bcsuAsignedTRX, setBcsuAsignedTRX] = useState({
@@ -153,7 +154,17 @@ export const Creation2G = () => {
     console.log(arrayBCSUAvailable);
     return arrayBCSUAvailable;
   };
-  getBCSUAvailable();
+
+  //Obtengo el BSCU de OMUSIG
+  const getBSCUOMUSIG = () => {
+    let bcsuOMUSIG = "NO ENCONTRADO";
+    IPOMUTRX.map((value, index) => {
+      if (value[4] == ipAddressOmuSig) {
+        bcsuOMUSIG = inputOMUTRXID[`bcsu${index + 1}`];
+      }
+    });
+    return bcsuOMUSIG;
+  };
 
   //Obtener un aleatorio entre lo BCSU disponibles
   const randomBCSU = () =>
@@ -372,7 +383,7 @@ export const Creation2G = () => {
                             defaultValue={indexMap}
                             name={`bcsu${indexMap + 1}`}
                             min={0}
-                            max={8}
+                            max={IPOMUTRX.length - 1}
                             size="xs"
                             width="100px"
                             bgColor="whiteAlpha.500"
@@ -534,7 +545,9 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
+                              value[4]
+                            }:${getBSCUOMUSIG()}:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -584,7 +597,7 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            comand={`ZOYP:${value[2]}:${value[1]}:"${ipAddressOmuSig}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
