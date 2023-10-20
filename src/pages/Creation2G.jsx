@@ -57,6 +57,8 @@ export const Creation2G = () => {
     return MNC[`${pais}`];
   };
 
+  const [IpAddressOmuSig, setIpAddressOmuSig] = useState(0);
+
   const [data2G, setData2G] = useState("");
   const [dataDF2GSheet1, setDataDF2GSheet1] = useState("");
   const [dataDF2GSheet2, setDataDF2GSheet2] = useState("");
@@ -165,6 +167,16 @@ export const Creation2G = () => {
     });
   };
 
+  //Obtengo todas las filas con BSCU
+  const getIPOMUTRX = (sheet) => {
+    console.log(
+      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+    );
+    setIPOMUTRX(
+      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+    );
+  };
+
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
 
@@ -181,16 +193,6 @@ export const Creation2G = () => {
         console.log("Error al leer el archivo Excel:", error);
       }
     }
-  };
-
-  //Obtengo todas las filas con BSCU
-  const getIPOMUTRX = (sheet) => {
-    console.log(
-      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
-    );
-    setIPOMUTRX(
-      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
-    );
   };
 
   const handleFileDF2GUpload = async (event) => {
@@ -256,6 +258,37 @@ export const Creation2G = () => {
     }
   };
 
+  // -------CARGA DE SCF(XML)--------
+  const handleFileSCFUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      try {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const xmlText = e.target.result;
+
+          // Procesa el contenido del archivo XML (xmlText) aquí
+          // Puedes utilizar el DOMParser para analizar el archivo XML y trabajar con los datos
+
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+          const IPOMU = xmlDoc.querySelector(
+            'p[name="mPlaneRemoteIpAddressOmuSig"]'
+          ).textContent;
+
+          setIpAddressOmuSig(IPOMU);
+
+          console.log("Valor de mPlaneRemoteIpAddressOmuSig: " + IPOMU);
+        };
+        reader.readAsText(file);
+      } catch (error) {
+        console.log("Error al leer el archivo XML:", error);
+      }
+    }
+  };
+
   return (
     <Center mt={5}>
       <Flex direction="column" alignItems="center" gap={5}>
@@ -291,6 +324,17 @@ export const Creation2G = () => {
             <Input
               type="file"
               onChange={handleFileDF2GUpload}
+              maxW="max"
+              bgColor="gray.100"
+              color="gray.800"
+            />
+          </FormControl>
+
+          <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
+            <FormLabel>Cargar SCF</FormLabel>
+            <Input
+              type="file"
+              onChange={handleFileSCFUpload}
               maxW="max"
               bgColor="gray.100"
               color="gray.800"
