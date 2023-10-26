@@ -27,6 +27,7 @@ import {
   Heading,
   Tooltip,
   Stack,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -357,7 +358,7 @@ export const Creation2G = () => {
         {/* *******COMANDOS DF*********** */}
         {dataDF2GSheet1 && data2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
-            <HStack gap={3} m={5}>
+            <HStack gap={5}>
               <TableContainer bgColor={"gray.200"}>
                 <Table
                   size="sm"
@@ -427,58 +428,6 @@ export const Creation2G = () => {
                 >
                   <Thead>
                     <Tr>
-                      <Th>ETME</Th>
-                      <Th isNumeric>ETME-ID</Th>
-                      <Th>IP</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {dataDF2GSheet1
-                      .filter((_, index) => index >= 20 && index < 24)
-                      .map((value, indexMap) => (
-                        <Tr key={indexMap}>
-                          <Td>{value[1]}</Td>
-                          <Td>
-                            <NumberInput
-                              defaultValue={1}
-                              min={0}
-                              max={4}
-                              size="sm"
-                              width="100px"
-                              bgColor="whiteAlpha.500"
-                            >
-                              <NumberInputField />
-                              <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                              </NumberInputStepper>
-                            </NumberInput>
-                          </Td>
-                          <Td> {value[4]}</Td>
-                        </Tr>
-                      ))}
-                  </Tbody>
-                </Table>
-                <Comand
-                  comand={`${dataDF2GSheet1[28][1]}`}
-                  task="VERIFICAR IP DE ETME"
-                  color="yellow.200"
-                />
-              </TableContainer>
-            </HStack>
-
-            <Stack gap={3} m={5}>
-              <TableContainer bgColor={"gray.200"}>
-                <Table
-                  size="sm"
-                  variant="striped"
-                  colorScheme="teal"
-                  borderRadius="3xl"
-                  borderWidth={2}
-                  borderColor={"teal.700"}
-                >
-                  <Thead>
-                    <Tr>
                       <Th>SCTP Association name</Th>
                       <Th isNumeric>N° BCSU</Th>
                       <Th>OMUSIG</Th>
@@ -529,7 +478,9 @@ export const Creation2G = () => {
                   </Tbody>
                 </Table>
               </TableContainer>
-            </Stack>
+            </HStack>
+
+            <Stack gap={3} m={5}></Stack>
 
             {/* --------COMANDOS SEÑALIZACION BCF----------- */}
             <BoxComands title="SEÑALIZACIÓN DE BCF(OMU)">
@@ -951,6 +902,82 @@ export const Creation2G = () => {
             <WrapItem>
               <Flex direction="column" gap={3}>
                 <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
+                  <Center m={5} p={5} backgroundColor="whiteAlpha.500">
+                    <TableContainer bgColor={"gray.200"}>
+                      <Table
+                        size="sm"
+                        variant="striped"
+                        colorScheme="teal"
+                        borderRadius="3xl"
+                        borderWidth={2}
+                        borderColor={"teal.700"}
+                      >
+                        <Thead>
+                          <Tr>
+                            <Th>ETME</Th>
+                            <Th isNumeric>ETME-ID</Th>
+                            <Th>IP</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {dataDF2GSheet1
+                            .filter((_, index) => index >= 20 && index < 24)
+                            .map((value, indexMap) => (
+                              <Tr key={indexMap}>
+                                <Td>{value[1]}</Td>
+                                <Td>
+                                  <NumberInput
+                                    defaultValue={1}
+                                    min={0}
+                                    max={4}
+                                    size="xs"
+                                    width="100px"
+                                    bgColor="whiteAlpha.500"
+                                  >
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                      <NumberIncrementStepper />
+                                      <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                  </NumberInput>
+                                </Td>
+                                <Td> {value[4]}</Td>
+                              </Tr>
+                            ))}
+                        </Tbody>
+                      </Table>
+                      <Comand
+                        comand={`${dataDF2GSheet1[28][1]}`}
+                        task="VERIFICAR IP DE ETME"
+                        color="yellow.200"
+                      />
+                    </TableContainer>
+                    <TableContainer backgroundColor="whiteAlpha.800" m={3}>
+                      <Table size="sm">
+                        <Thead>
+                          <Tr>
+                            <Th>ETME-ID</Th>
+                            <Th>IP BTS</Th>
+                            <Th>MASK</Th>
+                            <Th>SUBNET</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Td>{dataDF2GSheet3[0][23]}</Td>
+                            <Td>{dataDF2GSheet3[0][41]}</Td>
+                            <Td>{dataDF2GSheet3[0][42]}</Td>
+                            <Td bgColor="yellow.500">
+                              {calculateNetwork(
+                                dataDF2GSheet3[0][41],
+                                dataDF2GSheet3[0][42]
+                              )}
+                            </Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+                  </Center>
                   <Tabs variant="line" colorScheme="whiteAlpha">
                     <TabList bgColor="whiteAlpha.300" color="white">
                       <Tab>Crecimiento</Tab>
