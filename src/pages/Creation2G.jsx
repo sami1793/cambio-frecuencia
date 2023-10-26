@@ -26,6 +26,7 @@ import {
   HStack,
   Heading,
   Tooltip,
+  Stack,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -37,6 +38,7 @@ import { toEXA } from "../utils/conversor";
 import { BSCConection } from "../components/2G/BSCConection";
 
 import { invertArray } from "../utils/array";
+import { calculateNetwork } from "../utils/calculatorIP";
 
 export const Creation2G = () => {
   let contTRX = 0;
@@ -64,23 +66,128 @@ export const Creation2G = () => {
   const [dataDF2GSheet4, setDataDF2GSheet4] = useState("");
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
 
+  const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
+
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
   const [inputOMUTRXID, setInputOMUTRXID] = useState({
-    bcsu1: "1",
+    bcsu1: "0",
     bcsu2: "1",
-    bcsu3: "1",
-    bcsu4: "1",
-    bcsu5: "1",
-    bcsu6: "1",
-    bcsu7: "1",
+    bcsu3: "2",
+    bcsu4: "3",
+    bcsu5: "4",
+    bcsu6: "5",
+    bcsu7: "6",
+    bcsu8: "7",
   });
 
-  const setInputsBSCU = (numberInput, bscu) => {
+  const [bcsuAsignedTRX, setBcsuAsignedTRX] = useState({
+    bcsuAsignedOMU: "1",
+    bcsuAsignedTRX1: "1",
+    bcsuAsignedTRX2: "1",
+    bcsuAsignedTRX3: "1",
+    bcsuAsignedTRX4: "1",
+    bcsuAsignedTRX5: "1",
+    bcsuAsignedTRX6: "1",
+    bcsuAsignedTRX7: "1",
+    bcsuAsignedTRX8: "1",
+    bcsuAsignedTRX9: "1",
+    bcsuAsignedTRX10: "1",
+    bcsuAsignedTRX11: "1",
+    bcsuAsignedTRX12: "1",
+    bcsuAsignedTRX13: "1",
+    bcsuAsignedTRX14: "1",
+    bcsuAsignedTRX15: "1",
+    bcsuAsignedTRX16: "1",
+    bcsuAsignedTRX17: "1",
+    bcsuAsignedTRX18: "1",
+    bcsuAsignedTRX19: "1",
+    bcsuAsignedTRX20: "1",
+  });
+
+  const setInputsBSCU = (numberInput, bcsu) => {
     setInputOMUTRXID({
       ...inputOMUTRXID,
-      [bscu]: numberInput,
+      [bcsu]: numberInput,
     });
+  };
+
+  const setInputsBSCUAsigned = (numberInput, bcsu) => {
+    setBcsuAsignedTRX({
+      ...bcsuAsignedTRX,
+      [bcsu]: numberInput,
+    });
+  };
+
+  //Obtengo la posicion de ese bcsu
+  const posicionBCSU = (bcsu) => {
+    let bcsuID = null;
+    //Obtengo la propiedad (bcsu1, bcsu2, bcsu3) que tiene el valor, null si ninguno
+    for (const prop in inputOMUTRXID) {
+      if (inputOMUTRXID[prop] == bcsu) {
+        bcsuID = prop;
+        break;
+      }
+    }
+    if (bcsuID !== null) {
+      let posicion = bcsuID[bcsuID.length - 1];
+      return Number(posicion) - 1;
+    } else return null;
+  };
+
+  const getTRXSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][5];
+    return "NO ENCONTRADO";
+  };
+
+  const getOMUSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][4];
+    return "NO ENCONTRADO";
+  };
+
+  const getBCSUAvailable = () => {
+    let arrayBCSUAvailable = [];
+    IPOMUTRX.map((value, index) => {
+      if (value[4] !== "SPARE")
+        arrayBCSUAvailable.push(inputOMUTRXID[`bcsu${index + 1}`]);
+    });
+    console.log(arrayBCSUAvailable);
+    return arrayBCSUAvailable;
+  };
+
+  //Obtengo el BSCU de OMUSIG
+  const getBSCUOMUSIG = () => {
+    let bcsuOMUSIG = "NO ENCONTRADO";
+    IPOMUTRX.map((value, index) => {
+      if (value[4] == ipAddressOmuSig) {
+        bcsuOMUSIG = inputOMUTRXID[`bcsu${index + 1}`];
+      }
+    });
+    return bcsuOMUSIG;
+  };
+
+  //Obtener un aleatorio entre lo BCSU disponibles
+  const randomBCSU = () =>
+    getBCSUAvailable()[Math.floor(Math.random() * getBCSUAvailable().length)];
+
+  const setBCSUAvailable = () => {
+    let arrayBCSUAvailable = getBCSUAvailable();
+    let arrayBCSUAvailableAsigned = [];
+    getIPOMUTRX.map((value, index) => {
+      arrayBCSUAvailableAsigned.push(arrayBCSUAvailable[index]);
+    });
+  };
+
+  //Obtengo todas las filas con BSCU
+  const getIPOMUTRX = (sheet) => {
+    console.log(
+      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+    );
+    setIPOMUTRX(
+      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+    );
   };
 
   const handleFileUpload = async (event) => {
@@ -99,16 +206,6 @@ export const Creation2G = () => {
         console.log("Error al leer el archivo Excel:", error);
       }
     }
-  };
-
-  //Obtengo todas las filas con BSCU
-  const getIPOMUTRX = (sheet) => {
-    console.log(
-      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
-    );
-    setIPOMUTRX(
-      sheet.filter((value, index) => index > 8 && index < 20 && value[1])
-    );
   };
 
   const handleFileDF2GUpload = async (event) => {
@@ -174,6 +271,37 @@ export const Creation2G = () => {
     }
   };
 
+  // -------CARGA DE SCF(XML)--------
+  const handleFileSCFUpload = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      try {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const xmlText = e.target.result;
+
+          // Procesa el contenido del archivo XML (xmlText) aquí
+          // Puedes utilizar el DOMParser para analizar el archivo XML y trabajar con los datos
+
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+          const IPOMU = xmlDoc.querySelector(
+            'p[name="mPlaneRemoteIpAddressOmuSig"]'
+          ).textContent;
+
+          setIpAddressOmuSig(IPOMU);
+
+          console.log("Valor de mPlaneRemoteIpAddressOmuSig: " + IPOMU);
+        };
+        reader.readAsText(file);
+      } catch (error) {
+        console.log("Error al leer el archivo XML:", error);
+      }
+    }
+  };
+
   return (
     <Center mt={5}>
       <Flex direction="column" alignItems="center" gap={5}>
@@ -214,12 +342,23 @@ export const Creation2G = () => {
               color="gray.800"
             />
           </FormControl>
+
+          <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
+            <FormLabel>Cargar SCF</FormLabel>
+            <Input
+              type="file"
+              onChange={handleFileSCFUpload}
+              maxW="max"
+              bgColor="gray.100"
+              color="gray.800"
+            />
+          </FormControl>
         </Flex>
         <BSCConection />
         {/* *******COMANDOS DF*********** */}
-        {dataDF2GSheet1 && data2G && (
+        {dataDF2GSheet1 && data2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
-            <HStack gap={3} m={5}>
+            <HStack gap={5}>
               <TableContainer bgColor={"gray.200"}>
                 <Table
                   size="sm"
@@ -246,11 +385,12 @@ export const Creation2G = () => {
                             defaultValue={indexMap}
                             name={`bcsu${indexMap + 1}`}
                             min={0}
-                            max={8}
+                            max={IPOMUTRX.length - 1}
+                            size="xs"
                             width="100px"
                             bgColor="whiteAlpha.500"
                             onChange={(numberInput) =>
-                              setInputsBSCU(numberInput, `bscu${indexMap + 1}`)
+                              setInputsBSCU(numberInput, `bcsu${indexMap + 1}`)
                             }
                           >
                             <NumberInputField />
@@ -288,24 +428,33 @@ export const Creation2G = () => {
                 >
                   <Thead>
                     <Tr>
-                      <Th>ETME</Th>
-                      <Th isNumeric>ETME-ID</Th>
-                      <Th>IP</Th>
+                      <Th>SCTP Association name</Th>
+                      <Th isNumeric>N° BCSU</Th>
+                      <Th>OMUSIG</Th>
+                      <Th>TRXSIG</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {dataDF2GSheet1
-                      .filter((_, index) => index >= 20 && index < 24)
+                    {dataDF2GSheet5
+                      .filter((_, index) => index > 0)
                       .map((value, indexMap) => (
                         <Tr key={indexMap}>
                           <Td>{value[1]}</Td>
                           <Td>
                             <NumberInput
                               defaultValue={1}
+                              name={`bcsuAsignedTRX${indexMap + 1}`}
                               min={0}
-                              max={4}
+                              size="xs"
+                              max={IPOMUTRX.length + 1}
                               width="100px"
                               bgColor="whiteAlpha.500"
+                              onChange={(numberInput) =>
+                                setInputsBSCUAsigned(
+                                  numberInput,
+                                  `bcsuAsignedTRX${indexMap + 1}`
+                                )
+                              }
                             >
                               <NumberInputField />
                               <NumberInputStepper>
@@ -314,18 +463,24 @@ export const Creation2G = () => {
                               </NumberInputStepper>
                             </NumberInput>
                           </Td>
-                          <Td> {value[4]}</Td>
+                          <Td>
+                            {getOMUSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}
+                          </Td>
+                          <Td>
+                            {getTRXSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}
+                          </Td>
                         </Tr>
                       ))}
                   </Tbody>
                 </Table>
-                <Comand
-                  comand={`${dataDF2GSheet1[28][1]}`}
-                  task="VERIFICAR IP DE ETME"
-                  color="yellow.200"
-                />
               </TableContainer>
             </HStack>
+
+            <Stack gap={3} m={5}></Stack>
 
             {/* --------COMANDOS SEÑALIZACION BCF----------- */}
             <BoxComands title="SEÑALIZACIÓN DE BCF(OMU)">
@@ -342,7 +497,9 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
+                              value[4]
+                            }:${getBSCUOMUSIG()}:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -392,7 +549,7 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            comand={`ZOYP:${value[2]}:${value[1]}:"${ipAddressOmuSig}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -480,7 +637,11 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${value[4]}:VALORBCSU:${value[6]};`}
+                            comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
+                              value[4]
+                            }:${
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            }:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -529,7 +690,13 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZOYP:${value[2]}:${value[1]}:"${value[17]}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                            comand={`ZOYP:${value[2]}:${
+                              value[1]
+                            }:"${getTRXSIGIP(
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            )}",,${value[18]}:"${value[19]}",${value[22]},,,${
+                              value[18]
+                            };`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -564,9 +731,9 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            //value 6 BCSU
-                            //value 7 cambiar porque es segun lo que quiera
-                            comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                            comand={`ZDWP:${value[2]}:${value[6]},${
+                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                            }:${value[8]},${value[9]}:${value[4]},${value[5]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -638,91 +805,281 @@ export const Creation2G = () => {
 
             {/* ------------CREACIÓN DE BCF------------- */}
             <BoxComands title="CREACIÓN DE BCF">
+              {/* MODOFICAR SEGUN SEA FLEXI O MC */}
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
                   <Tab>Verificar</Tab>
                   <Tab>Borrar</Tab>
                 </TabList>
-                <Tooltip label="CREAR BCF" placement="top">
-                  <TabPanels>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}::T200F=780;`}
-                              task=""
-                              color="green.200"
-                            />
-                            <Comand
-                              comand={`ZEFM:${value[1]}::T200F=780;`}
-                              task=""
-                              color="green.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEEI:BCF=${value[1]};`}
-                              task=""
-                              color="yellow.200"
-                            />
-                            <Comand
-                              comand={`ZEFO:${value[1]}:ALL;`}
-                              task=""
-                              color="yellow.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                    <TabPanel>
-                      {dataDF2GSheet3
-                        .filter((_, index) => index == 0)
-                        .map((value, indexMap) => (
-                          <Flex key={indexMap} direction="column">
-                            <Comand
-                              comand={`ZEFS:${value[1]}:L;`}
-                              task=""
-                              color="red.200"
-                            />
-                            <Comand
-                              comand={`ZEFD:${value[1]};`}
-                              task=""
-                              color="red.200"
-                            />
-                          </Flex>
-                        ))}
-                    </TabPanel>
-                  </TabPanels>
-                </Tooltip>
+
+                <TabPanels>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          {/* <Tooltip label="CREAR BCF FLEXI" placement="top"> */}
+                          <Comand
+                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
+                            task="**FLEXI**"
+                            color="green.100"
+                          />
+                          {/* </Tooltip> */}
+                          <Comand
+                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
+                            task="**MULTICONTROLER**"
+                            color="green.100"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}::T200F=780;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZEFM:${value[1]}::T200F=780;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          <Comand
+                            comand={`ZEEI:BCF=${value[1]};`}
+                            task=""
+                            color="yellow.200"
+                          />
+                          <Comand
+                            comand={`ZEFO:${value[1]}:ALL;`}
+                            task=""
+                            color="yellow.200"
+                          />
+                          <Comand
+                            comand={`ZEFO:${value[1]}:IDE;`}
+                            task=""
+                            color="yellow.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                  <TabPanel>
+                    {dataDF2GSheet3
+                      .filter((_, index) => index == 0)
+                      .map((value, indexMap) => (
+                        <Flex key={indexMap} direction="column">
+                          <Comand
+                            comand={`ZEFS:${value[1]}:L;`}
+                            task=""
+                            color="red.200"
+                          />
+                          <Comand
+                            comand={`ZEFD:${value[1]};`}
+                            task=""
+                            color="red.200"
+                          />
+                        </Flex>
+                      ))}
+                  </TabPanel>
+                </TabPanels>
               </Tabs>
             </BoxComands>
           </Flex>
         )}
 
-        {/* // dataDF2GSheet1.map((value, indexMap) => <Text>{value[4]}</Text>) */}
         {/* *******COMANDOS RFSHEET************ */}
-        {data2G && dataDF2GSheet1 && (
+        {data2G && dataDF2GSheet1 && ipAddressOmuSig && (
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
+                <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
+                  <Center m={5} p={5} backgroundColor="whiteAlpha.500">
+                    <TableContainer bgColor={"gray.200"}>
+                      <Table
+                        size="sm"
+                        variant="striped"
+                        colorScheme="teal"
+                        borderRadius="3xl"
+                        borderWidth={2}
+                        borderColor={"teal.700"}
+                      >
+                        <Thead>
+                          <Tr>
+                            <Th>ETME</Th>
+                            <Th isNumeric>ETME-ID</Th>
+                            <Th>IP</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {dataDF2GSheet1
+                            .filter((_, index) => index >= 20 && index < 24)
+                            .map((value, indexMap) => (
+                              <Tr key={indexMap}>
+                                <Td>{value[1]}</Td>
+                                <Td>
+                                  <NumberInput
+                                    defaultValue={1}
+                                    min={0}
+                                    max={4}
+                                    size="xs"
+                                    width="100px"
+                                    bgColor="whiteAlpha.500"
+                                  >
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                      <NumberIncrementStepper />
+                                      <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                  </NumberInput>
+                                </Td>
+                                <Td> {value[4]}</Td>
+                              </Tr>
+                            ))}
+                        </Tbody>
+                      </Table>
+                      <Comand
+                        comand={`${dataDF2GSheet1[28][1]}`}
+                        task="VERIFICAR IP DE ETME"
+                        color="yellow.200"
+                      />
+                    </TableContainer>
+                    <TableContainer backgroundColor="whiteAlpha.800" m={3}>
+                      <Table size="sm">
+                        <Thead>
+                          <Tr>
+                            <Th>ETME-ID</Th>
+                            <Th>IP BTS</Th>
+                            <Th>MASK</Th>
+                            <Th>SUBNET</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Td>{dataDF2GSheet3[0][23]}</Td>
+                            <Td>{dataDF2GSheet3[0][41]}</Td>
+                            <Td>{dataDF2GSheet3[0][42]}</Td>
+                            <Td bgColor="yellow.500">
+                              {calculateNetwork(
+                                dataDF2GSheet3[0][41],
+                                dataDF2GSheet3[0][42]
+                              )}
+                            </Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+                  </Center>
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                      <Tab>Borrar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        <Heading size="md" color="white">
+                          ETME 2
+                        </Heading>
+                        <Comand
+                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Heading size="md" color="white">
+                          ETME 3
+                        </Heading>
+                        <Comand
+                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel>
+                      <TabPanel>
+                        {[0, 1, 2, 3].map((value, indexMap) => (
+                          <Comand
+                            comand={`ZQKB:ETMA,${value};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {[0, 1, 2, 3].map((value, indexMap) => (
+                          <Comand
+                            comand={`ZQKA:`}
+                            task="Completar con valor correspondiente"
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </BoxComands>
                 <BoxComands title="CREACION DE BTS">
                   <Tabs variant="line" colorScheme="whiteAlpha">
                     <TabList bgColor="whiteAlpha.300" color="white">
