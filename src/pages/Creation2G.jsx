@@ -37,6 +37,7 @@ import { toEXA } from "../utils/conversor";
 import { BSCConection } from "../components/2G/BSCConection";
 
 import { invertArray } from "../utils/array";
+import { calculateNetwork } from "../utils/calculatorIP";
 
 export const Creation2G = () => {
   let contTRX = 0;
@@ -64,7 +65,7 @@ export const Creation2G = () => {
   const [dataDF2GSheet4, setDataDF2GSheet4] = useState("");
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
 
-  const [ipAddressOmuSig, setIpAddressOmuSig] = useState(0);
+  const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -354,7 +355,7 @@ export const Creation2G = () => {
         </Flex>
         <BSCConection />
         {/* *******COMANDOS DF*********** */}
-        {dataDF2GSheet1 && data2G && (
+        {dataDF2GSheet1 && data2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
             <HStack gap={3} m={5}>
               <TableContainer bgColor={"gray.200"}>
@@ -945,10 +946,113 @@ export const Creation2G = () => {
         )}
 
         {/* *******COMANDOS RFSHEET************ */}
-        {data2G && dataDF2GSheet1 && (
+        {data2G && dataDF2GSheet1 && ipAddressOmuSig && (
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
+                <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Crecimiento</Tab>
+                      <Tab>Verificar</Tab>
+                      <Tab>Borrar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        <Heading size="md" color="white">
+                          ETME 2
+                        </Heading>
+                        <Comand
+                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.92":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Heading size="md" color="white">
+                          ETME 3
+                        </Heading>
+                        <Comand
+                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                        <Comand
+                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                            dataDF2GSheet3[0][41],
+                            dataDF2GSheet3[0][42]
+                          )}",30:"10.0.3.93":LOG;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel>
+                      <TabPanel>
+                        {[0, 1, 2, 3].map((value, indexMap) => (
+                          <Comand
+                            comand={`ZQKB:ETMA,${value};`}
+                            task=""
+                            color="yellow.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {[0, 1, 2, 3].map((value, indexMap) => (
+                          <Comand
+                            comand={`ZQKA:`}
+                            task="Completar con valor correspondiente"
+                            color="red.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </BoxComands>
                 <BoxComands title="CREACION DE BTS">
                   <Tabs variant="line" colorScheme="whiteAlpha">
                     <TabList bgColor="whiteAlpha.300" color="white">
