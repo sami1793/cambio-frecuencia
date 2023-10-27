@@ -59,6 +59,8 @@ export const Creation2G = () => {
     return MNC[`${pais}`];
   };
 
+  const [typeBSC, setTypeBSC] = useState("");
+
   const [data2G, setData2G] = useState("");
   const [dataDF2GSheet1, setDataDF2GSheet1] = useState("");
   const [dataDF2GSheet2, setDataDF2GSheet2] = useState("");
@@ -221,6 +223,9 @@ export const Creation2G = () => {
           sheet: "PacketAbis_LAPD_links",
         });
         const arrayAbisSCTP = await readXlsxFile(file, { sheet: "Abis SCTP" });
+
+        //Setear el tipo de BSC
+        setTypeBSC(arrayDataBCSUIP[0][2]);
 
         setDataDF2GSheet1(arrayDataBCSUIP);
         setDataDF2GSheet2(arrayDataBTSIP);
@@ -498,7 +503,7 @@ export const Creation2G = () => {
                         .map((value, indexMap) => (
                           <Comand
                             comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
-                              value[4]
+                              typeBSC === "mcBSC" ? "BCXU" : "BCSU"
                             }:${getBSCUOMUSIG()}:${value[6]};`}
                             task=""
                             color="green.200"
@@ -585,9 +590,11 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            //value 6 BCSU
-                            //value 7 cambiar porque es segun lo que quiera
-                            comand={`ZDWP:${value[2]}:${value[6]},${value[7]}:${value[8]},${value[9]}:${value[4]},${value[5]};`}
+                            comand={`ZDWP:${value[2]}:${
+                              typeBSC === "mcBSC" ? "BCXU" : "BCSU"
+                            },${value[7]}:${value[8]},${value[9]}:${value[4]},${
+                              value[5]
+                            };`}
                             task=""
                             color="green.200"
                             key={indexMap}
@@ -638,7 +645,7 @@ export const Creation2G = () => {
                         .map((value, indexMap) => (
                           <Comand
                             comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
-                              value[4]
+                              typeBSC === "mcBSC" ? "BCXU" : "BCSU"
                             }:${
                               bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
                             }:${value[6]};`}
@@ -731,7 +738,9 @@ export const Creation2G = () => {
                         .filter((_, index) => index > 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZDWP:${value[2]}:${value[6]},${
+                            comand={`ZDWP:${value[2]}:${
+                              typeBSC === "mcBSC" ? "BCXU" : "BCSU"
+                            },${
                               bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
                             }:${value[8]},${value[9]}:${value[4]},${value[5]};`}
                             task=""
@@ -819,18 +828,20 @@ export const Creation2G = () => {
                       .filter((_, index) => index == 0)
                       .map((value, indexMap) => (
                         <Flex key={indexMap} direction="column">
-                          {/* <Tooltip label="CREAR BCF FLEXI" placement="top"> */}
-                          <Comand
-                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
-                            task="**FLEXI**"
-                            color="green.100"
-                          />
-                          {/* </Tooltip> */}
-                          <Comand
-                            comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
-                            task="**MULTICONTROLER**"
-                            color="green.100"
-                          />
+                          {typeBSC !== "mcBSC" && (
+                            <Comand
+                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
+                              task="**FLEXI**"
+                              color="green.100"
+                            />
+                          )}
+                          {typeBSC === "mcBSC" && (
+                            <Comand
+                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]};`}
+                              task="**MULTICONTROLER**"
+                              color="green.100"
+                            />
+                          )}
                           <Comand
                             comand={`ZEFM:${value[1]}:CS=BSSTOP;`}
                             task=""
