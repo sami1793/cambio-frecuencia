@@ -364,100 +364,41 @@ export const Creation2G = () => {
         {dataDF2GSheet1 && data2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
             <HStack gap={5}>
-              <TableContainer bgColor={"gray.200"}>
-                <Table
-                  size="sm"
-                  variant="striped"
-                  colorScheme="teal"
-                  borderRadius="3xl"
-                  borderWidth={2}
-                  borderColor={"teal.700"}
-                >
-                  <Thead>
-                    <Tr>
-                      <Th>BCSU</Th>
-                      <Th isNumeric>N° BCSU</Th>
-                      <Th>OMUSIG</Th>
-                      <Th>TRXSIG</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {IPOMUTRX.map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>{value[1]}</Td>
-                        <Td>
-                          <NumberInput
-                            defaultValue={indexMap}
-                            name={`bcsu${indexMap + 1}`}
-                            min={0}
-                            max={IPOMUTRX.length - 1}
-                            size="xs"
-                            width="100px"
-                            bgColor="whiteAlpha.500"
-                            onChange={(numberInput) =>
-                              setInputsBSCU(numberInput, `bcsu${indexMap + 1}`)
-                            }
-                          >
-                            <NumberInputField />
-                            <NumberInputStepper>
-                              <NumberIncrementStepper />
-                              <NumberDecrementStepper />
-                            </NumberInputStepper>
-                          </NumberInput>
-                        </Td>
-                        <Td> {value[4]}</Td>
-                        <Td>{value[5]}</Td>
+              <Tooltip label="ORDENAR BSCUs" placement="top">
+                <TableContainer bgColor={"gray.200"}>
+                  <Table
+                    size="sm"
+                    variant="striped"
+                    colorScheme="teal"
+                    borderRadius="3xl"
+                    borderWidth={2}
+                    borderColor={"teal.700"}
+                  >
+                    <Thead>
+                      <Tr>
+                        <Th>BCSU</Th>
+                        <Th isNumeric>N° BCSU</Th>
+                        <Th>OMUSIG</Th>
+                        <Th>TRXSIG</Th>
                       </Tr>
-                    ))}
-                  </Tbody>
-                </Table>
-                <Comand
-                  comand={`${dataDF2GSheet1[10][8]}`}
-                  task="VERIFICAR IP DE OMUSIG"
-                  color="yellow.200"
-                />
-                <Comand
-                  comand={`${dataDF2GSheet1[11][8]}`}
-                  task="VERIFICAR IP DE TRXSIG"
-                  color="yellow.200"
-                />
-              </TableContainer>
-              <TableContainer bgColor={"gray.200"}>
-                <Table
-                  size="sm"
-                  variant="striped"
-                  colorScheme="teal"
-                  borderRadius="3xl"
-                  borderWidth={2}
-                  borderColor={"teal.700"}
-                >
-                  <Thead>
-                    <Tr>
-                      <Th>SCTP Association name</Th>
-                      <Th isNumeric>N° BCSU</Th>
-                      <Th>OMUSIG</Th>
-                      <Th>TRXSIG</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {dataDF2GSheet5
-                      .filter((_, index) => index > 0)
-                      .map((value, indexMap) => (
+                    </Thead>
+                    <Tbody>
+                      {IPOMUTRX.map((value, indexMap) => (
                         <Tr key={indexMap}>
                           <Td>{value[1]}</Td>
                           <Td>
                             <NumberInput
-                              defaultValue={1}
-                              name={`bcsuAsignedTRX${indexMap + 1}`}
+                              defaultValue={indexMap}
+                              name={`bcsu${indexMap + 1}`}
                               min={0}
+                              max={IPOMUTRX.length - 1}
                               size="xs"
-                              max={IPOMUTRX.length + 1}
                               width="100px"
                               bgColor="whiteAlpha.500"
                               onChange={(numberInput) =>
-                                setInputsBSCUAsigned(
+                                setInputsBSCU(
                                   numberInput,
-                                  `bcsuAsignedTRX${indexMap + 1}`
+                                  `bcsu${indexMap + 1}`
                                 )
                               }
                             >
@@ -468,21 +409,87 @@ export const Creation2G = () => {
                               </NumberInputStepper>
                             </NumberInput>
                           </Td>
-                          <Td>
-                            {getOMUSIGIP(
-                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                            )}
-                          </Td>
-                          <Td>
-                            {getTRXSIGIP(
-                              bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                            )}
-                          </Td>
+                          <Td> {value[4]}</Td>
+                          <Td>{value[5]}</Td>
                         </Tr>
                       ))}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+                    </Tbody>
+                  </Table>
+                  <Comand
+                    comand={`${dataDF2GSheet1[10][8]}`}
+                    task="VERIFICAR IP DE OMUSIG"
+                    color="yellow.200"
+                  />
+                  <Comand
+                    comand={`${dataDF2GSheet1[11][8]}`}
+                    task="VERIFICAR IP DE TRXSIG"
+                    color="yellow.200"
+                  />
+                </TableContainer>
+              </Tooltip>
+              <Tooltip label="ASIGNAR BSCUs VÁLIDOS" placement="top">
+                <TableContainer bgColor={"gray.200"}>
+                  <Table
+                    size="sm"
+                    variant="striped"
+                    colorScheme="teal"
+                    borderRadius="3xl"
+                    borderWidth={2}
+                    borderColor={"teal.700"}
+                  >
+                    <Thead>
+                      <Tr>
+                        <Th>SCTP Association name</Th>
+                        <Th isNumeric>N° BCSU</Th>
+                        <Th>OMUSIG</Th>
+                        <Th>TRXSIG</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Tr key={indexMap}>
+                            <Td>{value[1]}</Td>
+                            <Td>
+                              <NumberInput
+                                defaultValue={1}
+                                name={`bcsuAsignedTRX${indexMap + 1}`}
+                                min={0}
+                                size="xs"
+                                max={IPOMUTRX.length + 1}
+                                width="100px"
+                                bgColor="whiteAlpha.500"
+                                onChange={(numberInput) =>
+                                  setInputsBSCUAsigned(
+                                    numberInput,
+                                    `bcsuAsignedTRX${indexMap + 1}`
+                                  )
+                                }
+                              >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                  <NumberIncrementStepper />
+                                  <NumberDecrementStepper />
+                                </NumberInputStepper>
+                              </NumberInput>
+                            </Td>
+                            <Td>
+                              {getOMUSIGIP(
+                                bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                              )}
+                            </Td>
+                            <Td>
+                              {getTRXSIGIP(
+                                bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
+                              )}
+                            </Td>
+                          </Tr>
+                        ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Tooltip>
             </HStack>
 
             <Stack gap={3} m={5}></Stack>
@@ -912,185 +919,189 @@ export const Creation2G = () => {
           <Wrap>
             <WrapItem>
               <Flex direction="column" gap={3}>
-                <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
-                  <Center m={5} p={5} backgroundColor="whiteAlpha.500">
-                    <TableContainer bgColor={"gray.200"}>
-                      <Table
-                        size="sm"
-                        variant="striped"
-                        colorScheme="teal"
-                        borderRadius="3xl"
-                        borderWidth={2}
-                        borderColor={"teal.700"}
-                      >
-                        <Thead>
-                          <Tr>
-                            <Th>ETME</Th>
-                            <Th isNumeric>ETME-ID</Th>
-                            <Th>IP</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {dataDF2GSheet1
-                            .filter((_, index) => index >= 20 && index < 24)
-                            .map((value, indexMap) => (
-                              <Tr key={indexMap}>
-                                <Td>{value[1]}</Td>
-                                <Td>
-                                  <NumberInput
-                                    defaultValue={1}
-                                    min={0}
-                                    max={4}
-                                    size="xs"
-                                    width="100px"
-                                    bgColor="whiteAlpha.500"
-                                  >
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                      <NumberIncrementStepper />
-                                      <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                  </NumberInput>
-                                </Td>
-                                <Td> {value[4]}</Td>
+                {typeBSC === "mcBSC" && (
+                  <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
+                    <Center m={5} p={5} backgroundColor="whiteAlpha.500">
+                      <Tooltip label="ORDENAR ETME" placement="top">
+                        <TableContainer bgColor={"gray.200"}>
+                          <Table
+                            size="sm"
+                            variant="striped"
+                            colorScheme="teal"
+                            borderRadius="3xl"
+                            borderWidth={2}
+                            borderColor={"teal.700"}
+                          >
+                            <Thead>
+                              <Tr>
+                                <Th>ETME</Th>
+                                <Th isNumeric>ETME-ID</Th>
+                                <Th>IP</Th>
                               </Tr>
-                            ))}
-                        </Tbody>
-                      </Table>
-                      <Comand
-                        comand={`${dataDF2GSheet1[28][1]}`}
-                        task="VERIFICAR IP DE ETME"
-                        color="yellow.200"
-                      />
-                    </TableContainer>
-                    <TableContainer backgroundColor="whiteAlpha.800" m={3}>
-                      <Table size="sm">
-                        <Thead>
-                          <Tr>
-                            <Th>ETME-ID</Th>
-                            <Th>IP BTS</Th>
-                            <Th>MASK</Th>
-                            <Th>SUBNET</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          <Tr>
-                            <Td>{dataDF2GSheet3[0][23]}</Td>
-                            <Td>{dataDF2GSheet3[0][41]}</Td>
-                            <Td>{dataDF2GSheet3[0][42]}</Td>
-                            <Td bgColor="yellow.500">
-                              {calculateNetwork(
-                                dataDF2GSheet3[0][41],
-                                dataDF2GSheet3[0][42]
-                              )}
-                            </Td>
-                          </Tr>
-                        </Tbody>
-                      </Table>
-                    </TableContainer>
-                  </Center>
-                  <Tabs variant="line" colorScheme="whiteAlpha">
-                    <TabList bgColor="whiteAlpha.300" color="white">
-                      <Tab>Crecimiento</Tab>
-                      <Tab>Verificar</Tab>
-                      <Tab>Borrar</Tab>
-                    </TabList>
-                    <TabPanels>
-                      <TabPanel>
-                        <Heading size="md" color="white">
-                          ETME 2
-                        </Heading>
-                        <Comand
-                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.92":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.92":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.92":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.92":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Heading size="md" color="white">
-                          ETME 3
-                        </Heading>
-                        <Comand
-                          comand={`ZQKC:ETMA,0::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.93":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,1::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.93":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,2::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.93":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                        <Comand
-                          comand={`ZQKC:ETMA,3::"${calculateNetwork(
-                            dataDF2GSheet3[0][41],
-                            dataDF2GSheet3[0][42]
-                          )}",30:"10.0.3.93":LOG;`}
-                          task=""
-                          color="green.200"
-                        />
-                      </TabPanel>
-                      <TabPanel>
-                        {[0, 1, 2, 3].map((value, indexMap) => (
+                            </Thead>
+                            <Tbody>
+                              {dataDF2GSheet1
+                                .filter((_, index) => index >= 20 && index < 24)
+                                .map((value, indexMap) => (
+                                  <Tr key={indexMap}>
+                                    <Td>{value[1]}</Td>
+                                    <Td>
+                                      <NumberInput
+                                        defaultValue={1}
+                                        min={0}
+                                        max={4}
+                                        size="xs"
+                                        width="100px"
+                                        bgColor="whiteAlpha.500"
+                                      >
+                                        <NumberInputField />
+                                        <NumberInputStepper>
+                                          <NumberIncrementStepper />
+                                          <NumberDecrementStepper />
+                                        </NumberInputStepper>
+                                      </NumberInput>
+                                    </Td>
+                                    <Td> {value[4]}</Td>
+                                  </Tr>
+                                ))}
+                            </Tbody>
+                          </Table>
                           <Comand
-                            comand={`ZQKB:ETMA,${value};`}
-                            task=""
+                            comand={`${dataDF2GSheet1[28][1]}`}
+                            task="VERIFICAR IP DE ETME"
                             color="yellow.200"
-                            key={indexMap}
                           />
-                        ))}
-                      </TabPanel>
-                      <TabPanel>
-                        {[0, 1, 2, 3].map((value, indexMap) => (
+                        </TableContainer>
+                      </Tooltip>
+                      <TableContainer backgroundColor="whiteAlpha.800" m={3}>
+                        <Table size="sm">
+                          <Thead>
+                            <Tr>
+                              <Th>ETME-ID</Th>
+                              <Th>IP BTS</Th>
+                              <Th>MASK</Th>
+                              <Th>SUBNET</Th>
+                            </Tr>
+                          </Thead>
+                          <Tbody>
+                            <Tr>
+                              <Td>{dataDF2GSheet3[0][23]}</Td>
+                              <Td>{dataDF2GSheet3[0][41]}</Td>
+                              <Td>{dataDF2GSheet3[0][42]}</Td>
+                              <Td bgColor="yellow.500">
+                                {calculateNetwork(
+                                  dataDF2GSheet3[0][41],
+                                  dataDF2GSheet3[0][42]
+                                )}
+                              </Td>
+                            </Tr>
+                          </Tbody>
+                        </Table>
+                      </TableContainer>
+                    </Center>
+                    <Tabs variant="line" colorScheme="whiteAlpha">
+                      <TabList bgColor="whiteAlpha.300" color="white">
+                        <Tab>Crecimiento</Tab>
+                        <Tab>Verificar</Tab>
+                        <Tab>Borrar</Tab>
+                      </TabList>
+                      <TabPanels>
+                        <TabPanel>
+                          <Heading size="md" color="white">
+                            ETME 2
+                          </Heading>
                           <Comand
-                            comand={`ZQKA:`}
-                            task="Completar con valor correspondiente"
-                            color="red.200"
-                            key={indexMap}
+                            comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.92":LOG;`}
+                            task=""
+                            color="green.200"
                           />
-                        ))}
-                      </TabPanel>
-                    </TabPanels>
-                  </Tabs>
-                </BoxComands>
+                          <Comand
+                            comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.92":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.92":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.92":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Heading size="md" color="white">
+                            ETME 3
+                          </Heading>
+                          <Comand
+                            comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.93":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.93":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.93":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                          <Comand
+                            comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42]
+                            )}",30:"10.0.3.93":LOG;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </TabPanel>
+                        <TabPanel>
+                          {[0, 1, 2, 3].map((value, indexMap) => (
+                            <Comand
+                              comand={`ZQKB:ETMA,${value};`}
+                              task=""
+                              color="yellow.200"
+                              key={indexMap}
+                            />
+                          ))}
+                        </TabPanel>
+                        <TabPanel>
+                          {[0, 1, 2, 3].map((value, indexMap) => (
+                            <Comand
+                              comand={`ZQKA:`}
+                              task="Completar con valor correspondiente"
+                              color="red.200"
+                              key={indexMap}
+                            />
+                          ))}
+                        </TabPanel>
+                      </TabPanels>
+                    </Tabs>
+                  </BoxComands>
+                )}
                 <BoxComands title="CREACION DE BTS">
                   <Tabs variant="line" colorScheme="whiteAlpha">
                     <TabList bgColor="whiteAlpha.300" color="white">
@@ -1784,6 +1795,54 @@ export const Creation2G = () => {
                             key={indexMap}
                           />
                         ))}
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </BoxComands>
+                <BoxComands title="DESBLOQUEAR BCF">
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Desbloquear</Tab>
+                      <Tab>Bloquear</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        <Comand
+                          comand={`ZEFS:BCF=${data2G[0][13]}:U;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel>
+                      <TabPanel>
+                        <Comand
+                          comand={`ZEFS:BCF=${data2G[0][13]}:L;`}
+                          task=""
+                          color="red.200"
+                        />
+                      </TabPanel>
+                    </TabPanels>
+                  </Tabs>
+                </BoxComands>
+                <BoxComands title="DESBLOQUEAR OMU">
+                  <Tabs variant="line" colorScheme="whiteAlpha">
+                    <TabList bgColor="whiteAlpha.300" color="white">
+                      <Tab>Desbloquear</Tab>
+                      <Tab>Verificar</Tab>
+                    </TabList>
+                    <TabPanels>
+                      <TabPanel>
+                        <Comand
+                          comand={`ZOYS:IUA:BCF${data2G[0][13]}OMU:ACT;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel>
+                      <TabPanel>
+                        <Comand
+                          comand={`ZEEI:BCF=${data2G[0][13]};`}
+                          task=""
+                          color="yellow.200"
+                        />
                       </TabPanel>
                     </TabPanels>
                   </Tabs>
