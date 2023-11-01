@@ -6,6 +6,7 @@ import { MSS3G } from "./pages/MSS3G";
 import { RNCConector } from "./pages/RNCConector";
 import { TRXDelete } from "./pages/TRXDelete";
 import { Creation2G } from "./pages/Creation2G";
+import { MSS2G } from "./pages/MSS2G.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/RNCConector" element={<RNCConector />} />
         <Route path="/TRXDelete" element={<TRXDelete />} />
         <Route path="/Creation2G" element={<Creation2G />} />
+        <Route path="/MSS2G" element={<MSS2G />} />
       </Route>
     </Routes>
   );
