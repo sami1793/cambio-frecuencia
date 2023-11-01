@@ -264,9 +264,20 @@ export const Creation2G = () => {
             1
         );
         setDataDF2GSheet5(arrayAbisSCTPFiltered);
-
-        console.log(arrayDataBCSUIP);
         getIPOMUTRX(arrayDataBCSUIP);
+
+        // Guardo las BSCU sugeridas
+        setBcsuAsignedTRX((prevState) => {
+          const updatedBcsuAsignedTRX = { ...prevState }; // Crear una copia del estado actual
+
+          arrayDataPacketAbisFiltered
+            .filter((_, index) => index > 0)
+            .forEach((value, indexFor) => {
+              updatedBcsuAsignedTRX[`bcsuAsignedTRX${indexFor + 1}`] = value[7];
+            });
+
+          return updatedBcsuAsignedTRX; // Devolver la copia actualizada
+        });
 
         console.log(arrayAbisSCTPFiltered);
         console.log(arrayDataAbisBCFFiltered);
@@ -389,17 +400,14 @@ export const Creation2G = () => {
                           <Td>
                             <NumberInput
                               defaultValue={indexMap}
-                              name={`bcsu${indexMap + 1}`}
+                              name={`bcsu${indexMap}`}
                               min={0}
                               max={IPOMUTRX.length - 1}
                               size="xs"
                               width="100px"
                               bgColor="whiteAlpha.500"
                               onChange={(numberInput) =>
-                                setInputsBSCU(
-                                  numberInput,
-                                  `bcsu${indexMap + 1}`
-                                )
+                                setInputsBSCU(numberInput, `bcsu${indexMap}`)
                               }
                             >
                               <NumberInputField />
@@ -453,7 +461,11 @@ export const Creation2G = () => {
                             <Td>{value[1]}</Td>
                             <Td>
                               <NumberInput
-                                defaultValue={1}
+                                defaultValue={
+                                  bcsuAsignedTRX[
+                                    `bcsuAsignedTRX${indexMap + 1}`
+                                  ]
+                                }
                                 name={`bcsuAsignedTRX${indexMap + 1}`}
                                 min={0}
                                 size="xs"
@@ -944,10 +956,9 @@ export const Creation2G = () => {
                                 .filter((_, index) => index >= 20 && index < 24)
                                 .map((value, indexMap) => (
                                   <Tr key={indexMap}>
-                                    <Td>{value[1]}</Td>
+                                    <Td>{value[1].slice(0, -1)}</Td>
                                     <Td>
                                       <NumberInput
-                                        defaultValue={1}
                                         min={0}
                                         max={4}
                                         size="xs"
