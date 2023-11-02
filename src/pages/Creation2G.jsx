@@ -529,7 +529,7 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
                               typeBSC === "mcBSC" ? "BCXU" : "BCSU"
-                            }:${getBSCUOMUSIG()}:${value[6]};`}
+                            },${getBSCUOMUSIG()}:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
