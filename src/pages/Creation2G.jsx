@@ -1134,9 +1134,9 @@ export const Creation2G = () => {
                               value[14]
                             },NAME=${value[1]},SEG=${value[14]},SEGNAME=${
                               value[1]
-                            }:CI=${value[10]},BAND=${value[7]}:NCC=${
-                              value[26]
-                            },BCC=${value[27]}:MCC=${getMCC(
+                            }:CI=${value[10]},BAND=${
+                              value[7] == "850" ? "800" : value[7]
+                            }:NCC=${value[26]},BCC=${value[27]}:MCC=${getMCC(
                               value[174]
                             )},MNC=${getMNC(value[174])},LAC=${
                               value[24]
