@@ -673,7 +673,7 @@ export const Creation2G = () => {
                               typeBSC === "mcBSC" ? "BCXU" : "BCSU"
                             }:${
                               bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                            }:${value[6]};`}
+                            },${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
