@@ -1880,14 +1880,14 @@ export const Creation2G = () => {
                     <TabPanels>
                       <TabPanel>
                         <Comand
-                          comand={`ZEFS:BCF=${data2G[0][13]}:U;`}
+                          comand={`ZEFS:${data2G[0][13]}:U;`}
                           task=""
                           color="green.200"
                         />
                       </TabPanel>
                       <TabPanel>
                         <Comand
-                          comand={`ZEFS:BCF=${data2G[0][13]}:L;`}
+                          comand={`ZEFS:${data2G[0][13]}:L;`}
                           task=""
                           color="red.200"
                         />
