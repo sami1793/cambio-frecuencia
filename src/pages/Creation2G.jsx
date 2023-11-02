@@ -1182,7 +1182,7 @@ export const Creation2G = () => {
                       <TabPanel>
                         {data2G.map((value, indexMap) => (
                           <Comand
-                            comand={`ZEQE:BTS=${value[14]},AHOP=Y;`}
+                            comand={`ZEQE:BTS=${value[14]}:AHOP=Y;`}
                             task=""
                             color="green.200"
                             key={indexMap}
