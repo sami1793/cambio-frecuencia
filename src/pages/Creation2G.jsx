@@ -43,12 +43,12 @@ import { calculateNetwork } from "../utils/calculatorIP";
 export const Creation2G = () => {
   let contTRX = 0;
   const MCC = {
-    AR: "722",
+    ARG: "722",
     PY: "744",
     UY: "748",
   };
   const MNC = {
-    AR: "310",
+    ARG: "310",
     PY: "02",
     UY: "10",
   };
