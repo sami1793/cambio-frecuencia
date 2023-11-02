@@ -855,7 +855,7 @@ export const Creation2G = () => {
                         <Flex key={indexMap} direction="column">
                           {typeBSC !== "mcBSC" && (
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP=${value[41]},SMCUP=${value[42]},BMIP=${value[43]},SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP="${value[41]}",SMCUP=${value[42]},"BMIP=${value[43]}",SMPP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]};`}
                               task="**FLEXI**"
                               color="green.100"
                             />
