@@ -1282,9 +1282,9 @@ export const Creation2G = () => {
                       <TabPanel>
                         {data2G.map((value, indexMap) => (
                           <Comand
-                            comand={`ZEBE:MAL,${value[73]},${value[7]}:FREQ=${
-                              value[125]
-                            }${
+                            comand={`ZEBE:MAL,${value[73]},${
+                              value[7] == 850 ? "800" : value[7]
+                            }:FREQ=${value[125]}${
                               value[126]
                                 ? `&${value[126]}${
                                     value[127]
