@@ -63,7 +63,7 @@ export const MSS2G = () => {
   const copyCredencials = () => {
     navigator.clipboard.writeText(
       `ssh -p 4422 "CTIMOVIL\\${data2GMSSConection.user.toLocaleUpperCase()}@BOIR01@${
-        dataMSSConection.mss
+        data2GMSSConection.mss
       }@pbps.claro.amx"`
     );
     toast({
@@ -124,7 +124,7 @@ export const MSS2G = () => {
               <option value="MSSM1AROLL2">MSSM1AROLL2</option>
               {/* <option value="option3">MSSM01ARCOR1</option> */}
               {/* <option value="option3">MSSM01AROLL2</option> */}
-              {/* <option value="option3">MSSM2ARCOR2</option> */}
+              <option value="MSSM2ARCOR2">MSSM2ARCOR2</option>
               <option value="MSSM2AROLL1">MSSM2AROLL1</option>
               <option value="MSSM3ARCOR1">MSSM3ARCOR1</option>
               <option value="MSSM3AROLL1">MSSM3AROLL1</option>

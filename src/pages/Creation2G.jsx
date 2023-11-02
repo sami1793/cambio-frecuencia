@@ -1531,8 +1531,7 @@ export const Creation2G = () => {
                 <BoxComands title="MODIFICACIONES DE HOC">
                   {data2G.map((value, indexMap) => (
                     <Comand
-                      comand={`
-                      ZEHN:BTS=${value[14]}:QSRC=${value[156]},WCP=${
+                      comand={`ZEHN:BTS=${value[14]}:QSRC=${value[156]},WCP=${
                         value[157]
                       },LTSC=${value[158]},UMIU=${value[159]},IDE=${
                         value[160] ? "Y" : "N"
@@ -1581,8 +1580,7 @@ export const Creation2G = () => {
                   <br />
                   {data2G.map((value, indexMap) => (
                     <Comand
-                      comand={`
-                      ZEHD:BTS=${value[14]}:MSWS=20,MSP=10,MSN=16;`}
+                      comand={`ZEHD:BTS=${value[14]}:MSWS=20,MSP=10,MSN=16;`}
                       task=""
                       color="green.200"
                       key={indexMap}
@@ -1663,8 +1661,7 @@ export const Creation2G = () => {
                 <BoxComands title="PARÁMETROS POC">
                   {data2G.map((value, indexMap) => (
                     <Comand
-                      comand={`
-                      ZEUM:BTS=${value[14]}:ALPHA=${value[87]},GAMMA=${value[88]},BEP=${value[89]};`}
+                      comand={`ZEUM:BTS=${value[14]}:ALPHA=${value[87]},GAMMA=${value[88]},BEP=${value[89]};`}
                       task=""
                       color="green.200"
                       key={indexMap}
