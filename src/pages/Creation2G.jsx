@@ -81,6 +81,7 @@ export const Creation2G = () => {
     bcsu6: "5",
     bcsu7: "6",
     bcsu8: "7",
+    bcsu9: "8",
   });
 
   const [bcsuAsignedTRX, setBcsuAsignedTRX] = useState({
@@ -134,7 +135,9 @@ export const Creation2G = () => {
     if (bcsuID !== null) {
       let posicion = bcsuID[bcsuID.length - 1];
       return Number(posicion) - 1;
-    } else return null;
+    } else {
+      return null;
+    }
   };
 
   const getTRXSIGIP = (bcsu) => {
@@ -400,14 +403,17 @@ export const Creation2G = () => {
                           <Td>
                             <NumberInput
                               defaultValue={indexMap}
-                              name={`bcsu${indexMap}`}
+                              name={`bcsu${indexMap + 1}`}
                               min={0}
                               max={IPOMUTRX.length - 1}
                               size="xs"
                               width="100px"
                               bgColor="whiteAlpha.500"
                               onChange={(numberInput) =>
-                                setInputsBSCU(numberInput, `bcsu${indexMap}`)
+                                setInputsBSCU(
+                                  numberInput,
+                                  `bcsu${indexMap + 1}`
+                                )
                               }
                             >
                               <NumberInputField />
@@ -468,8 +474,8 @@ export const Creation2G = () => {
                                 }
                                 name={`bcsuAsignedTRX${indexMap + 1}`}
                                 min={0}
+                                max={IPOMUTRX.length - 1}
                                 size="xs"
-                                max={IPOMUTRX.length + 1}
                                 width="100px"
                                 bgColor="whiteAlpha.500"
                                 onChange={(numberInput) =>
@@ -1345,7 +1351,8 @@ export const Creation2G = () => {
                     <TabList bgColor="whiteAlpha.300" color="white">
                       <Tab>Crecimiento</Tab>
                       <Tab>Verificar</Tab>
-                      <Tab>Agregar o Eliminar frecuencias</Tab>
+                      <Tab>Agregar frecuencias</Tab>
+                      <Tab>Eliminar frecuencias</Tab>
                     </TabList>
                     <TabPanels>
                       <TabPanel>
@@ -1372,6 +1379,60 @@ export const Creation2G = () => {
                         {data2G.map((value, indexMap) => (
                           <Comand
                             comand={`ZEBT:MAL,${value[73]},A:FREQ=${
+                              value[125]
+                            }${
+                              value[126]
+                                ? `&${value[126]}${
+                                    value[127]
+                                      ? `&${value[127]}${
+                                          value[128]
+                                            ? `&${value[128]}${
+                                                value[129]
+                                                  ? `&${value[129]}${
+                                                      value[130]
+                                                        ? `&${value[130]}${
+                                                            value[131]
+                                                              ? `&${
+                                                                  value[131]
+                                                                }${
+                                                                  value[132]
+                                                                    ? `&${
+                                                                        value[132]
+                                                                      }${
+                                                                        value[133]
+                                                                          ? `&${
+                                                                              value[133]
+                                                                            }${
+                                                                              value[134]
+                                                                                ? `&${value[134]}`
+                                                                                : ""
+                                                                            }`
+                                                                          : ""
+                                                                      }`
+                                                                    : ""
+                                                                }`
+                                                              : ""
+                                                          }`
+                                                        : ""
+                                                    }`
+                                                  : ""
+                                              }`
+                                            : ""
+                                        }`
+                                      : ""
+                                  }`
+                                : ""
+                            };`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </TabPanel>
+                      <TabPanel>
+                        {data2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEBT:MAL,${value[73]},R:FREQ=${
                               value[125]
                             }${
                               value[126]
