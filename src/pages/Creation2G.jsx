@@ -81,6 +81,7 @@ export const Creation2G = () => {
     bcsu6: "5",
     bcsu7: "6",
     bcsu8: "7",
+    bcsu9: "8",
   });
 
   const [bcsuAsignedTRX, setBcsuAsignedTRX] = useState({
@@ -141,13 +142,13 @@ export const Creation2G = () => {
 
   const getTRXSIGIP = (bcsu) => {
     let posicion = posicionBCSU(bcsu);
-    if (posicion !== null) return IPOMUTRX[posicion + 1][5];
+    if (posicion !== null) return IPOMUTRX[posicion][5];
     return "NO ENCONTRADO";
   };
 
   const getOMUSIGIP = (bcsu) => {
     let posicion = posicionBCSU(bcsu);
-    if (posicion !== null) return IPOMUTRX[posicion + 1][4];
+    if (posicion !== null) return IPOMUTRX[posicion][4];
     return "NO ENCONTRADO";
   };
 
@@ -402,14 +403,17 @@ export const Creation2G = () => {
                           <Td>
                             <NumberInput
                               defaultValue={indexMap}
-                              name={`bcsu${indexMap}`}
+                              name={`bcsu${indexMap + 1}`}
                               min={0}
                               max={IPOMUTRX.length - 1}
                               size="xs"
                               width="100px"
                               bgColor="whiteAlpha.500"
                               onChange={(numberInput) =>
-                                setInputsBSCU(numberInput, `bcsu${indexMap}`)
+                                setInputsBSCU(
+                                  numberInput,
+                                  `bcsu${indexMap + 1}`
+                                )
                               }
                             >
                               <NumberInputField />
@@ -470,8 +474,8 @@ export const Creation2G = () => {
                                 }
                                 name={`bcsuAsignedTRX${indexMap + 1}`}
                                 min={0}
+                                max={IPOMUTRX.length - 1}
                                 size="xs"
-                                max={IPOMUTRX.length + 1}
                                 width="100px"
                                 bgColor="whiteAlpha.500"
                                 onChange={(numberInput) =>
