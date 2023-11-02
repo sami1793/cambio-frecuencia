@@ -671,9 +671,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZOYX:${value[1]}:${value[2]}:${value[3]}:${
                               typeBSC === "mcBSC" ? "BCXU" : "BCSU"
-                            }:${
+                            },${
                               bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                            },${value[6]};`}
+                            }:${value[6]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
