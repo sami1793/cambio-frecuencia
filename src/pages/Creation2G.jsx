@@ -27,7 +27,6 @@ import {
   Heading,
   Tooltip,
   Stack,
-  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -617,9 +616,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZDWP:${value[2]}:${
                               typeBSC === "mcBSC" ? "BCXU" : "BCSU"
-                            },${value[7]}:${value[8]},${value[9]}:${value[4]},${
-                              value[5]
-                            };`}
+                            },${getBSCUOMUSIG()}:${value[8]},${value[9]}:${
+                              value[4]
+                            },${value[5]};`}
                             task=""
                             color="green.200"
                             key={indexMap}
