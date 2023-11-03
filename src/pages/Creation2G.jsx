@@ -983,7 +983,7 @@ export const Creation2G = () => {
                             </Tbody>
                           </Table>
                           <Comand
-                            comand={`${dataDF2GSheet1[28][1]}`}
+                            comand={`${"ZQRI:ETME,::VLAN48:ALL;"}`}
                             task="VERIFICAR IP DE ETME"
                             color="yellow.200"
                           />
