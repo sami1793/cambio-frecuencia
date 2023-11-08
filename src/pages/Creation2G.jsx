@@ -237,7 +237,13 @@ export const Creation2G = () => {
         setTypeBSC(arrayDataBCSUIP[0][2]);
 
         setDataDF2GSheet1(arrayDataBCSUIP);
-        setDataDF2GSheet2(arrayDataBTSIP);
+
+        //Guardo info de BTS_IP:
+        let arrayDataBTSIPFiltered = arrayDataBTSIP?.filter(
+          (value, _) => value[24] == data2G[0][0]
+        );
+        console.log(arrayDataBTSIPFiltered);
+        setDataDF2GSheet2(arrayDataBTSIPFiltered);
 
         //Filtro y guardo sola la fila con esa BCF
         let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
@@ -845,7 +851,6 @@ export const Creation2G = () => {
 
             {/* ------------CREACIÓN DE BCF------------- */}
             <BoxComands title="CREACIÓN DE BCF">
-              {/* MODOFICAR SEGUN SEA FLEXI O MC */}
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecimiento</Tab>
@@ -862,14 +867,14 @@ export const Creation2G = () => {
                           {typeBSC !== "mcBSC" && (
                             // AICT = 2 PERO ERA VALUE[4] VER
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${value[41]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]}::;`}
                               task="**FLEXI**"
                               color="green.100"
                             />
                           )}
                           {typeBSC === "mcBSC" && (
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP="${value[41]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]}::;`}
                               task="**MULTICONTROLER**"
                               color="green.100"
                             />
