@@ -27,6 +27,7 @@ import {
   Heading,
   Tooltip,
   Stack,
+  Box,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import readXlsxFile from "read-excel-file";
@@ -853,8 +854,9 @@ export const Creation2G = () => {
                       .map((value, indexMap) => (
                         <Flex key={indexMap} direction="column">
                           {typeBSC !== "mcBSC" && (
+                            // AICT = 2 PERO ERA VALUE[4] VER
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP="${value[41]}",SMCUP=${value[42]},"BMIP=${value[43]}",SMMP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${value[41]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]}::;`}
                               task="**FLEXI**"
                               color="green.100"
                             />
@@ -1171,105 +1173,146 @@ export const Creation2G = () => {
                     </TabPanels>
                   </Tabs>
                 </BoxComands>
-                <BoxComands title="MODIFICACION DE HOPPING">
-                  <Tabs variant="line" colorScheme="whiteAlpha">
-                    <TabList bgColor="whiteAlpha.300" color="white">
-                      <Tab>Crecimiento</Tab>
-                      <Tab>Verificar</Tab>
-                    </TabList>
-                    <TabPanels>
-                      <TabPanel>
-                        {data2G.map((value, indexMap) => (
-                          <Comand
-                            comand={`ZEQE:BTS=${value[14]}:AHOP=Y;`}
-                            task=""
-                            color="green.200"
-                            key={indexMap}
-                          />
-                        ))}
-                      </TabPanel>
-                      <TabPanel>
-                        {data2G.map((value, indexMap) => (
-                          <Comand
-                            comand={`ZEQO:BTS=${value[14]}:HOP:;`}
-                            task=""
-                            color="yellow.200"
-                            key={indexMap}
-                          />
-                        ))}
-                      </TabPanel>
-                    </TabPanels>
-                  </Tabs>
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS DIVERSIDADES TRX PRIORITY IN TCH ALLOCATION, DTX MODE, MS TXPWR MIN, MAX NUMBER OF RETRANSMISSION, NUMBER OF SLOTS SPREAD TRANS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQM:BTS=${value[14]}:CB=Y,RDIV=${
-                        value[144] == 1 ? "Y" : "N"
-                      },TRP=${value[57]},DTX=1,PMIN=14,RET=2,SLO=16,FRL=${
-                        value[77]
-                      },FRU=${value[78]},STIRC=${
-                        value[145] == 1 ? "Y" : "N"
-                      },:::QSRI=7,QSRP=7;
-                      `}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                    //VER PMIN que en 850 es 13 y aca 14!!!!!!!!!
-                  ))}
-                </BoxComands>
-                <BoxComands title="MODIFICACION DE MEAS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQB:BTS=${value[14]}:MEAS=N;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS NUMBER OF MULTIFRAMES, TIMER FOR PERIODIC MS LOCATION UPDATING">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQJ:BTS=${value[14]}:MFR=4,PER=6.0;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS PLMN PERMITTED, DIRECTED RETRY USED, CALL RE-ESTABLISHMENT ALLOWED, DIRECTED RETRY METHOD, MIN TIME LIMIT DIRECTED RETRY, MAX TIME LIMIT DIRECTED RETRY">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQF:BTS=${value[14]}:PLMN=0&&7,DR=Y,RE=Y,DRM=1,MIDR=2,MADR=7;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS CELL RESELECT HYSTERESIS, RXLEV ACCESS MIN, RADIO LINK TIMEOUT">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQG:BTS=${value[14]}:HYS=6,RXP=${value[150]},RLT=${value[147]},GRXP=${value[151]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS MAX QUEUE LENGTH, TIME LIMIT CALL, TIME LIMIT HANDOVER, QUEUEING PRIORITY CALL, QUEUEING PRIORITY URGENT HANDOVER, QUEUEING PRIORITY NON-URGENT HANDOVER">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQH:BTS=${value[14]}:MQL=25,TLC=7,TLH=2,QPC=9,QPH=8,QPN=10;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-
+                <Tooltip placement="top-start" label="MODIFICACION DE HOPPING">
+                  <Box>
+                    <BoxComands title="">
+                      <Tabs variant="line" colorScheme="whiteAlpha">
+                        <TabList bgColor="whiteAlpha.300" color="white">
+                          <Tab>Crecimiento</Tab>
+                          <Tab>Verificar</Tab>
+                        </TabList>
+                        <TabPanels>
+                          <TabPanel>
+                            {data2G.map((value, indexMap) => (
+                              <Comand
+                                comand={`ZEQE:BTS=${value[14]}:AHOP=Y;`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                          </TabPanel>
+                          <TabPanel>
+                            {data2G.map((value, indexMap) => (
+                              <Comand
+                                comand={`ZEQO:BTS=${value[14]}:HOP:;`}
+                                task=""
+                                color="yellow.200"
+                                key={indexMap}
+                              />
+                            ))}
+                          </TabPanel>
+                        </TabPanels>
+                      </Tabs>
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  placement="top-start"
+                  label="HABILITO EN LAS BTS DIVERSIDADES TRX PRIORITY IN TCH ALLOCATION, DTX MODE, MS TXPWR MIN, MAX NUMBER OF RETRANSMISSION, NUMBER OF SLOTS SPREAD TRANS"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQM:BTS=${value[14]}:CB=Y,RDIV=${
+                            value[144] == 1 ? "Y" : "N"
+                          },TRP=${value[57]},DTX=1,PMIN=14,RET=2,SLO=16,FRL=${
+                            value[77]
+                          },FRU=${value[78]},STIRC=${
+                            value[145] == 1 ? "Y" : "N"
+                          },:::QSRI=7,QSRP=7;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                        //VER PMIN que en 850 es 13 y aca 14!!!!!!!!!
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip label="MODIFICACION DE MEAS" placement="top-start">
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQB:BTS=${value[14]}:MEAS=N;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  label="HABILITO EN LAS BTS NUMBER OF MULTIFRAMES, TIMER FOR PERIODIC MS LOCATION UPDATING"
+                  placement="top-start"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQJ:BTS=${value[14]}:MFR=4,PER=6.0;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  label="HABILITO EN LAS BTS PLMN PERMITTED, DIRECTED RETRY USED, CALL RE-ESTABLISHMENT ALLOWED, DIRECTED RETRY METHOD, MIN TIME LIMIT DIRECTED RETRY, MAX TIME LIMIT DIRECTED RETRY"
+                  placement="top-start"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQF:BTS=${value[14]}:PLMN=0&&7,DR=Y,RE=Y,DRM=1,MIDR=2,MADR=7;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  label="HABILITO EN LAS BTS CELL RESELECT HYSTERESIS, RXLEV ACCESS MIN, RADIO LINK TIMEOUT"
+                  placement="top-start"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQG:BTS=${value[14]}:HYS=6,RXP=${value[150]},RLT=${value[147]},GRXP=${value[151]};`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  label="HABILITO EN LAS BTS MAX QUEUE LENGTH, TIME LIMIT CALL, TIME LIMIT HANDOVER, QUEUEING PRIORITY CALL, QUEUEING PRIORITY URGENT HANDOVER, QUEUEING PRIORITY NON-URGENT HANDOVER"
+                  placement="top-start"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQH:BTS=${value[14]}:MQL=25,TLC=7,TLH=2,QPC=9,QPH=8,QPN=10;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
                 {/* ****** FREC DE MAL************ */}
                 <BoxComands title="MAL: CREAR MAL Y AGREGAR FRECUENCIA">
                   <Tabs variant="line" colorScheme="whiteAlpha">
@@ -1487,46 +1530,74 @@ export const Creation2G = () => {
 
                   {/* ****REVISAR MO!! PORQUE LE PUSE 74 Y NO 75******* */}
                 </BoxComands>
-                <BoxComands title="HABILITO LOS CODEC AMR HR A NIVEL DE BTS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQY:BTS=${value[14]}:ARLT=${value[147]},HRC=1&4&16;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS POWER CONTROL">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEUC:BTS=${value[14]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS HANDOVER CONTROL">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEHC:BTS=${value[14]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="MODIFICACIONES DE HANDOVER CONTROL">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEHG:BTS=${value[14]}:EFA=Y,EFP=Y,EFH=Y,HPP=4,HPU=4;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
+                <Tooltip
+                  placement="top-start"
+                  label="HABILITO LOS CODEC AMR HR A NIVEL DE BTS"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQY:BTS=${value[14]}:ARLT=${value[147]},HRC=1&4&16;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  placement="top-start"
+                  label="HABILITO EN LAS BTS POWER CONTROL"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEUC:BTS=${value[14]};`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  placement="top-start"
+                  label="HABILITO EN LAS BTS HANDOVER CONTROL"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEHC:BTS=${value[14]};`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip
+                  placement="top-start"
+                  label="MODIFICACIONES DE HANDOVER CONTROL"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEHG:BTS=${value[14]}:EFA=Y,EFP=Y,EFH=Y,HPP=4,HPU=4;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
                 <BoxComands title="MODIFICACIONES DE HOC">
                   {data2G.map((value, indexMap) => (
                     <Comand
@@ -1633,41 +1704,57 @@ export const Creation2G = () => {
                   ))}
                   <br />
                 </BoxComands>
-                <BoxComands title="HABILITO EN LAS BTS DEDICATED GPRS CAPACITY, DEFAULT GPRS CAPACITY, MAX GPRS CAPACITY, PREFER BCCH FREQUENCY GPRS, GPRS ENABLED, EGPRS ENABLED, INITIAL MCS FOR UNACKNOWLEDGED MODE, MAXIMUM BLER IN ACKNOWLEDGED MODE, MAXIMUM BLER IN UNACKNOWLEDGED MODE, MEAN BEP OFFSET GMSK, MEAN BEP OFFSET 8PSK">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQV:BTS=${value[14]}:CDED=${value[55]},CDEF=${
-                        value[54]
-                      },CMAX=${value[53]},BFG=${value[56]},GENA=N,EGENA=${
-                        value[56] ? "Y" : "N"
-                      },MCU=6,BLA=${value[85]},BLU=${value[86]},MBG=0,MBP=0;`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="PARÁMETROS GPRS">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEQV:BTS=${value[14]}:DLA=${value[79]},DLBH=${value[80]},ULBH=${value[83]},DLB=${value[81]},ULA=${value[82]},MCA=${value[137]},MCU=${value[138]},ULB=${value[84]},BLA=${value[85]},BLU=${value[86]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-                <BoxComands title="PARÁMETROS POC">
-                  {data2G.map((value, indexMap) => (
-                    <Comand
-                      comand={`ZEUM:BTS=${value[14]}:ALPHA=${value[87]},GAMMA=${value[88]},BEP=${value[89]};`}
-                      task=""
-                      color="green.200"
-                      key={indexMap}
-                    />
-                  ))}
-                </BoxComands>
-
+                <Tooltip
+                  label="HABILITO EN LAS BTS DEDICATED GPRS CAPACITY, DEFAULT GPRS CAPACITY, MAX GPRS CAPACITY, PREFER BCCH FREQUENCY GPRS, GPRS ENABLED, EGPRS ENABLED, INITIAL MCS FOR UNACKNOWLEDGED MODE, MAXIMUM BLER IN ACKNOWLEDGED MODE, MAXIMUM BLER IN UNACKNOWLEDGED MODE, MEAN BEP OFFSET GMSK, MEAN BEP OFFSET 8PSK"
+                  placement="top"
+                >
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQV:BTS=${value[14]}:CDED=${
+                            value[55]
+                          },CDEF=${value[54]},CMAX=${value[53]},BFG=${
+                            value[56]
+                          },GENA=N,EGENA=${value[56] ? "Y" : "N"},MCU=6,BLA=${
+                            value[85]
+                          },BLU=${value[86]},MBG=0,MBP=0;`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip label="PARÁMETROS GPRS">
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEQV:BTS=${value[14]}:DLA=${value[79]},DLBH=${value[80]},ULBH=${value[83]},DLB=${value[81]},ULA=${value[82]},MCA=${value[137]},MCU=${value[138]},ULB=${value[84]},BLA=${value[85]},BLU=${value[86]};`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
+                <Tooltip label="PARÁMETROS POC">
+                  <Box>
+                    <BoxComands title="">
+                      {data2G.map((value, indexMap) => (
+                        <Comand
+                          comand={`ZEUM:BTS=${value[14]}:ALPHA=${value[87]},GAMMA=${value[88]},BEP=${value[89]};`}
+                          task=""
+                          color="green.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </BoxComands>
+                  </Box>
+                </Tooltip>
                 {/* *******TRX********** */}
                 <BoxComands title="CREACIÓN DE TRX">
                   <Tabs variant="line" colorScheme="whiteAlpha">
