@@ -188,10 +188,16 @@ export const Creation2G = () => {
   //Obtengo todas las filas con BSCU
   const getIPOMUTRX = (sheet) => {
     console.log(
-      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+      sheet.filter(
+        (value, index) =>
+          index >= 8 && index < 20 && String(value[1]).substr(0, 2) == "BC"
+      )
     );
     setIPOMUTRX(
-      sheet.filter((value, index) => index >= 8 && index < 20 && value[1])
+      sheet.filter(
+        (value, index) =>
+          index >= 8 && index < 20 && String(value[1]).substr(0, 2) == "BC"
+      )
     );
   };
 
