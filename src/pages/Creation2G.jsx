@@ -655,7 +655,7 @@ export const Creation2G = () => {
                         .filter((_, index) => index == 0)
                         .map((value, indexMap) => (
                           <Comand
-                            comand={`ZDWD:NAME=${value[2]};`}
+                            comand={`ZDWD:${value[2]};`}
                             task=""
                             color="red.200"
                             key={indexMap}
