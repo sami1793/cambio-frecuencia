@@ -874,7 +874,7 @@ export const Creation2G = () => {
                           )}
                           {typeBSC === "mcBSC" && (
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,${value[4]}:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]}::;`}
                               task="**MULTICONTROLER**"
                               color="green.100"
                             />
