@@ -1196,7 +1196,9 @@ export const Creation2G = () => {
                           <TabPanel>
                             {data2G.map((value, indexMap) => (
                               <Comand
-                                comand={`ZEQE:BTS=${value[14]}:AHOP=Y;`}
+                                comand={`ZEQE:BTS=${value[14]}:AHOP=${
+                                  value[144] == 1 ? "Y" : "N"
+                                };`}
                                 task=""
                                 color="green.200"
                                 key={indexMap}
@@ -1227,7 +1229,7 @@ export const Creation2G = () => {
                       {data2G.map((value, indexMap) => (
                         <Comand
                           comand={`ZEQM:BTS=${value[14]}:CB=Y,RDIV=${
-                            value[144] == 1 ? "Y" : "N"
+                            value[143] == 1 ? "Y" : "N"
                           },TRP=${value[57]},DTX=1,PMIN=${
                             value[7] == "850" ? "13" : "14"
                           },RET=2,SLO=16,FRL=${value[77]},FRU=${
