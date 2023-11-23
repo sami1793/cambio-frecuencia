@@ -64,7 +64,7 @@ export const RETs = () => {
     }
   };
   return (
-    <Center mt={5}>
+    <Center mt={5} maxW="full">
       <Flex direction="column" alignItems="center" gap={5} mb={5}>
         <Title title={`RETs en Call Off`}></Title>
         <Flex gap={3}>
@@ -80,96 +80,6 @@ export const RETs = () => {
           </FormControl>
         </Flex>
         <Flex gap={5}>
-          {/*dataCeldas2G && dataCeldas3G && dataCeldas4G && (
-            <TableContainer border="1px">
-              <Table variant="striped" colorScheme="blackAlpha">
-                <Thead>
-                  <Tr>
-                    <Th>ETIQUETA</Th>
-                    <Th>MODELO DE ANTENA</Th>
-                    <Th>TILT ELECTRICO</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataCeldas2G.map((value, indexMap) => (
-                    <Tr key={indexMap}>
-                      <Td>G{value[8].slice(-2)}</Td>
-                      <Td>{value[9]}</Td>
-                      <Td>{value[11]}</Td>
-                    </Tr>
-                  ))}
-                  <br />
-                  {dataCeldas3G.map((value, indexMap) => (
-                    <Tr key={indexMap}>
-                      <Td>U{value[8].slice(-2)}</Td>
-                      <Td>{value[9]}</Td>
-                      <Td>{value[11]}</Td>
-                    </Tr>
-                  ))}
-                  <br />
-                  {dataCeldas4G
-                    .filter(
-                      (value, index) => value[2] === "F1" && value[5] !== "N"
-                    )
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>L{value[8].slice(-2)}</Td>
-                        <Td>{value[9]}</Td>
-                        <Td>{value[11]}</Td>
-                      </Tr>
-                    ))}
-                  <br />
-                  {dataCeldas4G
-                    .filter(
-                      (value, index) => value[2] === "F2" && value[5] !== "N"
-                    )
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>L{value[8].slice(-2)}</Td>
-                        <Td>{value[9]}</Td>
-                        <Td>{value[11]}</Td>
-                      </Tr>
-                    ))}
-                  <br />
-                  {dataCeldas4G
-                    .filter(
-                      (value, index) => value[2] === "F3" && value[5] !== "N"
-                    )
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>L{value[8].slice(-2)}</Td>
-                        <Td>{value[9]}</Td>
-                        <Td>{value[11]}</Td>
-                      </Tr>
-                    ))}
-                  <br />
-                  {dataCeldas4G
-                    .filter(
-                      (value, index) => value[2] === "F4" && value[5] !== "N"
-                    )
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>L{value[8].slice(-2)}</Td>
-                        <Td>{value[9]}</Td>
-                        <Td>{value[11]}</Td>
-                      </Tr>
-                    ))}
-                  <br />
-                  {dataCeldas4G
-                    .filter(
-                      (value, index) => value[2] === "F5" && value[5] !== "N"
-                    )
-                    .map((value, indexMap) => (
-                      <Tr key={indexMap}>
-                        <Td>L{value[8].slice(-2)}</Td>
-                        <Td>{value[9]}</Td>
-                        <Td>{value[11]}</Td>
-                      </Tr>
-                    ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          )*/}
           {dataCeldas2G && (
             <TableContainer>
               <Table variant="striped" colorScheme="blackAlpha" border="1px">
@@ -177,7 +87,7 @@ export const RETs = () => {
                   <Tr>
                     {/* <Th>TECNOLOGIA</Th> */}
                     <Th>ETIQUETA</Th>
-                    <Th>MODELO DE ANTENA</Th>
+                    <Th>ANTENA</Th>
                     <Th>TILT ELECTRICO</Th>
                   </Tr>
                 </Thead>
@@ -201,7 +111,7 @@ export const RETs = () => {
                   <Tr>
                     {/* <Th>TECNOLOGIA</Th> */}
                     <Th>ETIQUETA</Th>
-                    <Th>MODELO DE ANTENA</Th>
+                    <Th>ANTENA</Th>
                     <Th>TILT ELECTRICO</Th>
                   </Tr>
                 </Thead>
@@ -225,7 +135,7 @@ export const RETs = () => {
                   <Tr>
                     {/* <Th>TECNOLOGIA</Th> */}
                     <Th>ETIQUETA</Th>
-                    <Th>MODELO DE ANTENA</Th>
+                    <Th>ANTENA</Th>
                     <Th>TILT ELECTRICO</Th>
                   </Tr>
                 </Thead>
