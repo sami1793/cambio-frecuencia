@@ -79,105 +79,227 @@ export const RETs = () => {
             />
           </FormControl>
         </Flex>
-        {dataCeldas2G && dataCeldas3G && dataCeldas4G && (
-          <TableContainer border="1px">
-            <Table variant="striped" colorScheme="blackAlpha">
-              <Thead>
-                <Tr>
-                  {/* <Th>TECNOLOGIA</Th> */}
-                  <Th>ETIQUETA</Th>
-                  <Th>MODELO DE ANTENA</Th>
-                  <Th>TILT ELECTRICO</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {dataCeldas2G.map((value, indexMap) => (
-                  <Tr key={indexMap}>
-                    {/* <Td>{value[8]}</Td> */}
-                    <Td>G{value[8].slice(-2)}</Td>
-                    <Td>{value[9]}</Td>
-                    <Td>{value[11]}</Td>
+        <Flex gap={5}>
+          {/*dataCeldas2G && dataCeldas3G && dataCeldas4G && (
+            <TableContainer border="1px">
+              <Table variant="striped" colorScheme="blackAlpha">
+                <Thead>
+                  <Tr>
+                    <Th>ETIQUETA</Th>
+                    <Th>MODELO DE ANTENA</Th>
+                    <Th>TILT ELECTRICO</Th>
                   </Tr>
-                ))}
-                <br />
-                {dataCeldas3G.map((value, indexMap) => (
-                  <Tr key={indexMap}>
-                    {/* <Td>{value[8]}</Td> */}
-                    <Td>U{value[8].slice(-2)}</Td>
-                    <Td>{value[9]}</Td>
-                    <Td>{value[11]}</Td>
+                </Thead>
+                <Tbody>
+                  {dataCeldas2G.map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      <Td>G{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                  <br />
+                  {dataCeldas3G.map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      <Td>U{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F1" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F2" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F3" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F4" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F5" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )*/}
+          {dataCeldas2G && (
+            <TableContainer>
+              <Table variant="striped" colorScheme="blackAlpha" border="1px">
+                <Thead>
+                  <Tr>
+                    {/* <Th>TECNOLOGIA</Th> */}
+                    <Th>ETIQUETA</Th>
+                    <Th>MODELO DE ANTENA</Th>
+                    <Th>TILT ELECTRICO</Th>
                   </Tr>
-                ))}
-                <br />
-                {/* Divido por portadora a 4G */}
-                {dataCeldas4G
-                  .filter(
-                    (value, index) => value[2] === "F1" && value[5] !== "N"
-                  )
-                  .map((value, indexMap) => (
+                </Thead>
+                <Tbody>
+                  {dataCeldas2G.map((value, indexMap) => (
                     <Tr key={indexMap}>
                       {/* <Td>{value[8]}</Td> */}
-                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>G{value[8].slice(-2)}</Td>
                       <Td>{value[9]}</Td>
                       <Td>{value[11]}</Td>
                     </Tr>
                   ))}
-                <br />
-                {dataCeldas4G
-                  .filter(
-                    (value, index) => value[2] === "F2" && value[5] !== "N"
-                  )
-                  .map((value, indexMap) => (
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+          {dataCeldas3G && (
+            <TableContainer>
+              <Table variant="striped" colorScheme="blackAlpha" border="1px">
+                <Thead>
+                  <Tr>
+                    {/* <Th>TECNOLOGIA</Th> */}
+                    <Th>ETIQUETA</Th>
+                    <Th>MODELO DE ANTENA</Th>
+                    <Th>TILT ELECTRICO</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {dataCeldas3G.map((value, indexMap) => (
                     <Tr key={indexMap}>
                       {/* <Td>{value[8]}</Td> */}
-                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>U{value[8].slice(-2)}</Td>
                       <Td>{value[9]}</Td>
                       <Td>{value[11]}</Td>
                     </Tr>
                   ))}
-                <br />
-                {dataCeldas4G
-                  .filter(
-                    (value, index) => value[2] === "F3" && value[5] !== "N"
-                  )
-                  .map((value, indexMap) => (
-                    <Tr key={indexMap}>
-                      {/* <Td>{value[8]}</Td> */}
-                      <Td>L{value[8].slice(-2)}</Td>
-                      <Td>{value[9]}</Td>
-                      <Td>{value[11]}</Td>
-                    </Tr>
-                  ))}
-                <br />
-                {dataCeldas4G
-                  .filter(
-                    (value, index) => value[2] === "F4" && value[5] !== "N"
-                  )
-                  .map((value, indexMap) => (
-                    <Tr key={indexMap}>
-                      {/* <Td>{value[8]}</Td> */}
-                      <Td>L{value[8].slice(-2)}</Td>
-                      <Td>{value[9]}</Td>
-                      <Td>{value[11]}</Td>
-                    </Tr>
-                  ))}
-                <br />
-                {dataCeldas4G
-                  .filter(
-                    (value, index) => value[2] === "F5" && value[5] !== "N"
-                  )
-                  .map((value, indexMap) => (
-                    <Tr key={indexMap}>
-                      {/* <Td>{value[8]}</Td> */}
-                      <Td>L{value[8].slice(-2)}</Td>
-                      <Td>{value[9]}</Td>
-                      <Td>{value[11]}</Td>
-                    </Tr>
-                  ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        )}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+          {dataCeldas4G && (
+            <TableContainer>
+              <Table variant="striped" colorScheme="blackAlpha" border="1px">
+                <Thead>
+                  <Tr>
+                    {/* <Th>TECNOLOGIA</Th> */}
+                    <Th>ETIQUETA</Th>
+                    <Th>MODELO DE ANTENA</Th>
+                    <Th>TILT ELECTRICO</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {/* Divido por portadora a 4G */}
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F1" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[8]}</Td> */}
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F2" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[8]}</Td> */}
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F3" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[8]}</Td> */}
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F4" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[8]}</Td> */}
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                  <br />
+                  {dataCeldas4G
+                    .filter(
+                      (value, index) => value[2] === "F5" && value[5] !== "N"
+                    )
+                    .map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[8]}</Td> */}
+                        <Td>L{value[8].slice(-2)}</Td>
+                        <Td>{value[9]}</Td>
+                        <Td>{value[11]}</Td>
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+        </Flex>
       </Flex>
     </Center>
   );
