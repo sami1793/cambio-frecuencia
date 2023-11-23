@@ -1,4 +1,18 @@
-import { Center, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import {
+  Center,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
@@ -23,68 +37,26 @@ export const RETs = () => {
           sheet: "Celdas 5G",
         });
 
-        setDataCeldas2G(arrayCeldas2G);
-        setDataCeldas3G(arrayCeldas3G);
-        setDataCeldas4G(arrayCeldas4G);
+        //Filtro solo la info de datos 2G
+        let arrayCeldas2GFiltered = arrayCeldas2G?.filter(
+          (value, index) => value[3] && value[4] && index >= 3
+        );
+        setDataCeldas2G(arrayCeldas2GFiltered);
+
+        //Filtro solo la info de datos 3G
+        let arrayCeldas3GFiltered = arrayCeldas3G?.filter(
+          (value, index) => value[2] && value[3] && index >= 2
+        );
+        setDataCeldas3G(arrayCeldas3GFiltered);
+
+        //Filtro solo la info de datos 4G
+        let arrayCeldas4GFiltered = arrayCeldas4G?.filter(
+          (value, index) => value[2] && value[3] && index >= 2
+        );
+        setDataCeldas4G(arrayCeldas4GFiltered);
         setDataCeldas5G(arrayCeldas5G);
 
-        // //Guardo info de BTS_IP:
-        // let arrayDataBTSIPFiltered = arrayDataBTSIP?.filter(
-        //   (value, _) => value[24] == data2G[0][0]
-        // );
-        // console.log(arrayDataBTSIPFiltered);
-        // setDataDF2GSheet2(arrayDataBTSIPFiltered);
-
-        // //Filtro y guardo sola la fila con esa BCF
-        // let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
-        //   (value, _) => value[1] == data2G[0][13]
-        // );
-        // setDataDF2GSheet3(arrayDataAbisBCFFiltered);
-
-        // //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
-        // let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
-        //   (value, _) => value[1] == data2G[0][13]
-        // );
-        // setDataDF2GSheet4(arrayDataPacketAbisFiltered);
-
-        // //Filtro y guardo solo las filas de esa BCF en Abis SCTP
-        // let arrayAbisSCTPFiltered = arrayAbisSCTP?.splice(
-        //   invertArray(arrayAbisSCTP)[1].findIndex(
-        //     (e) =>
-        //       e ==
-        //       (arrayDataPacketAbis?.filter(
-        //         (valueFilter, _) => valueFilter[1] == data2G[0][13]
-        //       ))[0][4]
-        //   ),
-
-        //   invertArray(arrayAbisSCTP)[4].findIndex(
-        //     (e) =>
-        //       e ==
-        //       (arrayDataPacketAbis?.filter(
-        //         (valueFilter, _) => valueFilter[1] == data2G[0][13]
-        //       ))[0][4]
-        //   ) +
-        //     arrayDataPacketAbis?.filter((value, _) => value[1] == data2G[0][13])
-        //       .length +
-        //     1
-        // );
-        // setDataDF2GSheet5(arrayAbisSCTPFiltered);
-        // getIPOMUTRX(arrayDataBCSUIP);
-
-        // // Guardo las BSCU sugeridas
-        // setBcsuAsignedTRX((prevState) => {
-        //   const updatedBcsuAsignedTRX = { ...prevState }; // Crear una copia del estado actual
-
-        //   arrayDataPacketAbisFiltered
-        //     .filter((_, index) => index > 0)
-        //     .forEach((value, indexFor) => {
-        //       updatedBcsuAsignedTRX[`bcsuAsignedTRX${indexFor + 1}`] = value[7];
-        //     });
-
-        //   return updatedBcsuAsignedTRX; // Devolver la copia actualizada
-        // });
-
-        console.log(arrayCeldas2G);
+        console.log(arrayCeldas2GFiltered);
         console.log(arrayCeldas3G);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
@@ -93,8 +65,8 @@ export const RETs = () => {
   };
   return (
     <Center mt={5}>
-      <Flex direction="column" alignItems="center" gap={5}>
-        <Title title={`RETs`}></Title>
+      <Flex direction="column" alignItems="center" gap={5} mb={5}>
+        <Title title={`RETs en Call Off`}></Title>
         <Flex gap={3}>
           <FormControl p={2} borderRadius="lg" color="white" bgColor="teal.500">
             <FormLabel>Cargar Call Off</FormLabel>
@@ -107,6 +79,105 @@ export const RETs = () => {
             />
           </FormControl>
         </Flex>
+        {dataCeldas2G && dataCeldas3G && dataCeldas4G && (
+          <TableContainer border="1px">
+            <Table variant="striped" colorScheme="blackAlpha">
+              <Thead>
+                <Tr>
+                  {/* <Th>TECNOLOGIA</Th> */}
+                  <Th>ETIQUETA</Th>
+                  <Th>MODELO DE ANTENA</Th>
+                  <Th>TILT ELECTRICO</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {dataCeldas2G.map((value, indexMap) => (
+                  <Tr key={indexMap}>
+                    {/* <Td>{value[8]}</Td> */}
+                    <Td>G{value[8].slice(-2)}</Td>
+                    <Td>{value[9]}</Td>
+                    <Td>{value[11]}</Td>
+                  </Tr>
+                ))}
+                <br />
+                {dataCeldas3G.map((value, indexMap) => (
+                  <Tr key={indexMap}>
+                    {/* <Td>{value[8]}</Td> */}
+                    <Td>U{value[8].slice(-2)}</Td>
+                    <Td>{value[9]}</Td>
+                    <Td>{value[11]}</Td>
+                  </Tr>
+                ))}
+                <br />
+                {/* Divido por portadora a 4G */}
+                {dataCeldas4G
+                  .filter(
+                    (value, index) => value[2] === "F1" && value[5] !== "N"
+                  )
+                  .map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      {/* <Td>{value[8]}</Td> */}
+                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                <br />
+                {dataCeldas4G
+                  .filter(
+                    (value, index) => value[2] === "F2" && value[5] !== "N"
+                  )
+                  .map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      {/* <Td>{value[8]}</Td> */}
+                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                <br />
+                {dataCeldas4G
+                  .filter(
+                    (value, index) => value[2] === "F3" && value[5] !== "N"
+                  )
+                  .map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      {/* <Td>{value[8]}</Td> */}
+                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                <br />
+                {dataCeldas4G
+                  .filter(
+                    (value, index) => value[2] === "F4" && value[5] !== "N"
+                  )
+                  .map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      {/* <Td>{value[8]}</Td> */}
+                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+                <br />
+                {dataCeldas4G
+                  .filter(
+                    (value, index) => value[2] === "F5" && value[5] !== "N"
+                  )
+                  .map((value, indexMap) => (
+                    <Tr key={indexMap}>
+                      {/* <Td>{value[8]}</Td> */}
+                      <Td>L{value[8].slice(-2)}</Td>
+                      <Td>{value[9]}</Td>
+                      <Td>{value[11]}</Td>
+                    </Tr>
+                  ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
       </Flex>
     </Center>
   );
