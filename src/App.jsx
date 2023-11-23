@@ -7,6 +7,7 @@ import { RNCConector } from "./pages/RNCConector";
 import { TRXDelete } from "./pages/TRXDelete";
 import { Creation2G } from "./pages/Creation2G";
 import { MSS2G } from "./pages/MSS2G.jsx";
+import { RETs } from "./pages/RETs.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/TRXDelete" element={<TRXDelete />} />
         <Route path="/Creation2G" element={<Creation2G />} />
         <Route path="/MSS2G" element={<MSS2G />} />
+        <Route path="/RETs" element={<RETs />} />
       </Route>
     </Routes>
   );

@@ -219,6 +219,7 @@ export const Creation2G = () => {
     }
   };
 
+  // -------CARGA DE DF(Excel)--------
   const handleFileDF2GUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
