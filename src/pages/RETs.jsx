@@ -80,7 +80,7 @@ export const RETs = () => {
           </FormControl>
         </Flex>
         <Flex gap={5}>
-          {dataCeldas2G && (
+          {dataCeldas2G && dataCeldas2G.length !== 0 && (
             <TableContainer>
               <Table variant="striped" colorScheme="blackAlpha" border="1px">
                 <Thead>
@@ -104,7 +104,7 @@ export const RETs = () => {
               </Table>
             </TableContainer>
           )}
-          {dataCeldas3G && (
+          {dataCeldas3G && dataCeldas3G.length !== 0 && (
             <TableContainer>
               <Table variant="striped" colorScheme="blackAlpha" border="1px">
                 <Thead>
@@ -128,7 +128,7 @@ export const RETs = () => {
               </Table>
             </TableContainer>
           )}
-          {dataCeldas4G && (
+          {dataCeldas4G && dataCeldas4G.length !== 0 && (
             <TableContainer>
               <Table variant="striped" colorScheme="blackAlpha" border="1px">
                 <Thead>
