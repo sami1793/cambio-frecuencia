@@ -18,6 +18,7 @@ import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
 
 export const RETs = () => {
+  const [dataHardware, setDataHardware] = useState("");
   const [dataCeldas2G, setDataCeldas2G] = useState("");
   const [dataCeldas3G, setDataCeldas3G] = useState("");
   const [dataCeldas4G, setDataCeldas4G] = useState("");
@@ -28,6 +29,7 @@ export const RETs = () => {
     const file = event.target.files[0];
     if (file) {
       try {
+        const arrayHardware = await readXlsxFile(file, { sheet: "Hardware" });
         const arrayCeldas2G = await readXlsxFile(file, { sheet: "Celdas 2G" });
         const arrayCeldas3G = await readXlsxFile(file, { sheet: "Celdas 3G" });
         const arrayCeldas4G = await readXlsxFile(file, {
@@ -37,6 +39,7 @@ export const RETs = () => {
           sheet: "Celdas 5G",
         });
 
+        setDataHardware(arrayHardware);
         //Filtro solo la info de datos 2G
         let arrayCeldas2GFiltered = arrayCeldas2G?.filter(
           (value, index) => value[3] && value[4] && index >= 3
