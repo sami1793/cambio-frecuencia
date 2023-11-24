@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "axios": "^1.6.2",
     "framer-motion": "^10.12.4",
     "ip": "^1.1.8",
     "ip-address": "^9.0.5",
