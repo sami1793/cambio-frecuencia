@@ -861,6 +861,7 @@ export const Creation2G = () => {
 
                 <TabPanels>
                   <TabPanel>
+                    {/* //SMCUP y SMPP vienen mal del DF porque no puede ser mas de 32 */}
                     {dataDF2GSheet3
                       .filter((_, index) => index == 0)
                       .map((value, indexMap) => (
@@ -868,14 +869,26 @@ export const Creation2G = () => {
                           {typeBSC !== "mcBSC" && (
                             // AICT = 2 PERO ERA VALUE[4] VER
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETPGID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
+                                value[10]
+                              }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                                value[42] > 32 ? "30" : value[42]
+                              },BMIP="${value[43]}",SMMP=${
+                                value[44] > 32 ? "30" : value[44]
+                              },ETPGID=${value[23]},VLANID=${value[35]}::;`}
                               task="**FLEXI**"
                               color="green.100"
                             />
                           )}
                           {typeBSC === "mcBSC" && (
                             <Comand
-                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${value[10]}:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${value[42]},BMIP="${value[43]}",SMMP=${value[44]},ETMEID=${value[23]},VLANID=${value[35]}::;`}
+                              comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
+                                value[10]
+                              }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                                value[42] > 32 ? "30" : value[42]
+                              },BMIP="${value[43]}",SMMP=${
+                                value[44] > 32 ? "30" : value[44]
+                              },ETMEID=${value[23]},VLANID=${value[35]}::;`}
                               task="**MULTICONTROLER**"
                               color="green.100"
                             />
