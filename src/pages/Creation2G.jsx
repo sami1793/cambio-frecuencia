@@ -875,7 +875,9 @@ export const Creation2G = () => {
                                 value[42] > 32 ? "30" : value[42]
                               },BMIP="${value[43]}",SMMP=${
                                 value[44] > 32 ? "30" : value[44]
-                              },ETPGID=${value[23]},VLANID=${value[35]}::;`}
+                              },ETPGID=${
+                                value[23] || dataDF2GSheet2[0][25]
+                              },VLANID=${value[35]}::;`}
                               task="**FLEXI**"
                               color="green.100"
                             />
@@ -888,7 +890,9 @@ export const Creation2G = () => {
                                 value[42] > 32 ? "30" : value[42]
                               },BMIP="${value[43]}",SMMP=${
                                 value[44] > 32 ? "30" : value[44]
-                              },ETMEID=${value[23]},VLANID=${value[35]}::;`}
+                              },ETMEID=${
+                                value[23] || dataDF2GSheet2[0][25]
+                              },VLANID=${value[35]}::;`}
                               task="**MULTICONTROLER**"
                               color="green.100"
                             />
