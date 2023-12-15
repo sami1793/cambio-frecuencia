@@ -1032,13 +1032,20 @@ export const Creation2G = () => {
                           </Thead>
                           <Tbody>
                             <Tr>
+                              {/* Viene mal la mascara en el DF */}
                               <Td>{dataDF2GSheet3[0][23]}</Td>
                               <Td>{dataDF2GSheet3[0][41]}</Td>
-                              <Td>{dataDF2GSheet3[0][42]}</Td>
+                              <Td>
+                                {dataDF2GSheet3[0][42] > 30
+                                  ? "30"
+                                  : dataDF2GSheet3[0][42]}
+                              </Td>
                               <Td bgColor="yellow.500">
                                 {calculateNetwork(
                                   dataDF2GSheet3[0][41],
-                                  dataDF2GSheet3[0][42]
+                                  dataDF2GSheet3[0][42] > 30
+                                    ? "30"
+                                    : dataDF2GSheet3[0][42]
                                 )}
                               </Td>
                             </Tr>
@@ -1060,7 +1067,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,0::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.92":LOG;`}
                             task=""
                             color="green.200"
@@ -1068,7 +1077,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,1::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.92":LOG;`}
                             task=""
                             color="green.200"
@@ -1076,7 +1087,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,2::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.92":LOG;`}
                             task=""
                             color="green.200"
@@ -1084,7 +1097,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,3::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.92":LOG;`}
                             task=""
                             color="green.200"
@@ -1095,7 +1110,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,0::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.93":LOG;`}
                             task=""
                             color="green.200"
@@ -1103,7 +1120,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,1::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.93":LOG;`}
                             task=""
                             color="green.200"
@@ -1111,7 +1130,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,2::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.93":LOG;`}
                             task=""
                             color="green.200"
@@ -1119,7 +1140,9 @@ export const Creation2G = () => {
                           <Comand
                             comand={`ZQKC:ETMA,3::"${calculateNetwork(
                               dataDF2GSheet3[0][41],
-                              dataDF2GSheet3[0][42]
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
                             )}",30:"10.0.3.93":LOG;`}
                             task=""
                             color="green.200"
