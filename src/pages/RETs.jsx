@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -40,6 +39,7 @@ export const RETs = () => {
         });
 
         setDataHardware(arrayHardware);
+
         //Filtro solo la info de datos 2G
         let arrayCeldas2GFiltered = arrayCeldas2G?.filter(
           (value, index) => value[3] && value[4] && index >= 3
@@ -82,7 +82,54 @@ export const RETs = () => {
             />
           </FormControl>
         </Flex>
-        <Flex gap={5}>
+        {/* -----TABLA HARDWARE------ */}
+        <Flex>
+          {dataHardware && (
+            <TableContainer
+              borderBottom="1px"
+              borderLeft="1px"
+              borderTop="1px"
+              marginBottom={10}
+            >
+              <Table size="sm" variant="unstyled" colorScheme="blackAlpha">
+                <Thead borderBottom="1px" borderRight="1px">
+                  <Tr backgroundColor={"gray.300"}>
+                    {dataHardware[4].map((value, index) => (
+                      <Th key={index}>{value}</Th>
+                    ))}
+                  </Tr>
+                  <Tr backgroundColor={"gray.200"}>
+                    {dataHardware[5].map((value, index) => (
+                      <Th key={index}>{value}</Th>
+                    ))}
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {dataHardware
+                    .filter(
+                      (valueFilter, indexFilter) =>
+                        indexFilter > 5 && valueFilter[10] && valueFilter[11]
+                    )
+                    .map((row, indexRow) => (
+                      <Tr key={indexRow}>
+                        {row.map((value, index) => (
+                          <Td
+                            key={index}
+                            borderRight="1px"
+                            borderTop={value ? "1px" : "0px"}
+                          >
+                            {value}
+                          </Td>
+                        ))}
+                      </Tr>
+                    ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+        </Flex>
+        {/* -----TABLA RETs------ */}
+        <Flex gap={5} marginBottom={10}>
           {dataCeldas2G && dataCeldas2G.length !== 0 && (
             <TableContainer>
               <Table variant="striped" colorScheme="blackAlpha" border="1px">
