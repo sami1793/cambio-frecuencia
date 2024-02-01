@@ -8,6 +8,7 @@ import { TRXDelete } from "./pages/TRXDelete";
 import { Creation2G } from "./pages/Creation2G";
 import { MSS2G } from "./pages/MSS2G.jsx";
 import { RETs } from "./pages/RETs.jsx";
+import { Dummy2G } from "./pages/Dummy2G.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Creation2G" element={<Creation2G />} />
         <Route path="/MSS2G" element={<MSS2G />} />
         <Route path="/RETs" element={<RETs />} />
+        <Route path="/Dummy2G" element={<Dummy2G />} />
       </Route>
     </Routes>
   );
