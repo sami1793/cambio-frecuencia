@@ -3,14 +3,29 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  HStack,
   Heading,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
 import { invertArray } from "../utils/array";
 import { BSCConection } from "../components/2G/BSCConection";
+import { Comand } from "../components/comand/Comand";
 
 export const Dummy2G = () => {
   const [typeBSC, setTypeBSC] = useState("");
@@ -91,6 +106,52 @@ export const Dummy2G = () => {
     });
     return bcsuOMUSIG;
   };
+
+  const setInputsBSCU = (numberInput, bcsu) => {
+    setInputOMUTRXID({
+      ...inputOMUTRXID,
+      [bcsu]: numberInput,
+    });
+  };
+
+  const setInputsBSCUAsigned = (numberInput, bcsu) => {
+    setBcsuAsignedTRX({
+      ...bcsuAsignedTRX,
+      [bcsu]: numberInput,
+    });
+  };
+
+  const getOMUSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][4];
+    return "NO ENCONTRADO";
+  };
+
+  const getTRXSIGIP = (bcsu) => {
+    let posicion = posicionBCSU(bcsu);
+    if (posicion !== null) return IPOMUTRX[posicion][5];
+    return "NO ENCONTRADO";
+  };
+
+  //Obtengo la posicion de ese bcsu
+  const posicionBCSU = (bcsu) => {
+    let bcsuID = null;
+    //Obtengo la propiedad (bcsu1, bcsu2, bcsu3) que tiene el valor, null si ninguno
+    for (const prop in inputOMUTRXID) {
+      if (inputOMUTRXID[prop] == bcsu) {
+        bcsuID = prop;
+        break;
+      }
+    }
+    if (bcsuID !== null) {
+      let posicion = bcsuID[bcsuID.length - 1];
+      return Number(posicion) - 1;
+    } else {
+      return null;
+    }
+  };
+
+  // --------------------------------------------------
 
   //   ----MANEJO CARGA DE ARCHIVO RFSHEET-----
   const handleFileRFSheetUpload = async (event) => {
@@ -276,8 +337,10 @@ export const Dummy2G = () => {
         </Flex>
         {/* CONEXION AL 2G */}
         <BSCConection />
-        {/* {dataDF2GSheet1 && dataRFSheet2G && ipAddressOmuSig && (
+
+        {dataDF2GSheet1 && dataRFSheet2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
+            {/* ORDENAMIENTO BSCU */}
             <HStack gap={5}>
               <Tooltip label="ORDENAR BSCUs" placement="top">
                 <TableContainer bgColor={"gray.200"}>
@@ -409,9 +472,9 @@ export const Dummy2G = () => {
                   </Table>
                 </TableContainer>
               </Tooltip>
-            </HStack>            
+            </HStack>
           </Flex>
-        )} */}
+        )}
       </Flex>
     </Center>
   );
