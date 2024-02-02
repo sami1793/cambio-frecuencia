@@ -646,6 +646,8 @@ export const Dummy2G = () => {
                 </TabPanels>
               </Tabs>
             </BoxComands>
+
+            {/* ---COMANDOS SEÑALIZACIÓN DOWN--- */}
             <BoxComands title="SEÑALIZACIÓN DOWN">
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
@@ -710,6 +712,88 @@ export const Dummy2G = () => {
                       </Tooltip>
                     </Flex>
                   </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
+
+            {/* ---COMANDOS CRECER SEÑALIZACIÓN--- */}
+            <BoxComands title="CRECER SEÑALIZACIÓN">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Crecer</Tab>
+                  {/* <Tab>ACT</Tab> */}
+                </TabList>
+
+                <TabPanels>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN OM" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index == 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYP:${value[2]}:${value[1]}:"${ipAddressOmuSig}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+
+                      <Tooltip label="SEÑALIZACIÓN TRXs" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYP:${value[2]}:${
+                                  value[1]
+                                }:"${getTRXSIGIP(
+                                  bcsuAsignedTRX[
+                                    `bcsuAsignedTRX${indexMap + 1}`
+                                  ]
+                                )}",,${value[18]}:"${value[19]}",${
+                                  value[22]
+                                },,,${value[18]};`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                  {/* <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN OMU ACT" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZOYS:IUA:BCF${dataRFSheet2G[0][13]}OMU:ACT;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </Box>
+                      </Tooltip>
+
+                      <Tooltip label="SEÑALIZACIÓN TRXs ACT" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYS:${value[2]}:${value[1]}:ACT;`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel> */}
                 </TabPanels>
               </Tabs>
             </BoxComands>
