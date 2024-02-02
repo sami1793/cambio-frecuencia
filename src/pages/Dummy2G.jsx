@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Flex,
   FormControl,
@@ -11,8 +12,13 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
   Table,
   TableContainer,
+  Tabs,
   Tbody,
   Td,
   Th,
@@ -26,9 +32,27 @@ import readXlsxFile from "read-excel-file";
 import { invertArray } from "../utils/array";
 import { BSCConection } from "../components/2G/BSCConection";
 import { Comand } from "../components/comand/Comand";
+import { BoxComands } from "../components/box/BoxComands";
 
 export const Dummy2G = () => {
   const [typeBSC, setTypeBSC] = useState("");
+  let contTRX = 0;
+  const MCC = {
+    ARG: "722",
+    PY: "744",
+    UY: "748",
+  };
+  const MNC = {
+    ARG: "310",
+    PY: "02",
+    UY: "10",
+  };
+  const getMCC = (pais) => {
+    return MCC[`${pais}`];
+  };
+  const getMNC = (pais) => {
+    return MNC[`${pais}`];
+  };
 
   const [dataRFSheet2G, setDataRFSheet2G] = useState("");
 
@@ -473,6 +497,222 @@ export const Dummy2G = () => {
                 </TableContainer>
               </Tooltip>
             </HStack>
+            {/* --------COMANDOS SEÑALIZACION BCF----------- */}
+            <BoxComands title="VERIFICAR SITIO">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  {/* <Tab>Desbloquear</Tab> */}
+                  <Tab>Verificar</Tab>
+                </TabList>
+                <TabPanels>
+                  {/* <TabPanel>
+                        <Comand
+                          comand={`ZOYS:IUA:BCF${data2G[0][13]}OMU:ACT;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel> */}
+                  <TabPanel>
+                    <Comand
+                      comand={`ZEEI:BCF=${dataRFSheet2G[0][13]};`}
+                      task=""
+                      color="yellow.200"
+                    />
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
+            <BoxComands title="BLOQUEAR ELEMENTOS">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>Bloquear</Tab>
+                  <Tab>Desbloquear</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      {/* ---BLOQUEO DE BCF--- */}
+                      <Tooltip label="BLOQUEAR BCF" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZEFS:${dataRFSheet2G[0][13]}:L;`}
+                            task=""
+                            color="red.200"
+                          />
+                        </Box>
+                      </Tooltip>
+
+                      {/* ---BLOQUEO DE BTS--- */}
+                      <Tooltip label="BLOQUEAR BTS" placement="top">
+                        <Box>
+                          {dataRFSheet2G.map((value, indexMap) => (
+                            <Comand
+                              comand={`ZEQS:BTS=${value[14]}:L;`}
+                              task=""
+                              color="red.200"
+                              key={indexMap}
+                            />
+                          ))}
+                        </Box>
+                      </Tooltip>
+
+                      {/* ---BLOQUEO DE TRX--- */}
+                      {!!(contTRX = 0)}
+                      <Tooltip label="BLOQUEAR TRXs" placement="top">
+                        <Box>
+                          {dataRFSheet2G.map((value, indexMap) =>
+                            Array(value[6])
+                              .fill()
+                              .map((_, index) => {
+                                contTRX++;
+                                return (
+                                  <Comand
+                                    comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:L;`}
+                                    task=""
+                                    color="red.200"
+                                    key={index}
+                                  />
+                                );
+                              })
+                          )}
+                        </Box>
+                      </Tooltip>
+
+                      {/* ---DESHABILITAR GPRS--- */}
+                      <Tooltip label="DESHABILITAR GENA" placement="top">
+                        <Box>
+                          {dataRFSheet2G.map((value, indexMap) => (
+                            <Comand
+                              comand={`ZEQV:BTS=${value[14]}:GENA=N, EGENA=N;`}
+                              task=""
+                              color="red.200"
+                              key={indexMap}
+                            />
+                          ))}
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Comand
+                        comand={`ZEFS:${dataRFSheet2G[0][13]}:U;`}
+                        task=""
+                        color="green.200"
+                      />
+
+                      <Box>
+                        {dataRFSheet2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQS:BTS=${value[14]}:U;`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </Box>
+
+                      {!!(contTRX = 0)}
+                      <Box>
+                        {dataRFSheet2G.map((value, indexMap) =>
+                          Array(value[6])
+                            .fill()
+                            .map((_, index) => {
+                              contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                                  task=""
+                                  color="green.200"
+                                  key={index}
+                                />
+                              );
+                            })
+                        )}
+                      </Box>
+
+                      <Box>
+                        {dataRFSheet2G.map((value, indexMap) => (
+                          <Comand
+                            comand={`ZEQV:BTS=${value[14]}:GENA=Y, EGENA=Y;`}
+                            task=""
+                            color="green.200"
+                            key={indexMap}
+                          />
+                        ))}
+                      </Box>
+                    </Flex>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
+            <BoxComands title="SEÑALIZACIÓN DOWN">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>DOWN</Tab>
+                  <Tab>ACT</Tab>
+                </TabList>
+
+                <TabPanels>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN OMU DOWN" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZOYS:IUA:BCF${dataRFSheet2G[0][13]}OMU:DOWN;`}
+                            task=""
+                            color="red.200"
+                          />
+                        </Box>
+                      </Tooltip>
+
+                      <Tooltip label="SEÑALIZACIÓN TRXs DOWN" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYS:${value[2]}:${value[1]}:DOWN;`}
+                                task=""
+                                color="red.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN OMU ACT" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZOYS:IUA:BCF${dataRFSheet2G[0][13]}OMU:ACT;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </Box>
+                      </Tooltip>
+
+                      <Tooltip label="SEÑALIZACIÓN TRXs ACT" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYS:${value[2]}:${value[1]}:ACT;`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
           </Flex>
         )}
       </Flex>
