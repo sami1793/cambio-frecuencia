@@ -34,6 +34,8 @@ import { BSCConection } from "../components/2G/BSCConection";
 import { Comand } from "../components/comand/Comand";
 import { BoxComands } from "../components/box/BoxComands";
 
+import styles from "./Dummy2G.module.css";
+
 export const Dummy2G = () => {
   const [typeBSC, setTypeBSC] = useState("");
   let contTRX = 0;
@@ -316,9 +318,10 @@ export const Dummy2G = () => {
             as="h3"
             size="lg"
             color="teal.600"
-            bgColor={"whiteAlpha.900"}
+            // bgColor={"whiteAlpha.900"}
             p={2}
             borderRadius="lg"
+            className={styles.siteName}
           >
             {dataRFSheet2G[0][0]}
           </Heading>
@@ -429,7 +432,7 @@ export const Dummy2G = () => {
                   />
                 </TableContainer>
               </Tooltip>
-              <Tooltip label="ASIGNAR BSCUs VÁLIDOS" placement="top">
+              <Tooltip label="ORDENAR SEGÚN COMO ESTABA ANTES" placement="top">
                 <TableContainer bgColor={"gray.200"}>
                   <Table
                     size="sm"

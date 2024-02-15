@@ -29,7 +29,7 @@ import {
   Stack,
   Box,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import { Title } from "../components/titles/Title";
 import { BoxComands } from "../components/box/BoxComands";
@@ -244,6 +244,11 @@ export const Creation2G = () => {
           (value, _) => value[24] == data2G[0][0]
         );
         console.log(arrayDataBTSIPFiltered);
+        if (arrayDataBTSIPFiltered.length === 0) {
+          alert(`No se encuentra ${data2G[0][0]} en DF`);
+          window.location.reload();
+        }
+
         setDataDF2GSheet2(arrayDataBTSIPFiltered);
 
         //Filtro y guardo sola la fila con esa BCF

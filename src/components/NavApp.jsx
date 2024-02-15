@@ -27,7 +27,7 @@ export const NavApp = () => {
       <Heading as={NavLink} to="/">
         <Flex>
           <MdCellTower fontSize="larger" />
-          <Text>BOIR</Text>
+          <Text>PLANILLAS BOIR</Text>
         </Flex>
       </Heading>
       {/* Deskptop */}
@@ -49,7 +49,7 @@ export const NavApp = () => {
               }}
               _expanded={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
             >
-              Planillas 2G
+              2G
             </MenuButton>
             <MenuList>
               <MenuItem color="teal.600">
@@ -92,7 +92,7 @@ export const NavApp = () => {
               }}
               _expanded={{ bgGradient: "linear(to-l, teal.400, teal.300)" }}
             >
-              Planillas 3G
+              3G
             </MenuButton>
             <MenuList>
               <MenuItem color="teal.600">
