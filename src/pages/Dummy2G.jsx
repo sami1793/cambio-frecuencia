@@ -3,7 +3,10 @@ import {
   Center,
   Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
+  Grid,
+  GridItem,
   HStack,
   Heading,
   Input,
@@ -26,6 +29,7 @@ import {
   Tooltip,
   Tr,
 } from "@chakra-ui/react";
+
 import React, { useState } from "react";
 import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
@@ -103,6 +107,12 @@ export const Dummy2G = () => {
     bcsuAsignedTRX19: "1",
     bcsuAsignedTRX20: "1",
   });
+
+  const [ETMEID, setETMEID] = useState("");
+
+  const handleETMEID = (e) => {
+    setETMEID(e.target.value);
+  };
 
   // ------FUNCIONES--------
 
@@ -797,6 +807,105 @@ export const Dummy2G = () => {
                       </Tooltip>
                     </Flex>
                   </TabPanel> */}
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
+
+            <BoxComands title="ACTUALIZAR BCF">
+              <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                <GridItem colSpan={1}>
+                  <Comand
+                    comand={`ZEFO:${dataRFSheet2G[0][13]}:IDE;`}
+                    task=""
+                    color="yellow.200"
+                  />
+                  <FormControl
+                    p={3}
+                    mt={5}
+                    mb={5}
+                    backgroundColor="whiteAlpha.900"
+                    borderRadius={5}
+                  >
+                    <FormLabel>ETME ID</FormLabel>
+                    <Input
+                      type="number"
+                      value={ETMEID}
+                      onChange={handleETMEID}
+                    />
+                    <FormHelperText>
+                      Completar con ETME ID de comando anterior
+                    </FormHelperText>
+                  </FormControl>
+                </GridItem>
+                <GridItem colSpan={1}></GridItem>
+              </Grid>
+
+              {/* <Input labelName="BCF">
+                <InputChakra
+                  type="number"
+                  name="bcf"
+                  // value={inputs.bcf}
+                  bg="whiteAlpha.800"
+                  // onChange={handleChange}
+                />
+              </Input> */}
+
+              <Box>
+                {dataDF2GSheet3
+                  .filter((_, index) => index == 0)
+                  .map((value, indexMap) => (
+                    <Flex key={indexMap} direction="column">
+                      {typeBSC !== "mcBSC" && (
+                        // AICT = 2 PERO ERA VALUE[4] VER
+                        <Comand
+                          comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
+                            value[10]
+                          }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                            value[42] > 32 ? "30" : value[42]
+                          },BMIP="${value[43]}",SMMP=${
+                            value[44] > 32 ? "30" : value[44]
+                          },ETPGID=${ETMEID},VLANID=${value[35]}::;`}
+                          task="**FLEXI**"
+                          color="green.100"
+                        />
+                      )}
+                      {typeBSC === "mcBSC" && (
+                        <Comand
+                          comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
+                            value[10]
+                          }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                            value[42] > 32 ? "30" : value[42]
+                          },BMIP="${value[43]}",SMMP=${
+                            value[44] > 32 ? "30" : value[44]
+                          },ETMEID=${ETMEID},VLANID=${value[35]}::;`}
+                          task="**MULTICONTROLER**"
+                          color="green.100"
+                        />
+                      )}
+                    </Flex>
+                  ))}
+              </Box>
+
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  {/* <Tab>Desbloquear</Tab> */}
+                  <Tab>Verificar</Tab>
+                </TabList>
+                <TabPanels>
+                  {/* <TabPanel>
+                        <Comand
+                          comand={`ZOYS:IUA:BCF${data2G[0][13]}OMU:ACT;`}
+                          task=""
+                          color="green.200"
+                        />
+                      </TabPanel> */}
+                  <TabPanel>
+                    <Comand
+                      comand={`ZEFO:${dataRFSheet2G[0][13]}:IDE;`}
+                      task=""
+                      color="yellow.200"
+                    />
+                  </TabPanel>
                 </TabPanels>
               </Tabs>
             </BoxComands>
