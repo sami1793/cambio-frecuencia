@@ -12,9 +12,11 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
+import axios from "axios";
+import { API_URL } from "../services/settings";
 
 export const RETs = () => {
   const [dataHardware, setDataHardware] = useState("");
@@ -22,6 +24,52 @@ export const RETs = () => {
   const [dataCeldas3G, setDataCeldas3G] = useState("");
   const [dataCeldas4G, setDataCeldas4G] = useState("");
   const [dataCeldas5G, setDataCeldas5G] = useState("");
+
+  //------CONEXION API NETACT--------
+  const username = "CTI24552";
+  const password = "Boir0424";
+  const credentials = btoa(`${username}:${password}`);
+  useEffect(() => {
+    axios
+      .post(
+        API_URL,
+        {
+          confId: 1,
+          moPath:
+            "/NetActCommon:PLMN/com.nokia.srbts:MRBTS as $mrbts [name() like :CO00583%] /descendant::com.nokia.srbts.eqm:RETU",
+          expressions: [
+            "$mrbts->name()",
+            "dn()",
+            "@antModel",
+            "@antSerial",
+            "@baseStationID",
+            "@sectorID",
+            "@angle",
+          ],
+        },
+        {
+          headers: {
+            Authorization: `Basic ${credentials}`,
+            "Content-Type": "application/vnd.nokia-query-response-v1+json",
+            "Access-Control-Allow-Origin": "http://localhost:5173/RETs",
+          },
+          // headers: {
+          //   "Access-Control-Allow-Origin": "*",
+          //   "Access-Control-Allow-Methods": "*",
+          //   "Access-Control-Allow-Headers": "*",
+          //   "Content-Type": "application/vnd.nokia-query-response-v1+json",
+          // },
+          // auth: {
+          //   username,
+          //   password,
+          // },
+        }
+      )
+      .then((response) => {
+        const notes = response.data;
+        console.log(notes);
+      });
+  });
 
   // -------CARGA DE CO(Excel)--------
   const handleCOUpload = async (event) => {

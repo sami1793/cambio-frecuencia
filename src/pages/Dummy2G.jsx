@@ -110,6 +110,25 @@ export const Dummy2G = () => {
 
   const [ETMEID, setETMEID] = useState("");
 
+  const [TRX, setTRX] = useState({
+    trx1: "1",
+    trx2: "1",
+    trx3: "1",
+    trx4: "1",
+    trx5: "1",
+    trx6: "1",
+    trx7: "1",
+    trx8: "1",
+    trx9: "1",
+    trx10: "1",
+    trx11: "1",
+    trx12: "1",
+    trx13: "1",
+    trx14: "1",
+    trx15: "1",
+    trx16: "1",
+  });
+
   const handleETMEID = (e) => {
     setETMEID(e.target.value);
   };
@@ -185,6 +204,13 @@ export const Dummy2G = () => {
     } else {
       return null;
     }
+  };
+
+  const setTRXAsigned = (numberInput, trx) => {
+    setTRX({
+      ...TRX,
+      [trx]: numberInput,
+    });
   };
 
   // --------------------------------------------------
@@ -512,28 +538,74 @@ export const Dummy2G = () => {
             </HStack>
             {/* --------COMANDOS SEÑALIZACION BCF----------- */}
             <BoxComands title="VERIFICAR SITIO">
-              <Tabs variant="line" colorScheme="whiteAlpha">
-                <TabList bgColor="whiteAlpha.300" color="white">
-                  {/* <Tab>Desbloquear</Tab> */}
-                  <Tab>Verificar</Tab>
-                </TabList>
-                <TabPanels>
-                  {/* <TabPanel>
-                        <Comand
-                          comand={`ZOYS:IUA:BCF${data2G[0][13]}OMU:ACT;`}
-                          task=""
-                          color="green.200"
-                        />
-                      </TabPanel> */}
-                  <TabPanel>
-                    <Comand
-                      comand={`ZEEI:BCF=${dataRFSheet2G[0][13]};`}
-                      task=""
-                      color="yellow.200"
-                    />
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
+              <Comand
+                comand={`ZEEI:BCF=${dataRFSheet2G[0][13]};`}
+                task=""
+                color="yellow.200"
+              />
+              <Tooltip
+                label="ORDENAR SEGÚN COMO ESTABAN ANTES TRXs"
+                placement="top"
+              >
+                <TableContainer bgColor={"gray.200"}>
+                  <Table
+                    size="sm"
+                    variant="striped"
+                    colorScheme="teal"
+                    borderRadius="3xl"
+                    borderWidth={2}
+                    borderColor={"teal.700"}
+                    width="max-content"
+                  >
+                    <Thead>
+                      <Tr>
+                        <Th></Th>
+                        <Th isNumeric>N° TRX</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {dataDF2GSheet5
+                        .filter((_, index) => index > 0)
+                        .map((value, indexMap) => (
+                          <Tr key={indexMap}>
+                            <Td>TRX</Td>
+                            <Td>
+                              <NumberInput
+                                defaultValue={
+                                  TRX[`trx${indexMap + 1}`]
+                                  // bcsuAsignedTRX[
+                                  //   `bcsuAsignedTRX${indexMap + 1}`
+                                  // ]
+                                }
+                                name={`trx${indexMap + 1}`}
+                                min={1}
+                                size="xs"
+                                width="100px"
+                                bgColor="whiteAlpha.500"
+                                onChange={(numberInput) =>
+                                  setTRXAsigned(
+                                    numberInput,
+                                    `trx${indexMap + 1}`
+                                  )
+                                }
+                              >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                  <NumberIncrementStepper />
+                                  <NumberDecrementStepper />
+                                </NumberInputStepper>
+                              </NumberInput>
+                            </Td>
+                          </Tr>
+                        ))}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Tooltip>
+              <p>{TRX[`trx1`]}</p>
+              <p>{TRX[`trx2`]}</p>
+              <p>{TRX[`trx3`]}</p>
+              <p>{TRX[`trx4`]}</p>
             </BoxComands>
             <BoxComands title="BLOQUEAR ELEMENTOS">
               <Tabs variant="line" colorScheme="whiteAlpha">

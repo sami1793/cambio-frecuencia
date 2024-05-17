@@ -69,6 +69,7 @@ export const Creation2G = () => {
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
 
   const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
+  const [BCFID, setBCFID] = useState(null);
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -201,6 +202,7 @@ export const Creation2G = () => {
     );
   };
 
+  //RFSHEET
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
 
@@ -213,6 +215,8 @@ export const Creation2G = () => {
             (value, index) => index <= 26 && index >= 2 && value[0]
           )
         );
+        const bcfid = arrayData.filter((value, index) => index == 2)[0][13];
+        setBCFID(bcfid);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -253,7 +257,7 @@ export const Creation2G = () => {
 
         //Filtro y guardo sola la fila con esa BCF
         let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
-          (value, _) => value[1] == data2G[0][13]
+          (value, _) => value[1] == BCFID
         );
         setDataDF2GSheet3(arrayDataAbisBCFFiltered);
 
@@ -264,12 +268,21 @@ export const Creation2G = () => {
         setDataDF2GSheet4(arrayDataPacketAbisFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en Abis SCTP
+        let arrayDataPacketAbisUltimoDF = arrayDataPacketAbis?.filter(
+          (value, _) => value[1] == BCFID
+        );
+        //Con esto me aseguro que solo se tome el ultimo OMU en caso que hayan otros viejos
+        arrayDataPacketAbisUltimoDF = arrayDataPacketAbisUltimoDF.slice(
+          arrayDataPacketAbisUltimoDF.findLastIndex(
+            (element) => element[4] === `BCF${BCFID}OMU`
+          )
+        );
         let arrayAbisSCTPFiltered = arrayAbisSCTP?.splice(
-          invertArray(arrayAbisSCTP)[1].findIndex(
+          invertArray(arrayAbisSCTP)[1].findLastIndex(
             (e) =>
               e ==
               (arrayDataPacketAbis?.filter(
-                (valueFilter, _) => valueFilter[1] == data2G[0][13]
+                (valueFilter, _) => valueFilter[1] == BCFID
               ))[0][4]
           ),
 
@@ -277,13 +290,20 @@ export const Creation2G = () => {
             (e) =>
               e ==
               (arrayDataPacketAbis?.filter(
-                (valueFilter, _) => valueFilter[1] == data2G[0][13]
+                (valueFilter, _) => valueFilter[1] == BCFID
               ))[0][4]
           ) +
-            arrayDataPacketAbis?.filter((value, _) => value[1] == data2G[0][13])
-              .length +
+            // arrayDataPacketAbis
+            //   ?.filter((value, _) => value[1] == BCFID)
+            //   .slice(
+            //     arrayDataPacketAbis.findLastIndex(
+            //       (element) => element[4] === `BCF${BCFID}OMU`
+            //     )
+            //   )
+            arrayDataPacketAbisUltimoDF.length +
             1
         );
+
         setDataDF2GSheet5(arrayAbisSCTPFiltered);
         getIPOMUTRX(arrayDataBCSUIP);
 
@@ -300,7 +320,8 @@ export const Creation2G = () => {
           return updatedBcsuAsignedTRX; // Devolver la copia actualizada
         });
 
-        console.log(arrayAbisSCTPFiltered);
+        console.log("ABIS_SCTP", arrayAbisSCTPFiltered);
+        console.log("abisBCF", arrayDataAbisBCFFiltered);
         console.log(arrayDataAbisBCFFiltered);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
