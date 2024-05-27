@@ -12,11 +12,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Title } from "../components/titles/Title";
 import readXlsxFile from "read-excel-file";
-import axios from "axios";
-import { API_URL } from "../services/settings";
 
 export const RETs = () => {
   const [dataHardware, setDataHardware] = useState("");
