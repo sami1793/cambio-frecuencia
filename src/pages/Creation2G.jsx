@@ -262,10 +262,10 @@ export const Creation2G = () => {
         setDataDF2GSheet3(arrayDataAbisBCFFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
+
         let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
-          (value, _) => value[1] == data2G[0][13]
+          (value, _) => value[1] == BCFID
         );
-        setDataDF2GSheet4(arrayDataPacketAbisFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en Abis SCTP
         let arrayDataPacketAbisUltimoDF = arrayDataPacketAbis?.filter(
@@ -277,6 +277,8 @@ export const Creation2G = () => {
             (element) => element[4] === `BCF${BCFID}OMU`
           )
         );
+        setDataDF2GSheet4(arrayDataPacketAbisUltimoDF);
+
         let arrayAbisSCTPFiltered = arrayAbisSCTP?.splice(
           invertArray(arrayAbisSCTP)[1].findLastIndex(
             (e) =>
