@@ -255,14 +255,13 @@ export const Creation2G = () => {
 
         setDataDF2GSheet2(arrayDataBTSIPFiltered);
 
-        //Filtro y guardo sola la fila con esa BCF
+        //Filtro y guardo solo la fila con esa BCF
         let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
           (value, _) => value[1] == BCFID
         );
         setDataDF2GSheet3(arrayDataAbisBCFFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
-
         let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
           (value, _) => value[1] == BCFID
         );
@@ -295,13 +294,6 @@ export const Creation2G = () => {
                 (valueFilter, _) => valueFilter[1] == BCFID
               ))[0][4]
           ) +
-            // arrayDataPacketAbis
-            //   ?.filter((value, _) => value[1] == BCFID)
-            //   .slice(
-            //     arrayDataPacketAbis.findLastIndex(
-            //       (element) => element[4] === `BCF${BCFID}OMU`
-            //     )
-            //   )
             arrayDataPacketAbisUltimoDF.length +
             1
         );
@@ -1880,7 +1872,7 @@ export const Creation2G = () => {
                       </TabPanel>
                       <TabPanel>
                         <Comand
-                          comand={`ZEEI:BCF=${data2G[0][13]};`}
+                          comand={`ZEEI:BCF=${BCFID};`}
                           task=""
                           color="yellow.200"
                         />
@@ -2047,14 +2039,14 @@ export const Creation2G = () => {
                     <TabPanels>
                       <TabPanel>
                         <Comand
-                          comand={`ZEFS:${data2G[0][13]}:U;`}
+                          comand={`ZEFS:${BCFID}:U;`}
                           task=""
                           color="green.200"
                         />
                       </TabPanel>
                       <TabPanel>
                         <Comand
-                          comand={`ZEFS:${data2G[0][13]}:L;`}
+                          comand={`ZEFS:${BCFID}:L;`}
                           task=""
                           color="red.200"
                         />
@@ -2071,14 +2063,14 @@ export const Creation2G = () => {
                     <TabPanels>
                       <TabPanel>
                         <Comand
-                          comand={`ZOYS:IUA:BCF${data2G[0][13]}OMU:ACT;`}
+                          comand={`ZOYS:IUA:BCF${BCFID}OMU:ACT;`}
                           task=""
                           color="green.200"
                         />
                       </TabPanel>
                       <TabPanel>
                         <Comand
-                          comand={`ZEEI:BCF=${data2G[0][13]};`}
+                          comand={`ZEEI:BCF=${BCFID};`}
                           task=""
                           color="yellow.200"
                         />

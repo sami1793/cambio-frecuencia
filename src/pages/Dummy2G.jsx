@@ -69,6 +69,7 @@ export const Dummy2G = () => {
   const [dataDF2GSheet5, setDataDF2GSheet5] = useState("");
 
   const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
+  const [BCFID, setBCFID] = useState(null);
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -112,21 +113,21 @@ export const Dummy2G = () => {
 
   const [TRX, setTRX] = useState({
     trx1: "1",
-    trx2: "1",
-    trx3: "1",
-    trx4: "1",
-    trx5: "1",
-    trx6: "1",
-    trx7: "1",
-    trx8: "1",
-    trx9: "1",
-    trx10: "1",
-    trx11: "1",
-    trx12: "1",
-    trx13: "1",
-    trx14: "1",
-    trx15: "1",
-    trx16: "1",
+    trx2: "2",
+    trx3: "3",
+    trx4: "4",
+    trx5: "5",
+    trx6: "6",
+    trx7: "7",
+    trx8: "8",
+    trx9: "9",
+    trx10: "10",
+    trx11: "11",
+    trx12: "12",
+    trx13: "13",
+    trx14: "14",
+    trx15: "15",
+    trx16: "16",
   });
 
   const handleETMEID = (e) => {
@@ -225,6 +226,8 @@ export const Dummy2G = () => {
         setDataRFSheet2G(
           arrayData.filter((value, index) => index >= 2 && value[0])
         );
+        const bcfid = arrayData.filter((value, index) => index == 2)[0][13];
+        setBCFID(bcfid);
       } catch (error) {
         console.log("Error al leer el archivo Excel:", error);
       }
@@ -255,27 +258,41 @@ export const Dummy2G = () => {
           (value, _) => value[24] == dataRFSheet2G[0][0]
         );
         console.log(arrayDataBTSIPFiltered);
+        if (arrayDataBTSIPFiltered.length === 0) {
+          alert(`No se encuentra ${dataRFSheet2G[0][0]} en DF`);
+          window.location.reload();
+        }
         setDataDF2GSheet2(arrayDataBTSIPFiltered);
 
-        //Filtro y guardo sola la fila con esa BCF
+        //Filtro y guardo solo la fila con esa BCF
         let arrayDataAbisBCFFiltered = arrayDataAbisBCF?.filter(
-          (value, _) => value[1] == dataRFSheet2G[0][13]
+          (value, _) => value[1] == BCFID
         );
         setDataDF2GSheet3(arrayDataAbisBCFFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en PacketAbis_LAPD_links
         let arrayDataPacketAbisFiltered = arrayDataPacketAbis?.filter(
-          (value, _) => value[1] == dataRFSheet2G[0][13]
+          (value, _) => value[1] == BCFID
         );
-        setDataDF2GSheet4(arrayDataPacketAbisFiltered);
 
         //Filtro y guardo solo las filas de esa BCF en Abis SCTP
+        let arrayDataPacketAbisUltimoDF = arrayDataPacketAbis?.filter(
+          (value, _) => value[1] == BCFID
+        );
+        //Con esto me aseguro que solo se tome el ultimo OMU en caso que hayan otros viejos
+        arrayDataPacketAbisUltimoDF = arrayDataPacketAbisUltimoDF.slice(
+          arrayDataPacketAbisUltimoDF.findLastIndex(
+            (element) => element[4] === `BCF${BCFID}OMU`
+          )
+        );
+        setDataDF2GSheet4(arrayDataPacketAbisUltimoDF);
+
         let arrayAbisSCTPFiltered = arrayAbisSCTP?.splice(
-          invertArray(arrayAbisSCTP)[1].findIndex(
+          invertArray(arrayAbisSCTP)[1].findLastIndex(
             (e) =>
               e ==
               (arrayDataPacketAbis?.filter(
-                (valueFilter, _) => valueFilter[1] == dataRFSheet2G[0][13]
+                (valueFilter, _) => valueFilter[1] == BCFID //dataRFSheet2G[0][13]
               ))[0][4]
           ),
 
@@ -283,14 +300,13 @@ export const Dummy2G = () => {
             (e) =>
               e ==
               (arrayDataPacketAbis?.filter(
-                (valueFilter, _) => valueFilter[1] == dataRFSheet2G[0][13]
+                (valueFilter, _) => valueFilter[1] == BCFID
               ))[0][4]
           ) +
-            arrayDataPacketAbis?.filter(
-              (value, _) => value[1] == dataRFSheet2G[0][13]
-            ).length +
+            arrayDataPacketAbisUltimoDF.length +
             1
         );
+
         setDataDF2GSheet5(arrayAbisSCTPFiltered);
         getIPOMUTRX(arrayDataBCSUIP);
 
@@ -539,7 +555,7 @@ export const Dummy2G = () => {
             {/* --------COMANDOS SEÑALIZACION BCF----------- */}
             <BoxComands title="VERIFICAR SITIO">
               <Comand
-                comand={`ZEEI:BCF=${dataRFSheet2G[0][13]};`}
+                comand={`ZEEI:BCF=${BCFID};`}
                 task=""
                 color="yellow.200"
               />
@@ -620,7 +636,7 @@ export const Dummy2G = () => {
                       <Tooltip label="BLOQUEAR BCF" placement="top">
                         <Box>
                           <Comand
-                            comand={`ZEFS:${dataRFSheet2G[0][13]}:L;`}
+                            comand={`ZEFS:${BCFID}:L;`}
                             task=""
                             color="red.200"
                           />
@@ -652,7 +668,9 @@ export const Dummy2G = () => {
                                 contTRX++;
                                 return (
                                   <Comand
-                                    comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:L;`}
+                                    comand={`ZERS:BTS=${value[14]},TRX=${
+                                      TRX[`trx${contTRX}`]
+                                    }:L;`}
                                     task=""
                                     color="red.200"
                                     key={index}
@@ -681,7 +699,7 @@ export const Dummy2G = () => {
                   <TabPanel>
                     <Flex direction="column" gap={5}>
                       <Comand
-                        comand={`ZEFS:${dataRFSheet2G[0][13]}:U;`}
+                        comand={`ZEFS:${BCFID}:U;`}
                         task=""
                         color="green.200"
                       />
@@ -706,7 +724,9 @@ export const Dummy2G = () => {
                               contTRX++;
                               return (
                                 <Comand
-                                  comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                                  comand={`ZERS:BTS=${value[14]},TRX=${
+                                    TRX[`trx${contTRX}`]
+                                  }:U;`}
                                   task=""
                                   color="green.200"
                                   key={index}
@@ -746,7 +766,7 @@ export const Dummy2G = () => {
                       <Tooltip label="SEÑALIZACIÓN OMU DOWN" placement="top">
                         <Box>
                           <Comand
-                            comand={`ZOYS:IUA:BCF${dataRFSheet2G[0][13]}OMU:DOWN;`}
+                            comand={`ZOYS:IUA:BCF${BCFID}OMU:DOWN;`}
                             task=""
                             color="red.200"
                           />
@@ -757,14 +777,19 @@ export const Dummy2G = () => {
                         <Box>
                           {dataDF2GSheet5
                             .filter((_, index) => index > 0)
-                            .map((value, indexMap) => (
-                              <Comand
-                                comand={`ZOYS:${value[2]}:${value[1]}:DOWN;`}
-                                task=""
-                                color="red.200"
-                                key={indexMap}
-                              />
-                            ))}
+                            .map((value, indexMap) => {
+                              // contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZOYS:${value[2]}:BCF${BCFID}TRX${
+                                    TRX[`trx${indexMap + 1}`]
+                                  }:DOWN;`}
+                                  task=""
+                                  color="red.200"
+                                  key={indexMap}
+                                />
+                              );
+                            })}
                         </Box>
                       </Tooltip>
                     </Flex>
@@ -774,7 +799,7 @@ export const Dummy2G = () => {
                       <Tooltip label="SEÑALIZACIÓN OMU ACT" placement="top">
                         <Box>
                           <Comand
-                            comand={`ZOYS:IUA:BCF${dataRFSheet2G[0][13]}OMU:ACT;`}
+                            comand={`ZOYS:IUA:BCF${BCFID}OMU:ACT;`}
                             task=""
                             color="green.200"
                           />
@@ -787,7 +812,9 @@ export const Dummy2G = () => {
                             .filter((_, index) => index > 0)
                             .map((value, indexMap) => (
                               <Comand
-                                comand={`ZOYS:${value[2]}:${value[1]}:ACT;`}
+                                comand={`ZOYS:${value[2]}:BCF${BCFID}TRX${
+                                  TRX[`trx${indexMap + 1}`]
+                                }:ACT;`}
                                 task=""
                                 color="green.200"
                                 key={indexMap}
@@ -887,7 +914,7 @@ export const Dummy2G = () => {
               <Grid templateColumns="repeat(2, 1fr)" gap={4}>
                 <GridItem colSpan={1}>
                   <Comand
-                    comand={`ZEFO:${dataRFSheet2G[0][13]}:IDE;`}
+                    comand={`ZEFO:${BCFID}:IDE;`}
                     task=""
                     color="yellow.200"
                   />
@@ -994,7 +1021,9 @@ export const Dummy2G = () => {
                                 contTRX++;
                                 return (
                                   <Comand
-                                    comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:U;`}
+                                    comand={`ZERS:BTS=${value[14]},TRX=${
+                                      TRX[`trx${contTRX}`]
+                                    }:U;`}
                                     task=""
                                     color="green.200"
                                     key={index}
@@ -1023,7 +1052,7 @@ export const Dummy2G = () => {
                       <Tooltip label="DESBLOQUEAR BCF" placement="top">
                         <Box>
                           <Comand
-                            comand={`ZEFS:${dataRFSheet2G[0][13]}:U;`}
+                            comand={`ZEFS:${BCFID}:U;`}
                             task=""
                             color="green.200"
                           />
@@ -1058,7 +1087,9 @@ export const Dummy2G = () => {
                                 contTRX++;
                                 return (
                                   <Comand
-                                    comand={`ZERS:BTS=${value[14]},TRX=${contTRX}:L;`}
+                                    comand={`ZERS:BTS=${value[14]},TRX=${
+                                      TRX[`trx${contTRX}`]
+                                    }:L;`}
                                     task=""
                                     color="red.200"
                                     key={index}
@@ -1087,7 +1118,7 @@ export const Dummy2G = () => {
                       <Tooltip label="BLOQUEAR BCF" placement="top">
                         <Box>
                           <Comand
-                            comand={`ZEFS:${dataRFSheet2G[0][13]}:L;`}
+                            comand={`ZEFS:${BCFID}:L;`}
                             task=""
                             color="red.200"
                           />
