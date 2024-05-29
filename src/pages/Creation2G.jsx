@@ -70,6 +70,7 @@ export const Creation2G = () => {
 
   const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
   const [BCFID, setBCFID] = useState(null);
+  const [IPGESTION, setIPGESTION] = useState();
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -298,6 +299,7 @@ export const Creation2G = () => {
             1
         );
 
+        setIPGESTION(arrayAbisSCTPFiltered[0][19]);
         setDataDF2GSheet5(arrayAbisSCTPFiltered);
         getIPOMUTRX(arrayDataBCSUIP);
 
@@ -893,7 +895,7 @@ export const Creation2G = () => {
                                 value[10]
                               }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
                                 value[42] > 32 ? "30" : value[42]
-                              },BMIP="${value[43]}",SMMP=${
+                              },BMIP="${IPGESTION}",SMMP=${
                                 value[44] > 32 ? "30" : value[44]
                               },ETPGID=${
                                 value[23] || dataDF2GSheet2[0][25]
@@ -908,7 +910,7 @@ export const Creation2G = () => {
                                 value[10]
                               }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
                                 value[42] > 32 ? "30" : value[42]
-                              },BMIP="${value[43]}",SMMP=${
+                              },BMIP="${IPGESTION}",SMMP=${
                                 value[44] > 32 ? "30" : value[44]
                               },ETMEID=${
                                 value[23] || dataDF2GSheet2[0][25]

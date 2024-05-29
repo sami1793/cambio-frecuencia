@@ -70,6 +70,7 @@ export const Dummy2G = () => {
 
   const [ipAddressOmuSig, setIpAddressOmuSig] = useState(null);
   const [BCFID, setBCFID] = useState(null);
+  const [IPGESTION, setIPGESTION] = useState();
 
   const [IPOMUTRX, setIPOMUTRX] = useState([]);
 
@@ -307,6 +308,7 @@ export const Dummy2G = () => {
             1
         );
 
+        setIPGESTION(arrayAbisSCTPFiltered[0][19]);
         setDataDF2GSheet5(arrayAbisSCTPFiltered);
         getIPOMUTRX(arrayDataBCSUIP);
 
@@ -845,7 +847,11 @@ export const Dummy2G = () => {
                             .filter((_, index) => index == 0)
                             .map((value, indexMap) => (
                               <Comand
-                                comand={`ZOYP:${value[2]}:${value[1]}:"${ipAddressOmuSig}",,${value[18]}:"${value[19]}",${value[22]},,,${value[18]};`}
+                                comand={`ZOYP:${value[2]}:BCF${BCFID}TRX${
+                                  TRX[`trx${indexMap + 1}`]
+                                }:"${ipAddressOmuSig}",,${value[18]}:"${
+                                  value[19]
+                                }",${value[22]},,,${value[18]};`}
                                 task=""
                                 color="green.200"
                                 key={indexMap}
@@ -860,8 +866,8 @@ export const Dummy2G = () => {
                             .filter((_, index) => index > 0)
                             .map((value, indexMap) => (
                               <Comand
-                                comand={`ZOYP:${value[2]}:${
-                                  value[1]
+                                comand={`ZOYP:${value[2]}:BCF${BCFID}TRX${
+                                  TRX[`trx${indexMap + 1}`]
                                 }:"${getTRXSIGIP(
                                   bcsuAsignedTRX[
                                     `bcsuAsignedTRX${indexMap + 1}`
@@ -957,11 +963,11 @@ export const Dummy2G = () => {
                       {typeBSC !== "mcBSC" && (
                         // AICT = 2 PERO ERA VALUE[4] VER
                         <Comand
-                          comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
-                            value[10]
-                          }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                          comand={`ZEFM:${value[1]}::::BCUIP="${
+                            dataDF2GSheet2[0][11]
+                          }",SMCUP=${
                             value[42] > 32 ? "30" : value[42]
-                          },BMIP="${value[43]}",SMMP=${
+                          },BMIP="${IPGESTION}",SMMP=${
                             value[44] > 32 ? "30" : value[44]
                           },ETPGID=${ETMEID},VLANID=${value[35]}::;`}
                           task="**FLEXI**"
@@ -970,11 +976,11 @@ export const Dummy2G = () => {
                       )}
                       {typeBSC === "mcBSC" && (
                         <Comand
-                          comand={`ZEFC:${value[1]},${value[2]},R,2:DNAME=${
-                            value[10]
-                          }:::::BCUIP="${dataDF2GSheet2[0][11]}",SMCUP=${
+                          comand={`ZEFM:${value[1]}::::BCUIP="${
+                            dataDF2GSheet2[0][11]
+                          }",SMCUP=${
                             value[42] > 32 ? "30" : value[42]
-                          },BMIP="${value[43]}",SMMP=${
+                          },BMIP="${IPGESTION}",SMMP=${
                             value[44] > 32 ? "30" : value[44]
                           },ETMEID=${ETMEID},VLANID=${value[35]}::;`}
                           task="**MULTICONTROLER**"
