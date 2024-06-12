@@ -72,7 +72,11 @@ export const NavApp = () => {
                   Crecimiento 2G
                 </Link>
               </MenuItem>
-
+              <MenuItem color="teal.600">
+                <Link as={NavLink} to="/Dummy2G">
+                  Dummy2G
+                </Link>
+              </MenuItem>
               <MenuItem color="teal.600">
                 <Link as={NavLink} to="/MSS2G">
                   Crecimiento MSS 2G
@@ -161,6 +165,9 @@ export const NavApp = () => {
             </MenuItem>
             <MenuItem as={NavLink} to="/Creation2G">
               Crecimiento 2G
+            </MenuItem>
+            <MenuItem as={NavLink} to="/Dummy2G">
+              Dummy 2G
             </MenuItem>
             <MenuItem color="teal.600">
               <Link as={NavLink} to="/MSS2G">

@@ -53,12 +53,6 @@ export const Dummy2G = () => {
     PY: "02",
     UY: "10",
   };
-  const getMCC = (pais) => {
-    return MCC[`${pais}`];
-  };
-  const getMNC = (pais) => {
-    return MNC[`${pais}`];
-  };
 
   const [dataRFSheet2G, setDataRFSheet2G] = useState("");
 
@@ -422,42 +416,168 @@ export const Dummy2G = () => {
         {dataDF2GSheet1 && dataRFSheet2G && ipAddressOmuSig && (
           <Flex direction="column" gap={3}>
             {/* ORDENAMIENTO BSCU */}
-            <HStack gap={5}>
-              <Tooltip label="ORDENAR BSCUs" placement="top">
-                <TableContainer bgColor={"gray.200"}>
-                  <Table
-                    size="sm"
-                    variant="striped"
-                    colorScheme="teal"
-                    borderRadius="3xl"
-                    borderWidth={2}
-                    borderColor={"teal.700"}
-                  >
-                    <Thead>
-                      <Tr>
-                        <Th>BCSU</Th>
-                        <Th isNumeric>N° BCSU</Th>
-                        <Th>OMUSIG</Th>
-                        <Th>TRXSIG</Th>
+            <Tooltip label="ORDENAR BSCUs" placement="top">
+              <TableContainer bgColor={"gray.200"}>
+                <Table
+                  size="sm"
+                  variant="striped"
+                  colorScheme="teal"
+                  borderRadius="3xl"
+                  borderWidth={2}
+                  borderColor={"teal.700"}
+                >
+                  <Thead>
+                    <Tr>
+                      {/* <Th>BCSU</Th> */}
+                      <Th>N° BCSU</Th>
+                      <Th>OMUSIG</Th>
+                      <Th>TRXSIG</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {IPOMUTRX.map((value, indexMap) => (
+                      <Tr key={indexMap}>
+                        {/* <Td>{value[1]}</Td> */}
+                        <Td>
+                          <NumberInput
+                            defaultValue={indexMap}
+                            name={`bcsu${indexMap + 1}`}
+                            min={0}
+                            max={IPOMUTRX.length - 1}
+                            size="xs"
+                            width="100px"
+                            bgColor="whiteAlpha.500"
+                            onChange={(numberInput) =>
+                              setInputsBSCU(numberInput, `bcsu${indexMap + 1}`)
+                            }
+                          >
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                        </Td>
+                        <Td> {value[4]}</Td>
+                        <Td>{value[5]}</Td>
                       </Tr>
-                    </Thead>
-                    <Tbody>
-                      {IPOMUTRX.map((value, indexMap) => (
-                        <Tr key={indexMap}>
-                          <Td>{value[1]}</Td>
+                    ))}
+                  </Tbody>
+                </Table>
+                <Comand
+                  comand={`${dataDF2GSheet1[10][8]}`}
+                  task="VERIFICAR IP DE OMUSIG"
+                  color="yellow.200"
+                />
+                <Comand
+                  comand={`${dataDF2GSheet1[11][8]}`}
+                  task="VERIFICAR IP DE TRXSIG"
+                  color="yellow.200"
+                />
+              </TableContainer>
+            </Tooltip>
+
+            {/* --------VERIFICACIÓN DE SITIO----------- */}
+            <BoxComands title="VERIFICAR SITIO">
+              <Comand
+                comand={`ZEEI:BCF=${BCFID};`}
+                task=""
+                color="yellow.200"
+              />
+              <HStack mt={3} justifyContent={"center"}>
+                <Tooltip
+                  label="ORDENAR SEGÚN COMO ESTABAN ANTES TRXs"
+                  placement="top"
+                >
+                  <TableContainer bgColor={"gray.200"}>
+                    <Table
+                      size="sm"
+                      variant="striped"
+                      colorScheme="teal"
+                      borderRadius="3xl"
+                      borderWidth={2}
+                      borderColor={"teal.700"}
+                      width="max-content"
+                    >
+                      <Thead>
+                        <Tr>
+                          <Th></Th>
+                          <Th isNumeric>N° TRX</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        {dataDF2GSheet5
+                          .filter((_, index) => index > 0)
+                          .map((value, indexMap) => (
+                            <Tr key={indexMap}>
+                              <Td>TRX</Td>
+                              <Td>
+                                <NumberInput
+                                  defaultValue={
+                                    TRX[`trx${indexMap + 1}`]
+                                    // bcsuAsignedTRX[
+                                    //   `bcsuAsignedTRX${indexMap + 1}`
+                                    // ]
+                                  }
+                                  name={`trx${indexMap + 1}`}
+                                  min={1}
+                                  size="xs"
+                                  width="100px"
+                                  bgColor="whiteAlpha.500"
+                                  onChange={(numberInput) =>
+                                    setTRXAsigned(
+                                      numberInput,
+                                      `trx${indexMap + 1}`
+                                    )
+                                  }
+                                >
+                                  <NumberInputField />
+                                  <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                  </NumberInputStepper>
+                                </NumberInput>
+                              </Td>
+                            </Tr>
+                          ))}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </Tooltip>
+                <Tooltip label="ORDENAR SEGÚN COMO ESTÁ" placement="top">
+                  <TableContainer bgColor={"gray.200"}>
+                    <Table
+                      size="sm"
+                      variant="striped"
+                      colorScheme="teal"
+                      borderRadius="3xl"
+                      borderWidth={2}
+                      borderColor={"teal.700"}
+                    >
+                      <Thead>
+                        <Tr>
+                          <Th>SCTP Association name</Th>
+                          <Th isNumeric>N° BCSU</Th>
+                          <Th>OMUSIG</Th>
+                          <Th>TRXSIG</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        <Tr>
+                          <Td>{`BCF${BCFID}OMU`}</Td>
                           <Td>
                             <NumberInput
-                              defaultValue={indexMap}
-                              name={`bcsu${indexMap + 1}`}
+                              defaultValue={bcsuAsignedTRX[`bcsuAsignedOMU`]}
+                              name={`bcsuAsignedOMU`}
                               min={0}
                               max={IPOMUTRX.length - 1}
                               size="xs"
                               width="100px"
                               bgColor="whiteAlpha.500"
                               onChange={(numberInput) =>
-                                setInputsBSCU(
+                                setInputsBSCUAsigned(
                                   numberInput,
-                                  `bcsu${indexMap + 1}`
+                                  `bcsuAsignedOMU`
                                 )
                               }
                             >
@@ -468,162 +588,68 @@ export const Dummy2G = () => {
                               </NumberInputStepper>
                             </NumberInput>
                           </Td>
-                          <Td> {value[4]}</Td>
-                          <Td>{value[5]}</Td>
+                          <Td>
+                            {getOMUSIGIP(bcsuAsignedTRX[`bcsuAsignedOMU`])}
+                          </Td>
+                          <Td>
+                            {getTRXSIGIP(bcsuAsignedTRX[`bcsuAsignedOMU`])}
+                          </Td>
                         </Tr>
-                      ))}
-                    </Tbody>
-                  </Table>
-                  <Comand
-                    comand={`${dataDF2GSheet1[10][8]}`}
-                    task="VERIFICAR IP DE OMUSIG"
-                    color="yellow.200"
-                  />
-                  <Comand
-                    comand={`${dataDF2GSheet1[11][8]}`}
-                    task="VERIFICAR IP DE TRXSIG"
-                    color="yellow.200"
-                  />
-                </TableContainer>
-              </Tooltip>
-              <Tooltip label="ORDENAR SEGÚN COMO ESTABA ANTES" placement="top">
-                <TableContainer bgColor={"gray.200"}>
-                  <Table
-                    size="sm"
-                    variant="striped"
-                    colorScheme="teal"
-                    borderRadius="3xl"
-                    borderWidth={2}
-                    borderColor={"teal.700"}
-                  >
-                    <Thead>
-                      <Tr>
-                        <Th>SCTP Association name</Th>
-                        <Th isNumeric>N° BCSU</Th>
-                        <Th>OMUSIG</Th>
-                        <Th>TRXSIG</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {dataDF2GSheet5
-                        .filter((_, index) => index > 0)
-                        .map((value, indexMap) => (
-                          <Tr key={indexMap}>
-                            <Td>{value[1]}</Td>
-                            <Td>
-                              <NumberInput
-                                defaultValue={
+                        {dataDF2GSheet5
+                          .filter((_, index) => index > 0)
+                          .map((value, indexMap) => (
+                            <Tr key={indexMap}>
+                              <Td>{`BCF${BCFID}TRX${
+                                TRX[`trx${indexMap + 1}`]
+                              }`}</Td>
+                              <Td>
+                                <NumberInput
+                                  defaultValue={
+                                    bcsuAsignedTRX[
+                                      `bcsuAsignedTRX${indexMap + 1}`
+                                    ]
+                                  }
+                                  name={`bcsuAsignedTRX${indexMap + 1}`}
+                                  min={0}
+                                  max={IPOMUTRX.length - 1}
+                                  size="xs"
+                                  width="100px"
+                                  bgColor="whiteAlpha.500"
+                                  onChange={(numberInput) =>
+                                    setInputsBSCUAsigned(
+                                      numberInput,
+                                      `bcsuAsignedTRX${indexMap + 1}`
+                                    )
+                                  }
+                                >
+                                  <NumberInputField />
+                                  <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                  </NumberInputStepper>
+                                </NumberInput>
+                              </Td>
+                              <Td>
+                                {getOMUSIGIP(
                                   bcsuAsignedTRX[
                                     `bcsuAsignedTRX${indexMap + 1}`
                                   ]
-                                }
-                                name={`bcsuAsignedTRX${indexMap + 1}`}
-                                min={0}
-                                max={IPOMUTRX.length - 1}
-                                size="xs"
-                                width="100px"
-                                bgColor="whiteAlpha.500"
-                                onChange={(numberInput) =>
-                                  setInputsBSCUAsigned(
-                                    numberInput,
+                                )}
+                              </Td>
+                              <Td>
+                                {getTRXSIGIP(
+                                  bcsuAsignedTRX[
                                     `bcsuAsignedTRX${indexMap + 1}`
-                                  )
-                                }
-                              >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                  <NumberIncrementStepper />
-                                  <NumberDecrementStepper />
-                                </NumberInputStepper>
-                              </NumberInput>
-                            </Td>
-                            <Td>
-                              {getOMUSIGIP(
-                                bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                              )}
-                            </Td>
-                            <Td>
-                              {getTRXSIGIP(
-                                bcsuAsignedTRX[`bcsuAsignedTRX${indexMap + 1}`]
-                              )}
-                            </Td>
-                          </Tr>
-                        ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Tooltip>
-            </HStack>
-            {/* --------COMANDOS SEÑALIZACION BCF----------- */}
-            <BoxComands title="VERIFICAR SITIO">
-              <Comand
-                comand={`ZEEI:BCF=${BCFID};`}
-                task=""
-                color="yellow.200"
-              />
-              <Tooltip
-                label="ORDENAR SEGÚN COMO ESTABAN ANTES TRXs"
-                placement="top"
-              >
-                <TableContainer bgColor={"gray.200"}>
-                  <Table
-                    size="sm"
-                    variant="striped"
-                    colorScheme="teal"
-                    borderRadius="3xl"
-                    borderWidth={2}
-                    borderColor={"teal.700"}
-                    width="max-content"
-                  >
-                    <Thead>
-                      <Tr>
-                        <Th></Th>
-                        <Th isNumeric>N° TRX</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {dataDF2GSheet5
-                        .filter((_, index) => index > 0)
-                        .map((value, indexMap) => (
-                          <Tr key={indexMap}>
-                            <Td>TRX</Td>
-                            <Td>
-                              <NumberInput
-                                defaultValue={
-                                  TRX[`trx${indexMap + 1}`]
-                                  // bcsuAsignedTRX[
-                                  //   `bcsuAsignedTRX${indexMap + 1}`
-                                  // ]
-                                }
-                                name={`trx${indexMap + 1}`}
-                                min={1}
-                                size="xs"
-                                width="100px"
-                                bgColor="whiteAlpha.500"
-                                onChange={(numberInput) =>
-                                  setTRXAsigned(
-                                    numberInput,
-                                    `trx${indexMap + 1}`
-                                  )
-                                }
-                              >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                  <NumberIncrementStepper />
-                                  <NumberDecrementStepper />
-                                </NumberInputStepper>
-                              </NumberInput>
-                            </Td>
-                          </Tr>
-                        ))}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Tooltip>
-              <p>{TRX[`trx1`]}</p>
-              <p>{TRX[`trx2`]}</p>
-              <p>{TRX[`trx3`]}</p>
-              <p>{TRX[`trx4`]}</p>
+                                  ]
+                                )}
+                              </Td>
+                            </Tr>
+                          ))}
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </Tooltip>
+              </HStack>
             </BoxComands>
             <BoxComands title="BLOQUEAR ELEMENTOS">
               <Tabs variant="line" colorScheme="whiteAlpha">
@@ -835,23 +861,24 @@ export const Dummy2G = () => {
               <Tabs variant="line" colorScheme="whiteAlpha">
                 <TabList bgColor="whiteAlpha.300" color="white">
                   <Tab>Crecer</Tab>
-                  {/* <Tab>ACT</Tab> */}
                 </TabList>
 
                 <TabPanels>
                   <TabPanel>
                     <Flex direction="column" gap={5}>
-                      <Tooltip label="SEÑALIZACIÓN OM" placement="top">
+                      <Tooltip label="SEÑALIZACIÓN OMU" placement="top">
                         <Box>
                           {dataDF2GSheet5
                             .filter((_, index) => index == 0)
                             .map((value, indexMap) => (
                               <Comand
-                                comand={`ZOYP:${value[2]}:BCF${BCFID}TRX${
-                                  TRX[`trx${indexMap + 1}`]
-                                }:"${ipAddressOmuSig}",,${value[18]}:"${
-                                  value[19]
-                                }",${value[22]},,,${value[18]};`}
+                                comand={`ZOYP:${
+                                  value[2]
+                                }:BCF${BCFID}OMU:"${getTRXSIGIP(
+                                  bcsuAsignedTRX[`bcsuAsignedOMU`]
+                                )}",,${value[18]}:"${value[19]}",${
+                                  value[22]
+                                },,,${value[18]};`}
                                 task=""
                                 color="green.200"
                                 key={indexMap}
