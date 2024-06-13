@@ -1019,6 +1019,79 @@ export const Dummy2G = () => {
               </Box>
             </BoxComands>
 
+            {/* ---COMANDOS ACTIVAR SEÑALIZACIÓN--- */}
+            <BoxComands title="SEÑALIZACIÓN ACT">
+              <Tabs variant="line" colorScheme="whiteAlpha">
+                <TabList bgColor="whiteAlpha.300" color="white">
+                  <Tab>ACT</Tab>
+                  <Tab>DOWN</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN TRXs ACT" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => (
+                              <Comand
+                                comand={`ZOYS:${value[2]}:BCF${BCFID}TRX${
+                                  TRX[`trx${indexMap + 1}`]
+                                }:ACT;`}
+                                task=""
+                                color="green.200"
+                                key={indexMap}
+                              />
+                            ))}
+                        </Box>
+                      </Tooltip>
+                      <Tooltip label="SEÑALIZACIÓN OMU ACT" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZOYS:IUA:BCF${BCFID}OMU:ACT;`}
+                            task=""
+                            color="green.200"
+                          />
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                  <TabPanel>
+                    <Flex direction="column" gap={5}>
+                      <Tooltip label="SEÑALIZACIÓN TRXs DOWN" placement="top">
+                        <Box>
+                          {dataDF2GSheet5
+                            .filter((_, index) => index > 0)
+                            .map((value, indexMap) => {
+                              // contTRX++;
+                              return (
+                                <Comand
+                                  comand={`ZOYS:${value[2]}:BCF${BCFID}TRX${
+                                    TRX[`trx${indexMap + 1}`]
+                                  }:DOWN;`}
+                                  task=""
+                                  color="red.200"
+                                  key={indexMap}
+                                />
+                              );
+                            })}
+                        </Box>
+                      </Tooltip>
+                      <Tooltip label="SEÑALIZACIÓN OMU DOWN" placement="top">
+                        <Box>
+                          <Comand
+                            comand={`ZOYS:IUA:BCF${BCFID}OMU:DOWN;`}
+                            task=""
+                            color="red.200"
+                          />
+                        </Box>
+                      </Tooltip>
+                    </Flex>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+            </BoxComands>
+
             {/* ---COMANDOS DESBLOQUEAR ELEMENTOS--- */}
             <BoxComands title="DESBLOQUEAR ELEMENTOS">
               <Tabs variant="line" colorScheme="whiteAlpha">
