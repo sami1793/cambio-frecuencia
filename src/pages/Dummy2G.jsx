@@ -39,6 +39,7 @@ import { Comand } from "../components/comand/Comand";
 import { BoxComands } from "../components/box/BoxComands";
 
 import styles from "./Dummy2G.module.css";
+import { calculateNetwork } from "../utils/calculatorIP";
 
 export const Dummy2G = () => {
   const [typeBSC, setTypeBSC] = useState("");
@@ -1018,6 +1019,213 @@ export const Dummy2G = () => {
                   ))}
               </Box>
             </BoxComands>
+
+            {/* CONFIGURACION DE ETMA */}
+            {typeBSC === "mcBSC" && (
+              <BoxComands title="CONFIGURACIÓN DE RUTAS ESTÁTICAS ETMA">
+                <HStack m={5} p={5} backgroundColor="whiteAlpha.500">
+                  <Tooltip label="ORDENAR ETME" placement="top">
+                    <TableContainer bgColor={"gray.200"}>
+                      <Table
+                        size="sm"
+                        variant="striped"
+                        colorScheme="teal"
+                        borderRadius="3xl"
+                        borderWidth={2}
+                        borderColor={"teal.700"}
+                      >
+                        <Thead>
+                          <Tr>
+                            <Th>ETME</Th>
+                            <Th isNumeric>ETME-ID</Th>
+                            <Th>IP</Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          {dataDF2GSheet1
+                            .filter((_, index) => index >= 20 && index < 24)
+                            .map((value, indexMap) => (
+                              <Tr key={indexMap}>
+                                <Td>{value[1].slice(0, -1)}</Td>
+                                <Td>
+                                  <NumberInput
+                                    min={0}
+                                    max={4}
+                                    size="xs"
+                                    width="100px"
+                                    bgColor="whiteAlpha.500"
+                                  >
+                                    <NumberInputField />
+                                    <NumberInputStepper>
+                                      <NumberIncrementStepper />
+                                      <NumberDecrementStepper />
+                                    </NumberInputStepper>
+                                  </NumberInput>
+                                </Td>
+                                <Td> {value[4]}</Td>
+                              </Tr>
+                            ))}
+                        </Tbody>
+                      </Table>
+                      <Comand
+                        comand={`${"ZQRI:ETME,::VLAN48:ALL;"}`}
+                        task="VERIFICAR IP DE ETME"
+                        color="yellow.200"
+                      />
+                    </TableContainer>
+                  </Tooltip>
+                  <TableContainer backgroundColor="whiteAlpha.800" m={3}>
+                    <Table size="sm">
+                      <Thead>
+                        <Tr>
+                          <Th>ETME-ID</Th>
+                          <Th>IP BTS</Th>
+                          <Th>MASK</Th>
+                          <Th>SUBNET</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        <Tr>
+                          {/* Viene mal la mascara en el DF */}
+                          <Td>{dataDF2GSheet3[0][23]}</Td>
+                          <Td>{dataDF2GSheet3[0][41]}</Td>
+                          <Td>
+                            {dataDF2GSheet3[0][42] > 30
+                              ? "30"
+                              : dataDF2GSheet3[0][42]}
+                          </Td>
+                          <Td bgColor="yellow.500">
+                            {calculateNetwork(
+                              dataDF2GSheet3[0][41],
+                              dataDF2GSheet3[0][42] > 30
+                                ? "30"
+                                : dataDF2GSheet3[0][42]
+                            )}
+                          </Td>
+                        </Tr>
+                      </Tbody>
+                    </Table>
+                  </TableContainer>
+                </HStack>
+                <Tabs variant="line" colorScheme="whiteAlpha">
+                  <TabList bgColor="whiteAlpha.300" color="white">
+                    <Tab>Crecimiento</Tab>
+                    <Tab>Verificar</Tab>
+                    <Tab>Borrar</Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <Heading size="md" color="white">
+                        ETME 2
+                      </Heading>
+                      <Comand
+                        comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.92":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.92":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.92":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.92":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Heading size="md" color="white">
+                        ETME 3
+                      </Heading>
+                      <Comand
+                        comand={`ZQKC:ETMA,0::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.93":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,1::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.93":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,2::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.93":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                      <Comand
+                        comand={`ZQKC:ETMA,3::"${calculateNetwork(
+                          dataDF2GSheet3[0][41],
+                          dataDF2GSheet3[0][42] > 30
+                            ? "30"
+                            : dataDF2GSheet3[0][42]
+                        )}",30:"10.0.3.93":LOG;`}
+                        task=""
+                        color="green.200"
+                      />
+                    </TabPanel>
+                    <TabPanel>
+                      {[0, 1, 2, 3].map((value, indexMap) => (
+                        <Comand
+                          comand={`ZQKB:ETMA,${value};`}
+                          task=""
+                          color="yellow.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </TabPanel>
+                    <TabPanel>
+                      {[0, 1, 2, 3].map((value, indexMap) => (
+                        <Comand
+                          comand={`ZQKA:`}
+                          task="Completar con valor correspondiente"
+                          color="red.200"
+                          key={indexMap}
+                        />
+                      ))}
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </BoxComands>
+            )}
 
             {/* ---COMANDOS ACTIVAR SEÑALIZACIÓN--- */}
             <BoxComands title="SEÑALIZACIÓN ACT">
