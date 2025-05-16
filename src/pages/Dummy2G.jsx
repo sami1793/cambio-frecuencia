@@ -40,6 +40,7 @@ import { BoxComands } from "../components/box/BoxComands";
 
 import styles from "./Dummy2G.module.css";
 import { calculateNetwork } from "../utils/calculatorIP";
+import { restaStrings } from "../utils/Calculos";
 
 export const Dummy2G = () => {
   const [typeBSC, setTypeBSC] = useState("");
@@ -903,7 +904,16 @@ export const Dummy2G = () => {
                                   ]
                                 )}",,${value[18]}:"${value[19]}",${
                                   value[22]
-                                },,,${value[18]};`}
+                                },,,${
+                                  value[18] +
+                                  restaStrings(
+                                    TRX[`trx${indexMap + 1}`],
+                                    TRX[`trx${indexMap}`]
+                                      ? TRX[`trx${indexMap}`]
+                                      : 0
+                                  ) -
+                                  1
+                                };`}
                                 task=""
                                 color="green.200"
                                 key={indexMap}
