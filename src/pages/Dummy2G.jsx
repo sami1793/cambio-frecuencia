@@ -275,6 +275,7 @@ export const Dummy2G = () => {
         let arrayDataPacketAbisUltimoDF = arrayDataPacketAbis?.filter(
           (value, _) => value[1] == BCFID
         );
+        console.log(arrayDataPacketAbisUltimoDF);
         //Con esto me aseguro que solo se tome el ultimo OMU en caso que hayan otros viejos
         arrayDataPacketAbisUltimoDF = arrayDataPacketAbisUltimoDF.slice(
           arrayDataPacketAbisUltimoDF.findLastIndex(
@@ -323,7 +324,7 @@ export const Dummy2G = () => {
         console.log(arrayAbisSCTPFiltered);
         console.log(arrayDataAbisBCFFiltered);
       } catch (error) {
-        console.log("Error al leer el archivo Excel:", error);
+        console.log("Error al leer DF:", error);
       }
     }
   };
@@ -875,7 +876,7 @@ export const Dummy2G = () => {
                               <Comand
                                 comand={`ZOYP:${
                                   value[2]
-                                }:BCF${BCFID}OMU:"${getTRXSIGIP(
+                                }:BCF${BCFID}OMU:"${getOMUSIGIP(
                                   bcsuAsignedTRX[`bcsuAsignedOMU`]
                                 )}",,${value[18]}:"${value[19]}",${
                                   value[22]

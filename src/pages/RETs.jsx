@@ -24,8 +24,8 @@ export const RETs = () => {
   const [dataCeldas5G, setDataCeldas5G] = useState("");
 
   //------CONEXION API NETACT--------
-  // const username = "CTI24552";
-  // const password = "Boir0424";
+  // const username = "";
+  // const password = "";
   // const credentials = btoa(`${username}:${password}`);
   // useEffect(() => {
   //   axios
